@@ -1,9 +1,14 @@
-function Layout() {
+import Navbar from './components/navbar'
+
+function Layout(props) {
+  const { children } = props
+  
   return (
     <>
-      <div className="bg-slate-500 font-bold text-white text-center p-4">
-        Hello Xhip AI 
-      </div>
+      <Navbar />
+      <main className="flex flex-col gap-0">
+        {children}
+      </main>
     </>
   )
 }

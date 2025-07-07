@@ -6,9 +6,7 @@ function Layout(props) {
   return (
     <>
       <Navbar />
-      <main className="flex flex-col gap-0">
-        {children}
-      </main>
+      {children}
     </>
   )
 }

@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -187,6 +188,10 @@ export default {
             transform: 'translateX(0)',
             position: 'fixed'
           }
+        },
+        grid: {
+          '0%': { transform: 'translateY(-50%)' },
+          '100%': { transform: 'translateY(0)' }
         }
       },
       animation: {
@@ -195,7 +200,8 @@ export default {
         'background-flow': 'background-flow 200ms infinite',
         wiggle: 'wiggle 0.2s ease-in-out',
         down: 'down 0.2s ease-out',
-        'slide-in-right': 'slide-in-right 0.1s cubic-bezier(0.16, 1, 0.3, 1)'
+        'slide-in-right': 'slide-in-right 0.1s cubic-bezier(0.16, 1, 0.3, 1)',
+        grid: 'grid 50s linear infinite'
       },
       fontSize: {
         'clamp-head': 'clamp(1.5rem, 3vw, 3.5rem)',
@@ -204,5 +210,5 @@ export default {
     }
   },
   important: true,
-  plugins: [import("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 }

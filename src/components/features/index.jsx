@@ -1,8 +1,7 @@
-import { Phone, Settings, FileText, GraduationCap, Globe, BarChart3, ArrowUpRightIcon } from 'lucide-react'
+import { ArrowUpRightIcon, Check, Dot, Shuffle } from 'lucide-react'
 import step1PNG from '@/assets/step-1.png'
 import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'
-import bgGrid from '@/assets/zig-zag-bg-grid.svg'
 
 // Main Features Component
 export default function Features() {
@@ -18,60 +17,75 @@ export default function Features() {
 // Features Section Component
 function FeaturesSection() {
   return (
-    <section className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-20">
-
+    <section className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-[100px]">
       <div className="relative z-10 flex flex-col gap-4 container mx-auto items-center border-x border-slate-300 px-0">
-        <div className="relative z-10 flex flex-col gap-4 w-full mx-auto items-center border-b border-slate-300 pb-20">
-          <h2 className="md:text-5xl text-2xl font-[650] text-gray-590 tracking-[-1px]">
-            Know how you&apos;re responding to calls
-          </h2>
-          <h6 className="text-gray-500 md:text-3xl text-md">
-            and improve them based on the insights.
-          </h6>
-        </div>
+        <div className="grid grid-cols-1 gap-0 w-full">
+          {/* Header row - full width */}
+          <div className="bg-white w-full p-0 flex flex-col gap-2 items-center text-center border-b border-slate-300">
+            <h2 className="md:text-3xl text-lg font-[650] text-gray-590 tracking-[-1px]">
+              Know how you&apos;re responding to calls
+            </h2>
+          </div>
 
-        <div className="relative z-10 w-full mx-auto py-0 flex flex-col gap-8 items-center">
-          <div className="grid grid-cols-1 gap-8 w-full">
-            {/* First row - full width */}
-            <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left">
-              <Phone className="w-12 h-12 text-gray-600 mb-4" strokeWidth={1.2} />
-              <h3 className="text-xl font-semibold mt-1 hover:text-blue-600 transition-colors">100% Call Coverage</h3>
-              <p className="text-gray-600 hover:text-gray-900 transition-colors">Monitor and analyze every customer call without missing a single interaction or conversation.</p>
-            </div>
-            
-            {/* Second row - full width */}
-            <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left">
-              <Settings className="w-12 h-12 text-gray-600 mb-4" strokeWidth={1.2} />
-              <h3 className="text-xl font-semibold mt-1 hover:text-purple-600 transition-colors">Personalized Parameters</h3>
-              <p className="text-gray-600 hover:text-gray-900 transition-colors">Get analysis across your customized parameters tailored to your specific business needs and requirements.</p>
-            </div>
-            
-            {/* Third row - two columns */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left">
-                <FileText className="w-12 h-12 text-gray-600 mb-4" strokeWidth={1.2} />
-                <h3 className="text-xl font-semibold mt-1 hover:text-green-600 transition-colors">Detailed Call Analytics</h3>
-                <p className="text-gray-600 hover:text-gray-900 transition-colors">Access comprehensive call transcripts, summaries, defect analysis, emotion detection, and intent analytics.</p>
+          {/* First feature - full width with content left, graphic right */}
+          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start text-left border-b border-slate-300">
+            <div className="flex flex-col gap-2 items-start p-10">
+              <div className="flex items-center gap-2 mt-5">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">
+                  <Check className="w-4 h-4 text-green-600" />
+                  <span className="text-xs font-[600] text-green-600">
+                    100% Call Coverage
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-blue-50 border border-blue-300 rounded-full shadow-sm backdrop-blur-sm">
+                  <Shuffle className="w-4 h-4 text-blue-600" />
+                  <span className="text-xs font-[600] text-blue-600">
+                    Custom Parameters
+                  </span>
+                </div>
               </div>
-              <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left">
-                <GraduationCap className="w-12 h-12 text-gray-600 mb-4" strokeWidth={1.2} />
-                <h3 className="text-xl font-semibold mt-1 hover:text-amber-600 transition-colors">Automated Trainings</h3>
-                <p className="text-gray-600 hover:text-gray-900 transition-colors">Streamline your training process with automated programs designed to improve team performance.</p>
-              </div>
+              <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+                Analyze Each Minute of Every Call{" "}<br />
+                <span className="text-gray-400">
+                  Across Your Custom Parameters
+                </span>
+              </h3>
+              
+              <p className="text-gray-600 hover:text-gray-900 transition-colors mt-5 text-md">
+                We understand that no two businesses are the same. That&apos;s why we&apos;ve built a platform that allows you to customize your analysis to your specific business needs and requirements.
+              </p>
             </div>
-            
-            {/* Fourth row - full width */}
+            <div className="bg-gray-100 rounded-lg aspect-[3/2] flex items-center justify-center order-first lg:order-last">
+              <span className="text-gray-400 text-sm">Graphic Placeholder</span>
+            </div>
+          </div>
+
+          {/* Second row - two columns, stack on mobile */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 border-b border-slate-300">
+            <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
+              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center mb-4">
+                <span className="text-gray-400 text-sm">Graphic Placeholder</span>
+              </div>
+              <h3 className="text-xl font-semibold mt-1 hover:text-green-600 transition-colors">Detailed Call Analytics</h3>
+              <p className="text-gray-600 hover:text-gray-900 transition-colors">Access comprehensive call transcripts, summaries, defect analysis, emotion detection, and intent analytics.</p>
+            </div>
             <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left">
-              <Globe className="w-12 h-12 text-gray-600 mb-4" strokeWidth={1.2} />
+              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center mb-4">
+                <span className="text-gray-400 text-sm">Graphic Placeholder</span>
+              </div>
+              <h3 className="text-xl font-semibold mt-1 hover:text-amber-600 transition-colors">Automated Trainings</h3>
+              <p className="text-gray-600 hover:text-gray-900 transition-colors">Streamline your training process with automated programs designed to improve team performance.</p>
+            </div>
+          </div>
+
+          {/* Third feature - full width with content left, graphic right */}
+          <div className="bg-white w-full p-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center text-left">
+            <div className="flex flex-col gap-2 items-start">
               <h3 className="text-xl font-semibold mt-1 hover:text-red-600 transition-colors">Multilingual Support</h3>
               <p className="text-gray-600 hover:text-gray-900 transition-colors">Support customers in multiple languages with comprehensive multilingual analysis capabilities.</p>
             </div>
-            
-            {/* Fifth row - full width */}
-            <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left">
-              <BarChart3 className="w-12 h-12 text-gray-600 mb-4" strokeWidth={1.2} />
-              <h3 className="text-xl font-semibold mt-1 hover:text-indigo-600 transition-colors">Comprehensive Tracking</h3>
-              <p className="text-gray-600 hover:text-gray-900 transition-colors">Track key metrics, manage training calendars, and monitor attendance all in one unified platform.</p>
+            <div className="bg-gray-100 rounded-lg aspect-[3/2] flex items-center justify-center order-first lg:order-last">
+              <span className="text-gray-400 text-sm">Graphic Placeholder</span>
             </div>
           </div>
         </div>
@@ -82,7 +96,7 @@ function FeaturesSection() {
 // Pricing Section Component
 function PricingSection() {
   return (
-    <section className="w-full bg-gray-50 py-12 md:py-20 mt-12 md:mt-20 relative overflow-hidden px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-gray-50 py-12 md:py-20 mt-0 md:mt-0 relative overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Background gradient with grid pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-pink-50/30"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>

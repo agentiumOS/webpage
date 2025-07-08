@@ -1,4 +1,4 @@
-import { Phone, Settings, FileText, GraduationCap, Globe, BarChart3 } from 'lucide-react'
+import { Phone, Settings, FileText, GraduationCap, Globe, BarChart3, ArrowUpRightIcon } from 'lucide-react'
 
 // Main Features Component
 export default function Features() {
@@ -64,64 +64,68 @@ function FeaturesSection() {
 // Pricing Section Component
 function PricingSection() {
   return (
-    <section className="w-full bg-gray-50 py-20 mt-20 relative overflow-hidden">
+    <section className="w-full bg-gray-50 py-12 md:py-20 mt-12 md:mt-20 relative overflow-hidden px-4 sm:px-6 lg:px-8">
       {/* Background gradient with grid pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-pink-50/30"></div>
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left side - Content */}
-          <div className="flex flex-col gap-6">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 tracking-[-1px]">
-              Pay only for AI usage,
-              <span className="text-gray-600 block mt-1">everything else is free</span>
+          <div className="flex flex-col gap-4 md:gap-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-[-1px]">
+              Everything else is free,
+              <span className="text-gray-600 block mt-1">pay only for AI usage</span>
             </h2>
-            
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-base md:text-lg text-gray-600 leading-relaxed">
               No platform fees, no hidden costs. Just transparent AI pricing that scales with your usage.
             </p>
             
-            <div className="space-y-4">
-              <p className="text-gray-700">
-                Powered by Gemini 2.5 Flash - analyze a 3-minute call for just ~5¢. More AI models coming soon.
-              </p>
+            <div className="space-y-3 md:space-y-4">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium border border-blue-200">
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                Powered by Gemini 2.5 Flash [ ~$0.05 per 3 minute call ]
+              </div>
               
-              <p className="text-gray-700">
-                Start instantly with your Google Cloud key. Pay Google directly - no middleman markup.
-              </p>
+              <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium border border-green-200">
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                Start instantly with GCP key, pay Google directly
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 text-xs text-gray-600 px-2 font-[400]">
+                <p>* More AI models coming soon.</p>
+              </div>
             </div>
           </div>
           
           {/* Right side - Graphic/Visual */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full border border-gray-200">
-              <div className="space-y-6">
+          <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
+            <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 max-w-md w-full border border-gray-200">
+              <div className="space-y-4 md:space-y-6">
                 <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-full mb-3 md:mb-4">
+                    <svg className="w-6 h-6 md:w-8 md:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                     </svg>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">Transparent Pricing</h3>
+                  <h3 className="text-lg md:text-xl font-semibold text-gray-900">Transparent Pricing</h3>
                 </div>
                 
-                <div className="space-y-3">
+                <div className="space-y-2 md:space-y-3">
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-gray-600">3-minute call analysis</span>
-                    <span className="font-semibold text-gray-900">~$0.05</span>
+                    <span className="text-sm md:text-base text-gray-600">3-minute call analysis</span>
+                    <span className="text-sm md:text-base font-semibold text-gray-900">~$0.05</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-gray-600">Platform & features</span>
-                    <span className="font-semibold text-green-600">$0</span>
+                    <span className="text-sm md:text-base text-gray-600">Platform & features</span>
+                    <span className="text-sm md:text-base font-semibold text-green-600">$0</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-gray-600">Setup & support</span>
-                    <span className="font-semibold text-green-600">$0</span>
+                    <span className="text-sm md:text-base text-gray-600">Setup & support</span>
+                    <span className="text-sm md:text-base font-semibold text-green-600">$0</span>
                   </div>
-                  <div className="flex justify-between items-center py-3 bg-gray-50 rounded-lg px-3">
-                    <span className="font-semibold text-gray-900">You pay Google directly</span>
-                    <span className="font-bold text-blue-600">AI only</span>
+                  <div className="flex justify-between items-center py-2 md:py-3 bg-gray-50 rounded-lg px-3">
+                    <span className="text-sm md:text-base font-semibold text-gray-900">You pay Google directly</span>
+                    <span className="text-sm md:text-base font-bold text-blue-600">AI only</span>
                   </div>
                 </div>
               </div>
@@ -136,12 +140,74 @@ function PricingSection() {
 // Get Started Section Component
 function GetStartedSection() {
   return (
-    <section className="w-full bg-gradient-to-r from-slate-50 to-white py-20 mt-10 border border-gray-200 rounded-lg shadow-sm">
-      <div className="max-w-7xl mx-auto flex flex-col gap-4 items-center">
-        <h2 className="text-4xl font-bold text-center">Get Started In Under 1 Minute</h2>
-        <h6 className="text-gray-500 md:text-3xl text-md">
-          No credit card required.
-        </h6>
+    <section className="w-full py-24 mt-16">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+            Get started in <span className="text-blue-600">&lt;1 minute</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Start analyzing your calls in 4 simple steps.
+          </p>
+        </div>
+
+        {/* Steps Grid */}
+        <div className="max-w-6xl mx-auto mb-20">
+          {/* Row 1 - Step 1 */}
+          <div className="grid grid-cols-1">
+            <div className="bg-white border-2 border-gray-200 p-8 text-center h-80">
+              <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
+                1
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Add your Exotel Key and GCP Key</h3>
+              <p className="text-gray-600 mb-6">You start seeing analysis of your calls</p>
+            </div>
+          </div>
+
+          {/* Row 2 - Steps 2 & 3 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Step 2 */}
+            <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-r-0 p-8 text-center h-80">
+              <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
+                2
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Add your team members</h3>
+              <p className="text-gray-600 mb-6">Invite your team to start monitoring their calls</p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="bg-white border-2 border-gray-200 border-t-0 p-8 text-center h-80">
+              <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
+                3
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Set up training</h3>
+              <div className="space-y-2 mb-6">
+                <p className="text-gray-600">Configure one-time or recurring training sessions</p>
+                <p className="text-gray-500 text-sm">Lisa automatically sends training invites when someone makes a mistake</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Row 3 - Step 4 */}
+          <div className="grid grid-cols-1">
+            <div className="bg-white border-2 border-gray-200 border-t-0 p-8 text-center h-80">
+              <div className="w-16 h-16 bg-green-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
+                4
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Track all defects and training metrics</h3>
+              <p className="text-gray-600 mb-6">Monitor performance and improvement in real-time</p>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="flex justify-center mx-auto">
+            <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2">
+              Schedule a Demo
+              <ArrowUpRightIcon />
+            </button>
+          </div>
       </div>
     </section>
   )

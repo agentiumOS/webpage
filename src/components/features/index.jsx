@@ -118,7 +118,7 @@ function FeaturesSection() {
                 </h3>
 
                 <p className="text-gray-600 hover:text-gray-900 transition-colors mt-2 text-md">
-                  We understand that no two businesses are the same. That&apos;s why we&apos;ve built a platform that allows you to customize your analysis to your specific business needs and requirements.
+                  Setup one-time or recurring training events that automatically trigger when defects are identified. LISA intelligently sends training invites to the right team members based on their specific performance gaps, ensuring targeted improvement without manual intervention.
                 </p>
               </div>
             </div>
@@ -126,7 +126,7 @@ function FeaturesSection() {
           </div>
 
           {/* Third feature - full width with content left, graphic right */}
-          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-start text-left border-b border-slate-300">
+          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-start text-left border-0 border-slate-300">
             <div className="flex flex-col gap-2 items-start p-10">
               <div className="flex items-center gap-2 mt-5">
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">

@@ -18,7 +18,7 @@ export default function Features() {
 // Features Section Component
 function FeaturesSection() {
   return (
-    <section className="relative w-full text-center flex flex-col items-center justify-center -mt-10 gap-0 -top-10 overflow-hidden">
+    <section className="relative w-full text-center flex flex-col items-center justify-center -mt-[160px] gap-0 overflow-hidden">
       {/* Zig-zag background grid - top left */}
       <div className="absolute top-0 left-0 h-64 opacity-70 z-0">
         <img src={bgGrid} alt="" className="w-full h-full object-cover" />

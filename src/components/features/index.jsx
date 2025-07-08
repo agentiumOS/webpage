@@ -4,6 +4,7 @@ import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'
 import step3APNG from '@/assets/step-3A.png'
 import oneHundredPercentCoverage from '@/assets/100percentcoverage.png'
+import customise from '@/assets/customise.png'
 import { DashboardIcon, PersonIcon } from '@radix-ui/react-icons'
 
 // Main Features Component
@@ -90,8 +91,8 @@ function FeaturesSection() {
           {/* Second row - two columns, stack on mobile */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-b border-slate-300">
             <div className="bg-white w-full p-0 pb-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
-              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center">
-                <span className="text-gray-400 text-sm">Graphic Placeholder</span>
+              <div className="rounded-lg w-full flex items-center justify-center overflow-hidden">
+                <img src={customise} alt="Automated Training Invites" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col gap-2 items-start py-2 px-10">
                 <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">

@@ -1,4 +1,4 @@
-import { AlertCircle, ArrowUpRightIcon, BarChart3Icon, Check, Eye, Import, Languages, List, TrendingUp } from 'lucide-react'
+import { AlertCircle, ArrowUpRightIcon, BarChart3Icon, Check, Eye, Languages, List, TrendingUp } from 'lucide-react'
 import step1PNG from '@/assets/step-1.png'
 import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'

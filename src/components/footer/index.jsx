@@ -21,7 +21,7 @@ function UpsideDownRetroGrid({
             "animate-grid",
             "[background-repeat:repeat] [background-size:60px_60px] [height:300vh] [inset:0%_0px] [margin-left:-50%] [transform-origin:100%_100%_0] [width:600vw]",
             // Light Styles
-            "[background-image:linear-gradient(to_right,rgba(0,0,0,0.3)_1px,transparent_0),linear-gradient(to_bottom,rgba(0,0,0,0.3)_1px,transparent_0)]",
+            "[background-image:linear-gradient(to_right,rgba(0,0,0,0.5)_1px,transparent_0),linear-gradient(to_bottom,rgba(0,0,0,0.5)_1px,transparent_0)]",
             // Dark styles
             "dark:[background-image:linear-gradient(to_right,rgba(255,255,255,0.2)_1px,transparent_0),linear-gradient(to_bottom,rgba(255,255,255,0.2)_1px,transparent_0)]",
           )}
@@ -36,7 +36,7 @@ function UpsideDownRetroGrid({
 
 export default function Footer() {
   return (
-    <footer className="relative bg-slate-50 w-full text-center flex flex-col items-center justify-center mt-10">
+    <footer className="relative bg-slate-50 w-full text-center flex flex-col items-center justify-center mt-10 py-20">
       <UpsideDownRetroGrid className="absolute inset-0 opacity-30" />
       <div className="relative z-10 flex flex-col gap-4 py-16 max-w-4xl mx-auto items-center">
         <div className="flex flex-col items-center gap-3">

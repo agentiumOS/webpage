@@ -1,4 +1,4 @@
-import { ArrowUpRightIcon, Check, Dot, Shuffle } from 'lucide-react'
+import { ArrowUpRightIcon, Check, Dot, Languages, Shuffle } from 'lucide-react'
 import step1PNG from '@/assets/step-1.png'
 import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'
@@ -38,9 +38,9 @@ function FeaturesSection() {
                   </span>
                 </div>
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-blue-50 border border-blue-300 rounded-full shadow-sm backdrop-blur-sm">
-                  <Shuffle className="w-4 h-4 text-blue-600" />
+                  <Languages className="w-4 h-4 text-blue-600" />
                   <span className="text-xs font-[600] text-blue-600">
-                    Custom Parameters
+                    Multilingual Support
                   </span>
                 </div>
               </div>
@@ -52,7 +52,7 @@ function FeaturesSection() {
               </h3>
               
               <p className="text-gray-600 hover:text-gray-900 transition-colors mt-5 text-md">
-                We understand that no two businesses are the same. That&apos;s why we&apos;ve built a platform that allows you to customize your analysis to your specific business needs and requirements.
+                LISA analyzes every conversation instantly, identifying critical issues, missed opportunities, and compliance gaps across all languages. From tone and sentiment to script adherence and customer satisfaction indicators, we capture everything that matters to your business success.
               </p>
             </div>
             <div className="bg-gray-100 rounded-lg aspect-[3/2] flex items-center justify-center order-first lg:order-last">
@@ -61,15 +61,26 @@ function FeaturesSection() {
           </div>
 
           {/* Second row - two columns, stack on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 border-b border-slate-300">
-            <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
-              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center mb-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-b border-slate-300">
+            <div className="bg-white w-full p-0 pb-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
+              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center">
                 <span className="text-gray-400 text-sm">Graphic Placeholder</span>
               </div>
-              <h3 className="text-xl font-semibold mt-1 hover:text-green-600 transition-colors">Detailed Call Analytics</h3>
-              <p className="text-gray-600 hover:text-gray-900 transition-colors">Access comprehensive call transcripts, summaries, defect analysis, emotion detection, and intent analytics.</p>
+              <div className="flex flex-col gap-2 items-start py-2 px-10">
+                <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+                  You Choose the Defects to Track{" "}<br />
+                  <span className="text-gray-400">
+                    Across Your Custom Parameters{" "}
+                  </span>
+                </h3>
+
+                <p className="text-gray-600 hover:text-gray-900 transition-colors mt-2 text-md">
+                  We understand that no two businesses are the same. That&apos;s why we&apos;ve built a platform that allows you to customize your analysis to your specific business needs and requirements.
+                </p>
+              </div>
             </div>
-            <div className="bg-white w-full p-10 flex flex-col gap-2 items-start text-left">
+            
+            <div className="bg-white w-full p-0 flex flex-col gap-2 items-start text-left">
               <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center mb-4">
                 <span className="text-gray-400 text-sm">Graphic Placeholder</span>
               </div>

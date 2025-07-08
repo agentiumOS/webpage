@@ -45,7 +45,7 @@ function FeaturesSection() {
                 </div>
               </div>
               <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
-                Analyze Each Minute of Every Call{" "}<br />
+                Each Minute of Every Call Analyzed{" "}<br />
                 <span className="text-gray-400">
                   Across Your Custom Parameters
                 </span>

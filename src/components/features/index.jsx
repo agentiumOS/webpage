@@ -18,13 +18,13 @@ export default function Features() {
 // Features Section Component
 function FeaturesSection() {
   return (
-    <section className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-[100px]">
+    <section className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-[150px]">
       <div className="relative z-10 flex flex-col gap-4 container mx-auto items-center border-x border-slate-300 px-0">
         <div className="grid grid-cols-1 gap-0 w-full">
           {/* Header row - full width */}
-          <div className="bg-white w-full p-0 flex flex-col gap-2 items-center text-center border-b border-slate-300">
+          <div className="bg-white w-full pb-20 flex flex-col gap-2 items-center text-center border-b border-slate-300">
             <h2 className="md:text-3xl text-lg font-[650] text-gray-590 tracking-[-1px]">
-              Know how you&apos;re responding to calls
+              LISA offers everything you need to improve your team&apos;s performance
             </h2>
           </div>
 

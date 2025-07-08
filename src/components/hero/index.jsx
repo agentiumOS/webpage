@@ -21,7 +21,14 @@ export default function Hero() {
         </p>
 
         <div className="flex items-center gap-4 mt-3">
-          <button className="p-2 px-5 bg-slate-50 text-black text-sm border border-gray-200 rounded-full font-medium transition-all flex items-center gap-2">
+          <button 
+            onClick={() => {
+              document.getElementById('features')?.scrollIntoView({ 
+                behavior: 'smooth' 
+              });
+            }}
+            className="p-2 px-5 bg-slate-50 text-black text-sm border border-gray-200 rounded-full font-medium transition-all flex items-center gap-2"
+          >
               How it works <ArrowDownIcon className="w-4 h-4" />
           </button>
           <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2">

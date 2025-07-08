@@ -21,7 +21,7 @@ export default function Features() {
 // Features Section Component
 function FeaturesSection() {
   return (
-    <section className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-[150px]">
+    <section id="features" className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-[150px]">
       <div className="relative z-10 flex flex-col gap-4 container mx-auto items-center border-x border-slate-300 px-0">
         <div className="grid grid-cols-1 gap-0 w-full">
           {/* Header row - full width */}

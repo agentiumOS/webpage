@@ -118,7 +118,7 @@ function FeaturesSection() {
                 </h3>
 
                 <p className="text-gray-600 hover:text-gray-900 transition-colors mt-2 text-md">
-                  Setup one-time or recurring training events that automatically trigger when defects are identified. LISA intelligently sends training invites to the right team members based on their specific performance gaps, ensuring targeted improvement without manual intervention.
+                  Setup one-time or recurring training events that automatically trigger when defects are identified. LISA sends training invites to the right team members based on their specific performance gaps, ensuring targeted improvement.
                 </p>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { AlertCircle, ArrowUpRightIcon, BarChart3Icon, Check, Eye, Languages, Li
 import step1PNG from '@/assets/step-1.png'
 import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'
+import step3APNG from '@/assets/step-3A.png'
 import { DashboardIcon, PersonIcon } from '@radix-ui/react-icons'
 
 // Main Features Component
@@ -106,8 +107,8 @@ function FeaturesSection() {
             </div>
            
             <div className="bg-white w-full p-0 pb-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
-              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center">
-                <span className="text-gray-400 text-sm">Graphic Placeholder</span>
+              <div className="rounded-lg w-full flex items-center justify-center overflow-hidden">
+                <img src={step2PNG} alt="Automated Training Invites" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col gap-2 items-start py-2 px-10">
                 <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
@@ -177,8 +178,8 @@ function FeaturesSection() {
               </div>
 
             </div>
-            <div className="bg-gray-100 rounded-lg aspect-[3/2] flex items-center justify-center order-first lg:order-last">
-              <span className="text-gray-400 text-sm">Graphic Placeholder</span>
+            <div className="rounded-lg flex items-center justify-center order-first lg:order-last overflow-hidden">
+              <img src={step3APNG} alt="Defects, Trainings, Improvements" className="w-[80%] mt-4 h-full object-cover" />
             </div>
           </div>
         </div>

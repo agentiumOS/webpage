@@ -91,8 +91,8 @@ function FeaturesSection() {
           {/* Second row - two columns, stack on mobile */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-b border-slate-300">
             <div className="bg-white w-full p-0 pb-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
-              <div className="rounded-lg w-full flex items-center justify-center overflow-hidden">
-                <img src={customise} alt="Automated Training Invites" className="w-full h-full object-cover" />
+              <div className="rounded-lg w-full flex items-center justify-center overflow-hidden h-full">
+                <img src={customise} alt="Automated Training Invites" className="w-[85%] h-full object-contain" />
               </div>
               <div className="flex flex-col gap-2 items-start py-2 px-10">
                 <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">

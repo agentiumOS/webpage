@@ -53,7 +53,7 @@ export default function Footer() {
           </p>
         </div>
         
-        <div className="flex items-center gap-6 mt-4 text-sm text-gray-600">
+        {/* <div className="flex items-center gap-6 mt-4 text-sm text-gray-600">
           <a href="#" className="hover:text-gray-900 transition-colors">
             Privacy
           </a>
@@ -63,7 +63,7 @@ export default function Footer() {
           <a href="#" className="hover:text-gray-900 transition-colors">
             Contact
           </a>
-        </div>
+        </div> */}
         
         <div className="text-xs text-gray-400 mt-2">
           © 2024 XHIP AI. All rights reserved.

@@ -1,7 +1,7 @@
 import { Phone, Settings, FileText, GraduationCap, Globe, BarChart3, ArrowUpRightIcon } from 'lucide-react'
 import step1PNG from '@/assets/step-1.png'
-import step2PNG from '@/assets/step-2.png'
-import step3PNG from '@/assets/step-3.png'
+// import step2PNG from '@/assets/step-2.png'
+// import step3PNG from '@/assets/step-3.png'
 
 // Main Features Component
 export default function Features() {
@@ -167,13 +167,13 @@ function GetStartedSection() {
 
 
             <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-t-2 lg:border-r-0 p-8 text-center h-80">
-              <img src={step2PNG} alt="Step 2" className="w-full" />
+              {/* <img src={step2PNG} alt="Step 2" className="w-full" /> */}
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Add your team members</h3>
               <p className="text-gray-600 mb-6">Invite your team to start monitoring their calls</p>
             </div>
 
             <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-t-2 p-8 text-center h-80">
-              <img src={step3PNG} alt="Step 3" className="w-full" />
+              {/* <img src={step3PNG} alt="Step 3" className="w-full" /> */}
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Set up training</h3>
               <div className="space-y-2 mb-6">
                 <p className="text-gray-600">Configure one-time or recurring training sessions</p>

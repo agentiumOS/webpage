@@ -299,7 +299,9 @@ function GetStartedSection() {
                 </span>
                 <div className="flex flex-col gap-2">
                   <h3 className="text-xl font-semibold text-gray-900">Add your Exotel API Key & Google Gemini API Key</h3>
-                  <p className="text-gray-600">You start seeing analysis of your calls</p>
+                  <p className="text-gray-600">
+                    Exotel API Key to fetch the call logs and Google Gemini API Key for the AI based analysis.
+                  </p>
                 </div>
               </div>
               <img src={step1PNG} alt="Step 1" className="w-full mt-5 relative z-10" />
@@ -323,8 +325,8 @@ function GetStartedSection() {
                   2
                 </span>
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-gray-900">Add your team members & agents details</h3>
-                  <p className="text-gray-600">Invite your team to start monitoring their calls</p>
+                  <h3 className="text-xl font-semibold text-gray-900">Add your teams&apos; details &<br/> Setup Trainings</h3>
+                  <p className="text-gray-600">Setup one-time or recurring training events that automatically trigger when defects are identified.</p>
                 </div>
               </div>
               <img src={step2PNG} alt="Step 2" className="w-full mt-5 relative z-10" />
@@ -348,8 +350,8 @@ function GetStartedSection() {
                   3
                 </span>
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-gray-900">Setup One-Time or Recurring Auto Trainings</h3>
-                  <p className="text-gray-600">LISA automatically sends training invites when someone makes a mistake</p>
+                  <h3 className="text-xl font-semibold text-gray-900">Track all Defects, Trainings & Improvements</h3>
+                  <p className="text-gray-600">Track all defects & trainings metrics from your dynamic dashboard.</p>
                 </div>
               </div>
               <img src={step3PNG} alt="Step 3" className="w-full mt-5 relative z-10" />

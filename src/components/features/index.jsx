@@ -1,7 +1,7 @@
 import { Phone, Settings, FileText, GraduationCap, Globe, BarChart3, ArrowUpRightIcon } from 'lucide-react'
 import step1PNG from '@/assets/step-1.png'
-// import step2PNG from '@/assets/step-2.png'
-// import step3PNG from '@/assets/step-3.png'
+import step2PNG from '@/assets/step-2.png'
+import step3PNG from '@/assets/step-3.png'
 
 // Main Features Component
 export default function Features() {
@@ -143,7 +143,7 @@ function PricingSection() {
 // Get Started Section Component
 function GetStartedSection() {
   return (
-    <section className="w-full py-24 mt-16">
+    <section className="w-full py-16 pb-5 mt-5">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-20">
@@ -156,36 +156,91 @@ function GetStartedSection() {
         </div>
 
         {/* Steps Grid */}
-        <div className="max-w-6xl mx-auto mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
-
-            <div className="bg-white border-2 border-gray-200 lg:border-r-0 p-8 text-center h-80">
-              <img src={step1PNG} alt="Step 1" className="w-full" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Add your Exotel Key and GCP Key</h3>
-              <p className="text-gray-600 mb-6">You start seeing analysis of your calls</p>
-            </div>
-
-
-            <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-t-2 lg:border-r-0 p-8 text-center h-80">
-              {/* <img src={step2PNG} alt="Step 2" className="w-full" /> */}
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Add your team members</h3>
-              <p className="text-gray-600 mb-6">Invite your team to start monitoring their calls</p>
-            </div>
-
-            <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-t-2 p-8 text-center h-80">
-              {/* <img src={step3PNG} alt="Step 3" className="w-full" /> */}
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Set up training</h3>
-              <div className="space-y-2 mb-6">
-                <p className="text-gray-600">Configure one-time or recurring training sessions</p>
-                <p className="text-gray-500 text-sm">Lisa automatically sends training invites when someone makes a mistake</p>
+        <div className="max-w-6xl mx-auto mb-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="bg-gradient-to-bl from-slate-100 to-transparent p-0 h-full text-left py-8 rounded-lg relative overflow-hidden">
+              {/* Grid pattern covering whole box */}
+              <div className="absolute inset-0 opacity-20">
+                <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                  <defs>
+                    <pattern id="grid1" width="16" height="16" patternUnits="userSpaceOnUse">
+                      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#ffffff" strokeWidth="1"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid1)" />
+                </svg>
               </div>
+
+              <div className="flex flex-row gap-2 px-4 relative z-10">
+                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-bold">
+                  1
+                </span>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Add your Exotel API Key & Google Gemini API Key</h3>
+                  <p className="text-gray-600">You start seeing analysis of your calls</p>
+                </div>
+              </div>
+              <img src={step1PNG} alt="Step 1" className="w-full mt-5 relative z-10" />
+            </div>
+
+            <div className="bg-gradient-to-bl from-slate-100 to-transparent p-0 text-left h-full py-8 rounded-lg relative overflow-hidden">
+              {/* Grid pattern covering whole box */}
+              <div className="absolute inset-0 opacity-20">
+                <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                  <defs>
+                    <pattern id="grid1" width="16" height="16" patternUnits="userSpaceOnUse">
+                      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#ffffff" strokeWidth="1"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid1)" />
+                </svg>
+              </div>
+
+              <div className="flex flex-row gap-2 px-4 relative z-10">
+                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-bold">
+                  2
+                </span>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Add your team members & agents details</h3>
+                  <p className="text-gray-600">Invite your team to start monitoring their calls</p>
+                </div>
+              </div>
+              <img src={step2PNG} alt="Step 2" className="w-full mt-5 relative z-10" />
+            </div>
+
+            <div className="bg-gradient-to-bl from-slate-100 to-transparent p-0 text-left h-full py-8 rounded-lg relative overflow-hidden">
+              {/* Grid pattern covering whole box */}
+              <div className="absolute inset-0 opacity-20">
+                <svg className="w-full h-full" viewBox="0 0 400 400" fill="none">
+                  <defs>
+                    <pattern id="grid3" width="16" height="16" patternUnits="userSpaceOnUse">
+                      <path d="M 16 0 L 0 0 0 16" fill="none" stroke="#ffffff" strokeWidth="1"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#grid3)" />
+                </svg>
+              </div>
+
+              <div className="flex flex-row gap-2 px-4 relative z-10">
+                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-bold">
+                  3
+                </span>
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Setup One-Time or Recurring Auto Trainings</h3>
+                  <p className="text-gray-600">LISA automatically sends training invites when someone makes a mistake</p>
+                </div>
+              </div>
+              <img src={step3PNG} alt="Step 3" className="w-full mt-5 relative z-10" />
             </div>
           </div>
         </div>
 
         {/* CTA Section */}
-        <div className="flex justify-center mx-auto">
-            <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2">
+        <div className="flex flex-col justify-center mx-auto items-center gap-5">
+            <h2 className="text-2xl md:text-3xl font-[400] text-gray-900 tracking-tight mb-5">
+              That&apos;s it. <span className="text-gray-300">Start analyzing your calls now</span>
+            </h2>
+            <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2 w-max mx-auto">
               Schedule a Demo
               <ArrowUpRightIcon />
             </button>

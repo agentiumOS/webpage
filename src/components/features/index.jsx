@@ -26,7 +26,7 @@ function FeaturesSection() {
           {/* Header row - full width */}
           <div className="bg-white w-full pb-20 flex flex-col gap-2 items-center text-center border-b border-slate-300">
             <h2 className="md:text-3xl text-lg font-[650] text-gray-590 tracking-[-1px]">
-              LISA offers everything you need to improve your team&apos;s performance
+              LISA offers everything you need to improve your call quality
             </h2>
           </div>
 
@@ -83,7 +83,7 @@ function FeaturesSection() {
 
             </div>
             <div className="rounded-lg flex items-center justify-center order-first lg:order-last overflow-hidden">
-              <img src={oneHundredPercentCoverage} alt="100% Call Coverage" className="w-[80%] mt-4 h-full object-cover" />
+              <img src={oneHundredPercentCoverage} alt="100% Call Coverage" className="w-[80%] h-full object-cover" />
             </div>
           </div>
 
@@ -128,8 +128,8 @@ function FeaturesSection() {
           </div>
 
           {/* Third feature - full width with content left, graphic right */}
-          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-start text-left border-0 border-slate-300">
-            <div className="flex flex-col gap-2 items-start p-10">
+          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center text-left border-0 border-slate-300">
+            <div className="flex flex-col gap-2 items-start p-10 py-20">
               <div className="flex items-center gap-2 mt-5">
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">
                   <Eye className="w-4 h-4 text-green-600" />
@@ -180,7 +180,7 @@ function FeaturesSection() {
 
             </div>
             <div className="rounded-lg flex items-center justify-center order-first lg:order-last overflow-hidden">
-              <img src={step3APNG} alt="Defects, Trainings, Improvements" className="w-[80%] mt-4 h-full object-cover" />
+              <img src={step3APNG} alt="Defects, Trainings, Improvements" className="w-[80%] h-full object-cover" />
             </div>
           </div>
         </div>

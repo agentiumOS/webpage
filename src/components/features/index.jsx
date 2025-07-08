@@ -27,7 +27,7 @@ function FeaturesSection() {
           {/* Header row - full width */}
           <div className="bg-white w-full pb-20 flex flex-col gap-2 items-center text-center border-b border-slate-300">
             <h2 className="md:text-3xl text-lg font-[650] text-gray-590 tracking-[-1px]">
-              LISA offers everything you need to improve your call quality
+              LISA helps you improve your customer experience
             </h2>
           </div>
 

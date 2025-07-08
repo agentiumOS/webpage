@@ -1,4 +1,7 @@
 import { Phone, Settings, FileText, GraduationCap, Globe, BarChart3, ArrowUpRightIcon } from 'lucide-react'
+import step1PNG from '@/assets/step-1.png'
+import step2PNG from '@/assets/step-2.png'
+import step3PNG from '@/assets/step-3.png'
 
 // Main Features Component
 export default function Features() {
@@ -148,55 +151,34 @@ function GetStartedSection() {
             Get started in <span className="text-blue-600">&lt;1 minute</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Start analyzing your calls in 4 simple steps.
+            Start analyzing your calls in 3 simple steps.
           </p>
         </div>
 
         {/* Steps Grid */}
         <div className="max-w-6xl mx-auto mb-20">
-          {/* Row 1 - Step 1 */}
-          <div className="grid grid-cols-1">
-            <div className="bg-white border-2 border-gray-200 p-8 text-center h-80">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
-                1
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
+
+            <div className="bg-white border-2 border-gray-200 lg:border-r-0 p-8 text-center h-80">
+              <img src={step1PNG} alt="Step 1" className="w-full" />
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Add your Exotel Key and GCP Key</h3>
               <p className="text-gray-600 mb-6">You start seeing analysis of your calls</p>
             </div>
-          </div>
 
-          {/* Row 2 - Steps 2 & 3 */}
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            {/* Step 2 */}
-            <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-r-0 p-8 text-center h-80">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
-                2
-              </div>
+
+            <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-t-2 lg:border-r-0 p-8 text-center h-80">
+              <img src={step2PNG} alt="Step 2" className="w-full" />
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Add your team members</h3>
               <p className="text-gray-600 mb-6">Invite your team to start monitoring their calls</p>
             </div>
 
-            {/* Step 3 */}
-            <div className="bg-white border-2 border-gray-200 border-t-0 p-8 text-center h-80">
-              <div className="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
-                3
-              </div>
+            <div className="bg-white border-2 border-gray-200 border-t-0 lg:border-t-2 p-8 text-center h-80">
+              <img src={step3PNG} alt="Step 3" className="w-full" />
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Set up training</h3>
               <div className="space-y-2 mb-6">
                 <p className="text-gray-600">Configure one-time or recurring training sessions</p>
                 <p className="text-gray-500 text-sm">Lisa automatically sends training invites when someone makes a mistake</p>
               </div>
-            </div>
-          </div>
-
-          {/* Row 3 - Step 4 */}
-          <div className="grid grid-cols-1">
-            <div className="bg-white border-2 border-gray-200 border-t-0 p-8 text-center h-80">
-              <div className="w-16 h-16 bg-green-600 text-white rounded-2xl flex items-center justify-center text-xl font-bold mx-auto mb-6">
-                4
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Track all defects and training metrics</h3>
-              <p className="text-gray-600 mb-6">Monitor performance and improvement in real-time</p>
             </div>
           </div>
         </div>

@@ -212,15 +212,15 @@ function PricingSection() {
             <div className="space-y-3 md:space-y-4">
               <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium border border-blue-200">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                Powered by Gemini 2.5 Flash [ ~$0.05 per 3 minute call ]
+                Powered by Gemini 2.5 Flash [ ~5 cents / call ]{" "}*
               </div>
 
               <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium border border-green-200">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 Start instantly with GCP key, pay Google directly
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 text-xs text-gray-600 px-2 font-[400]">
-                <p>* More AI models coming soon.</p>
+              <div className="flex flex-col sm:flex-row gap-4 text-xs text-gray-600 px-2 font-[400] pt-5">
+                <p>* More AI models coming soon. Average call duration is taken as 3 minutes.</p>
               </div>
             </div>
           </div>

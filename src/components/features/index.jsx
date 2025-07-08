@@ -2,6 +2,7 @@ import { Phone, Settings, FileText, GraduationCap, Globe, BarChart3, ArrowUpRigh
 import step1PNG from '@/assets/step-1.png'
 import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'
+import bgGrid from '@/assets/zig-zag-bg-grid.svg'
 
 // Main Features Component
 export default function Features() {
@@ -17,7 +18,17 @@ export default function Features() {
 // Features Section Component
 function FeaturesSection() {
   return (
-    <section className="relative w-full text-center flex flex-col items-center justify-center -mt-10 gap-0 -top-10">
+    <section className="relative w-full text-center flex flex-col items-center justify-center -mt-10 gap-0 -top-10 overflow-hidden">
+      {/* Zig-zag background grid - top left */}
+      <div className="absolute top-0 left-0 h-64 opacity-70 z-0">
+        <img src={bgGrid} alt="" className="w-full h-full object-cover" />
+      </div>
+      
+      {/* Zig-zag background grid - bottom right */}
+      <div className="absolute bottom-0 right-0 h-64 opacity-70 z-0 rotate-180">
+        <img src={bgGrid} alt="" className="w-full h-full object-cover" />
+      </div>
+      
       <div className="relative z-10 flex flex-col gap-4 max-w-4xl mx-auto items-center">
         <h2 className="md:text-5xl text-2xl font-[650] text-gray-590 tracking-[-1px]">
           Know how you&apos;re responding to calls

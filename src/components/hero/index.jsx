@@ -13,16 +13,16 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="text-xl md:text-5xl font-[650] text-gray-590 tracking-[-1px] leading-relaxed">
-          End Manual Sampling, Start Total Visibility & Continuous Team Improvement.
+        <h1 className="text-xl md:text-5xl font-[800] text-gray-590 tracking-[-1px] leading-relaxed mt-5">
+          Call Quality Audits & Training Made Simple
         </h1>
-        <p className="text-lg font-serif text-gray-500">
-          Measure how well your team is responding to customers, without spending $$$ or ⏱️⏱️⏱️.
+        <p className="md:text-xl text-lg font-serif text-gray-500 font-[450]">
+          Instantly measure how well your team is responding to customers using AI
         </p>
 
         <div className="flex items-center gap-4 mt-3">
           <button className="p-2 px-5 bg-slate-50 text-black text-sm border border-gray-200 rounded-full font-medium transition-all flex items-center gap-2">
-            Learn more <ArrowDownIcon className="w-4 h-4" />
+              How it works <ArrowDownIcon className="w-4 h-4" />
           </button>
           <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2">
             Schedule a Demo
@@ -53,7 +53,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
+      
     </section>
   );
 }       

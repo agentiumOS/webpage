@@ -21,7 +21,7 @@ export default function HeroGraphic() {
 
   return (
     <div 
-      className="relative w-[80%] max-w-[1500px] rounded-none mx-auto -top-[200px] transition-transform duration-100 ease-out"
+      className="relative w-[80%] max-w-[1500px] rounded-none mx-auto xl:-top-[300px] -top-[200px] transition-transform duration-100 ease-out"
       style={{
         transform: `perspective(1000px) rotateX(10deg)`,
         transformStyle: 'preserve-3d'

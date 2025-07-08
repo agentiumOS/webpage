@@ -1,7 +1,8 @@
-import { ArrowUpRightIcon, Check, Dot, Languages, Shuffle } from 'lucide-react'
+import { AlertCircle, ArrowUpRightIcon, BarChart3Icon, Check, Eye, Import, Languages, List, TrendingUp } from 'lucide-react'
 import step1PNG from '@/assets/step-1.png'
 import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'
+import { DashboardIcon, PersonIcon } from '@radix-ui/react-icons'
 
 // Main Features Component
 export default function Features() {
@@ -28,7 +29,7 @@ function FeaturesSection() {
           </div>
 
           {/* First feature - full width with content left, graphic right */}
-          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start text-left border-b border-slate-300">
+          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-start text-left border-b border-slate-300">
             <div className="flex flex-col gap-2 items-start p-10">
               <div className="flex items-center gap-2 mt-5">
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">
@@ -54,6 +55,30 @@ function FeaturesSection() {
               <p className="text-gray-600 hover:text-gray-900 transition-colors mt-5 text-md">
                 LISA analyzes every conversation instantly, identifying critical issues, missed opportunities, and compliance gaps across all languages. From tone and sentiment to script adherence and customer satisfaction indicators, we capture everything that matters to your business success.
               </p>
+
+              <div className="flex items-center gap-5 mt-5">
+                <span className='flex items-center gap-1'>
+                  <List className="w-4 h-4 text-gray-600" />
+                  <span className="text-xs font-[600] text-gray-600">
+                    Call Transcripts
+                  </span>
+                </span>
+                
+                <span className='flex items-center gap-1'>
+                  <Check className="w-4 h-4 text-gray-600" />
+                  <span className="text-xs font-[600] text-gray-600">
+                    Action Items
+                  </span>
+                </span>
+                
+                <span className='flex items-center gap-1'>
+                  <AlertCircle className="w-4 h-4 text-gray-600" />
+                  <span className="text-xs font-[600] text-gray-600">
+                    Defects
+                  </span>
+                </span>
+              </div>
+
             </div>
             <div className="bg-gray-100 rounded-lg aspect-[3/2] flex items-center justify-center order-first lg:order-last">
               <span className="text-gray-400 text-sm">Graphic Placeholder</span>
@@ -79,21 +104,78 @@ function FeaturesSection() {
                 </p>
               </div>
             </div>
-            
-            <div className="bg-white w-full p-0 flex flex-col gap-2 items-start text-left">
-              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center mb-4">
+           
+            <div className="bg-white w-full p-0 pb-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
+              <div className="bg-gray-100 rounded-lg aspect-[3/2] w-full flex items-center justify-center">
                 <span className="text-gray-400 text-sm">Graphic Placeholder</span>
               </div>
-              <h3 className="text-xl font-semibold mt-1 hover:text-amber-600 transition-colors">Automated Trainings</h3>
-              <p className="text-gray-600 hover:text-gray-900 transition-colors">Streamline your training process with automated programs designed to improve team performance.</p>
+              <div className="flex flex-col gap-2 items-start py-2 px-10">
+                <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+                  Automated Training Invites{" "}<br />
+                  <span className="text-gray-400">
+                    Just Setup Once, LISA Do the Rest
+                  </span>
+                </h3>
+
+                <p className="text-gray-600 hover:text-gray-900 transition-colors mt-2 text-md">
+                  We understand that no two businesses are the same. That&apos;s why we&apos;ve built a platform that allows you to customize your analysis to your specific business needs and requirements.
+                </p>
+              </div>
             </div>
+
           </div>
 
           {/* Third feature - full width with content left, graphic right */}
-          <div className="bg-white w-full p-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center text-left">
-            <div className="flex flex-col gap-2 items-start">
-              <h3 className="text-xl font-semibold mt-1 hover:text-red-600 transition-colors">Multilingual Support</h3>
-              <p className="text-gray-600 hover:text-gray-900 transition-colors">Support customers in multiple languages with comprehensive multilingual analysis capabilities.</p>
+          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-start text-left border-b border-slate-300">
+            <div className="flex flex-col gap-2 items-start p-10">
+              <div className="flex items-center gap-2 mt-5">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">
+                  <Eye className="w-4 h-4 text-green-600" />
+                  <span className="text-xs font-[600] text-green-600">
+                    Complete Visibility
+                  </span>
+                </div>
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-blue-50 border border-blue-300 rounded-full shadow-sm backdrop-blur-sm">
+                  <DashboardIcon className="w-4 h-4 text-blue-600" />
+                  <span className="text-xs font-[600] text-blue-600">
+                    Dynamic Dashboards
+                  </span>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+                Defects, Trainings, Improvements{" "}<br />
+                <span className="text-gray-400">
+                  Track Everything in One Place
+                </span>
+              </h3>
+
+              <p className="text-gray-600 hover:text-gray-900 transition-colors mt-5 text-md">
+                Track every defect, training completion, and performance improvement across your entire team. Monitor progress in real-time with comprehensive dashboards that show exactly where your agents excel and where they need support, giving you complete visibility into your call quality journey.
+              </p>
+
+              <div className="flex items-center gap-5 mt-5">
+                <span className='flex items-center gap-1'>
+                  <BarChart3Icon className="w-4 h-4 text-gray-600" />
+                  <span className="text-xs font-[600] text-gray-600">
+                    Defect Trends
+                  </span>
+                </span>
+
+                <span className='flex items-center gap-1'>
+                  <PersonIcon className="w-4 h-4 text-gray-600" />
+                  <span className="text-xs font-[600] text-gray-600">
+                    Training Attendance
+                  </span>
+                </span>
+
+                <span className='flex items-center gap-1'>
+                  <TrendingUp className="w-4 h-4 text-gray-600" />
+                  <span className="text-xs font-[600] text-gray-600">
+                    Performance Improvements
+                  </span>
+                </span>
+              </div>
+
             </div>
             <div className="bg-gray-100 rounded-lg aspect-[3/2] flex items-center justify-center order-first lg:order-last">
               <span className="text-gray-400 text-sm">Graphic Placeholder</span>

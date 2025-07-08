@@ -6,8 +6,16 @@ export default function Hero() {
   return (
     <section className="relative bg-slate-50 w-full text-center flex flex-col items-center justify-center">
       <RetroGrid className="absolute inset-0 opacity-30" />
-      <div className="relative z-10 flex flex-col gap-5 pt-[100px] pb-[150px] max-w-4xl mx-auto items-center">
-        <h1 className="text-2xl md:text-4xl font-[650] text-gray-590 tracking-[-1px]">100% of your calls analysed instantly - no manual sampling, no hidden costs.</h1>
+      <div className="relative z-10 flex flex-col gap-5 pt-[30px] pb-[150px] max-w-5xl mx-auto items-center">
+        <div className="inline-flex items-center px-4 py-2 bg-white border border-blue-200 rounded-full shadow-lg backdrop-blur-sm">
+          <span className="text-sm font-medium text-blue-500">
+            100% Calls Analysed in Minutes
+          </span>
+        </div>
+
+        <h1 className="text-xl md:text-5xl font-[650] text-gray-590 tracking-[-1px] leading-relaxed">
+          End Manual Sampling, Start Total Visibility & Continuous Team Improvement.
+        </h1>
         <p className="text-lg font-serif text-gray-500">
           Measure how well your team is responding to customers, without spending $$$ or ⏱️⏱️⏱️.
         </p>

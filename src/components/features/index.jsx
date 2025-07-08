@@ -148,7 +148,7 @@ function GetStartedSection() {
         {/* Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
-            Get started in <span className="text-blue-600">&lt;1 minute</span>
+            Get started in <span className="text-orange-600">&lt;1 minute</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Start analyzing your calls in 3 simple steps.
@@ -238,7 +238,7 @@ function GetStartedSection() {
         {/* CTA Section */}
         <div className="flex flex-col justify-center mx-auto items-center gap-5">
             <h2 className="text-2xl md:text-3xl font-[400] text-gray-900 tracking-tight mb-5">
-              That&apos;s it. <span className="text-gray-300">Start analyzing your calls now</span>
+              That&apos;s it. <span className="text-gray-300">Start tracking all defects and improve your team&apos;s performance</span>
             </h2>
             <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2 w-max mx-auto">
               Schedule a Demo

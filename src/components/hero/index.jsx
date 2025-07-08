@@ -31,10 +31,15 @@ export default function Hero() {
           >
               How it works <ArrowDownIcon className="w-4 h-4" />
           </button>
-          <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2">
+          <a 
+            href="https://calendly.com/bharat-xhipment/30-min" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2"
+          >
             Schedule a Demo
             <ArrowTopRightIcon />
-          </button>
+          </a>
         </div>
         
         <div className="flex flex-wrap justify-center gap-4 mt-10">

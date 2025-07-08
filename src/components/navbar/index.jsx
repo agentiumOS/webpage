@@ -45,10 +45,15 @@ const Navbar = () => {
 
         {/* Right side - Login/Start button */}
         <div className="hidden md:flex items-center space-x-4 z-[51] px-1">
-          <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2">
+          <a 
+            href="https://calendly.com/bharat-xhipment/30-min" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2"
+          >
             Schedule a Demo
             <ArrowTopRightIcon />
-          </button>
+          </a>
         </div>
       </div>
 

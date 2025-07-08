@@ -367,10 +367,15 @@ function GetStartedSection() {
           <h2 className="text-2xl md:text-3xl font-[400] text-gray-900 tracking-tight mb-5">
             that&apos;s how easy it is.
           </h2>
-          <button className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2 w-max mx-auto">
+          <a 
+            href="https://calendly.com/bharat-xhipment/30-min" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2 w-max mx-auto"
+          >
             Schedule a Demo
             <ArrowUpRightIcon />
-          </button>
+          </a>
         </div>
       </div>
     </section>

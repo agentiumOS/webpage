@@ -3,6 +3,7 @@ import step1PNG from '@/assets/step-1.png'
 import step2PNG from '@/assets/step-2.png'
 import step3PNG from '@/assets/step-3.png'
 import step3APNG from '@/assets/step-3A.png'
+import oneHundredPercentCoverage from '@/assets/100percentcoverage.png'
 import { DashboardIcon, PersonIcon } from '@radix-ui/react-icons'
 
 // Main Features Component
@@ -30,8 +31,8 @@ function FeaturesSection() {
           </div>
 
           {/* First feature - full width with content left, graphic right */}
-          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-start text-left border-b border-slate-300">
-            <div className="flex flex-col gap-2 items-start p-10">
+          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center text-left border-b border-slate-300">
+            <div className="flex flex-col gap-2 items-start p-10 py-20">
               <div className="flex items-center gap-2 mt-5">
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">
                   <Check className="w-4 h-4 text-green-600" />
@@ -81,8 +82,8 @@ function FeaturesSection() {
               </div>
 
             </div>
-            <div className="bg-gray-100 rounded-lg aspect-[3/2] flex items-center justify-center order-first lg:order-last">
-              <span className="text-gray-400 text-sm">Graphic Placeholder</span>
+            <div className="rounded-lg flex items-center justify-center order-first lg:order-last overflow-hidden">
+              <img src={oneHundredPercentCoverage} alt="100% Call Coverage" className="w-[80%] mt-4 h-full object-cover" />
             </div>
           </div>
 

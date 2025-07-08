@@ -48,7 +48,7 @@ function FeaturesSection() {
                   </span>
                 </div>
               </div>
-              <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+              <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                 Each Minute of Every Call Analyzed{" "}<br />
                 <span className="text-gray-400">
                   Across Your Custom Parameters
@@ -95,7 +95,7 @@ function FeaturesSection() {
                 <img src={customise} alt="Automated Training Invites" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col gap-2 items-start py-2 px-10">
-                <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+                <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                   You Choose the Defects to Track{" "}<br />
                   <span className="text-gray-400">
                     Across Your Custom Parameters{" "}
@@ -113,7 +113,7 @@ function FeaturesSection() {
                 <img src={step2PNG} alt="Automated Training Invites" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col gap-2 items-start py-2 px-10">
-                <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+                <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                   Automated Training Invites{" "}<br />
                   <span className="text-gray-400">
                     Just Setup Once, LISA Do the Rest
@@ -145,7 +145,7 @@ function FeaturesSection() {
                   </span>
                 </div>
               </div>
-              <h3 className="text-xl md:text-3xl font-bold mt-4 leading-tight tracking-tight">
+              <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                 Defects, Trainings, Improvements{" "}<br />
                 <span className="text-gray-400">
                   Track Everything in One Place
@@ -201,7 +201,7 @@ function PricingSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left side - Content */}
           <div className="flex flex-col gap-4 md:gap-6">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-[-1px]">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 tracking-[-1px]">
               Everything else is free,
               <span className="text-gray-600 block mt-1">pay only for AI usage</span>
             </h2>
@@ -272,7 +272,7 @@ function GetStartedSection() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
             Get started in <span className="text-orange-600">&lt;1 minute</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -297,7 +297,7 @@ function GetStartedSection() {
               </div>
 
               <div className="flex flex-row gap-2 px-4 relative z-10">
-                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-bold">
+                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-semibold">
                   1
                 </span>
                 <div className="flex flex-col gap-2">
@@ -324,7 +324,7 @@ function GetStartedSection() {
               </div>
 
               <div className="flex flex-row gap-2 px-4 relative z-10">
-                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-bold">
+                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-semibold">
                   2
                 </span>
                 <div className="flex flex-col gap-2">
@@ -349,7 +349,7 @@ function GetStartedSection() {
               </div>
 
               <div className="flex flex-row gap-2 px-4 relative z-10">
-                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-bold">
+                <span className="w-10 h-10 text-gray-400 rounded-full flex items-start justify-center text-xl font-semibold">
                   3
                 </span>
                 <div className="flex flex-col gap-2">

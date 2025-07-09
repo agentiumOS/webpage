@@ -25,11 +25,11 @@ function FeaturesSection() {
       <div className="relative z-10 flex flex-col gap-4 container mx-auto items-center border-x border-slate-300 px-0">
         <div className="grid grid-cols-1 gap-0 w-full">
           {/* Header row - full width */}
-          <div className="bg-white w-full pb-20 flex flex-col gap-2 items-center text-center border-b border-slate-300">
+          {/* <div className="bg-white w-full pb-20 flex flex-col gap-2 items-center text-center border-b border-slate-300">
             <h2 className="md:text-3xl text-lg font-[650] text-gray-590 tracking-[-1px]">
               LISA helps you improve your customer experience
             </h2>
-          </div>
+          </div> */}
 
           {/* First feature - full width with content left, graphic right */}
           <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center text-left border-b border-slate-300">
@@ -51,12 +51,12 @@ function FeaturesSection() {
               <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                 Each Minute of Every Call Analyzed{" "}<br />
                 <span className="text-gray-400">
-                  Across Your Custom Parameters
+                  Across your custom parameters
                 </span>
               </h3>
               
               <p className="text-gray-600 hover:text-gray-900 transition-colors mt-5 text-md">
-                LISA analyzes every conversation instantly, identifying critical issues, missed opportunities, and compliance gaps across all languages. From tone and sentiment to script adherence and customer satisfaction indicators, we capture everything that matters to your business success.
+                LISA analyzes every conversation instantly, identifying critical issues, missed opportunities, and compliance gaps across multiple languages. From tone and sentiment to script adherence and customer satisfaction indicators, we capture everything that matters to your business success.
               </p>
 
               <div className="flex items-center gap-5 mt-5">
@@ -98,7 +98,7 @@ function FeaturesSection() {
                 <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                   You Choose the Defects to Track{" "}<br />
                   <span className="text-gray-400">
-                    Across Your Custom Parameters{" "}
+                    Across your custom parameters{" "}
                   </span>
                 </h3>
 
@@ -116,7 +116,7 @@ function FeaturesSection() {
                 <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                   Automated Training Invites{" "}<br />
                   <span className="text-gray-400">
-                    Just Set Up Once, LISA Does the Rest
+                    Set it up once, LISA does the rest
                   </span>
                 </h3>
 
@@ -148,7 +148,7 @@ function FeaturesSection() {
               <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                 Defects, Training, Improvements{" "}<br />
                 <span className="text-gray-400">
-                  Track Everything in One Place
+                  Track everything in one place
                 </span>
               </h3>
 
@@ -202,11 +202,11 @@ function PricingSection() {
           {/* Left side - Content */}
           <div className="flex flex-col gap-4 md:gap-6">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 tracking-[-1px]">
-              Everything else is free,
-              <span className="text-gray-600 block mt-1">pay only for AI usage</span>
+              Pay only for AI usage,
+              <span className="text-gray-600 block mt-1">everything else is free</span>
             </h2>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-              No platform fees, no hidden costs. Just transparent AI pricing that scales with your usage.
+              No platform fees, no hidden costs. Just transparent AI pricing.
             </p>
 
             <div className="space-y-3 md:space-y-4">

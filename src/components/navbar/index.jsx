@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { IconBrain } from '@tabler/icons-react';
 import { ArrowTopRightIcon } from '@radix-ui/react-icons';
 
 const Navbar = () => {
@@ -36,18 +35,22 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex-shrink-0 flex items-center  px-4">
           <a href="/" className="flex items-center space-x-2">
-            <IconBrain size={24} />
-            <span className="text-xl font-bold">
-              xhip.AI
-            </span>
+            <div className="flex flex-col items-center justify-center">
+              <span className="text-[24px] font-black font-sora">
+                LISA
+              </span>
+              {scrollY <= scrollThreshold && <span className="text-[12px] font-medium font-sans relative -top-1.5 text-gray-500 tracking-tight animate-down">
+                by Xhip AI
+              </span>}
+            </div>
           </a>
         </div>
 
         {/* Right side - Login/Start button */}
         <div className="hidden md:flex items-center space-x-4 z-[51] px-1">
-          <a 
-            href="https://calendly.com/bharat-xhipment/30-min" 
-            target="_blank" 
+          <a
+            href="https://calendly.com/bharat-xhipment/30-min"
+            target="_blank"
             rel="noopener noreferrer"
             className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2"
           >

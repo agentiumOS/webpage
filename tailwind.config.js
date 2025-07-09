@@ -25,6 +25,9 @@ export default {
         ],
         serif: [
           'Albert Sans'
+        ],
+        sora: [
+          'Sora'
         ]
       },
       transitionProperty: {

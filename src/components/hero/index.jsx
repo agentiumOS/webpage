@@ -9,7 +9,7 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col gap-5 pt-[30px] pb-[150px] max-w-5xl mx-auto items-center">
         <div className="inline-flex items-center px-4 py-2 bg-white border border-blue-200 rounded-full shadow-lg backdrop-blur-sm">
           <span className="text-sm font-medium text-blue-500">
-            100% Calls Analysed in Minutes
+            100% Calls Analyzed in Minutes
           </span>
         </div>
 

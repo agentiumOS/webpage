@@ -116,12 +116,12 @@ function FeaturesSection() {
                 <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
                   Automated Training Invites{" "}<br />
                   <span className="text-gray-400">
-                    Just Setup Once, LISA Do the Rest
+                    Just Set Up Once, LISA Does the Rest
                   </span>
                 </h3>
 
                 <p className="text-gray-600 hover:text-gray-900 transition-colors mt-2 text-md">
-                  Setup one-time or recurring training events that automatically trigger when defects are identified. LISA sends training invites to the right team members based on their specific performance gaps, ensuring targeted improvement.
+                  Set up one-time or recurring training events that automatically trigger when defects are identified. LISA sends training invites to the right team members based on their specific performance gaps, ensuring targeted improvement.
                 </p>
               </div>
             </div>
@@ -146,7 +146,7 @@ function FeaturesSection() {
                 </div>
               </div>
               <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
-                Defects, Trainings, Improvements{" "}<br />
+                Defects, Training, Improvements{" "}<br />
                 <span className="text-gray-400">
                   Track Everything in One Place
                 </span>
@@ -181,7 +181,7 @@ function FeaturesSection() {
 
             </div>
             <div className="rounded-lg flex items-center justify-center order-first lg:order-last overflow-hidden">
-              <img src={step3APNG} alt="Defects, Trainings, Improvements" className="w-[80%] h-full object-cover" />
+              <img src={step3APNG} alt="Defects, Training, Improvements" className="w-[80%] h-full object-cover" />
             </div>
           </div>
         </div>
@@ -303,7 +303,7 @@ function GetStartedSection() {
                 <div className="flex flex-col gap-2">
                   <h3 className="text-xl font-semibold text-gray-900">Add your Exotel API Key & Google Gemini API Key</h3>
                   <p className="text-gray-600">
-                    Exotel API Key to fetch the call logs and Google Gemini API Key for the AI based analysis.
+                    Exotel API Key to fetch the call logs and Google Gemini API Key for the AI-based analysis.
                   </p>
                 </div>
               </div>
@@ -328,8 +328,8 @@ function GetStartedSection() {
                   2
                 </span>
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-gray-900">Add your teams&apos; details &<br/> Setup Trainings</h3>
-                  <p className="text-gray-600">Setup one-time or recurring training events that automatically trigger when defects are identified.</p>
+                  <h3 className="text-xl font-semibold text-gray-900">Add your teams&apos; details &<br/> Set Up Training</h3>
+                  <p className="text-gray-600">Set up one-time or recurring training events that automatically trigger when defects are identified.</p>
                 </div>
               </div>
               <img src={step2PNG} alt="Step 2" className="w-full mt-5 relative z-10" />
@@ -353,8 +353,8 @@ function GetStartedSection() {
                   3
                 </span>
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-xl font-semibold text-gray-900">Track all Defects, Trainings & Improvements</h3>
-                  <p className="text-gray-600">Track all defects & trainings metrics from your dynamic dashboard.</p>
+                  <h3 className="text-xl font-semibold text-gray-900">Track all Defects, Training & Improvements</h3>
+                  <p className="text-gray-600">Track all defects & training metrics from your dynamic dashboard.</p>
                 </div>
               </div>
               <img src={step3PNG} alt="Step 3" className="w-full mt-5 relative z-10" />

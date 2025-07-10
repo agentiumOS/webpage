@@ -25,10 +25,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out max-w-5xl mx-auto px-4 sm:px-6 lg:px-0 rounded-full
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out max-w-[90%]  md:max-w-5xl mx-auto px-0 lg:px-0 rounded-full
         outline outline-0 outline-offset-0 outline-gray-100 py-1
         ${showNavbar ? 'translate-y-0 mt-5' : '-translate-y-full'} 
-        ${scrollY > scrollThreshold ? 'bg-white outline-2 shadow-[0_0_10px_-4px_rgba(100,116,139,0.4)]' : 'bg-transparent outline-none shadow-none'}
+        ${scrollY > scrollThreshold ? 'bg-white/50 backdrop-blur-sm outline-2 shadow-[0_0_10px_-4px_rgba(100,116,139,0.4)]' : 'bg-transparent outline-none shadow-none'}
       `}
     >
       <div className="flex items-center justify-between">
@@ -47,12 +47,15 @@ const Navbar = () => {
         </div>
 
         {/* Right side - Login/Start button */}
-        <div className="hidden md:flex items-center space-x-4 z-[51] px-1">
+        <div className="flex items-center md:space-x-2 z-[51] px-1">
+          <a href="https://lisa.xhipai.com" target="_blank" rel="noopener noreferrer" className="hidden md:flex p-2.5 px-5 bg-slate-100 hover:bg-gray-200 text-black text-sm rounded-full font-medium transition-all items-center gap-2 border border-gray-200">
+            Login
+          </a>
           <a
             href="https://calendly.com/bharat-xhipment/30-min"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2"
+            className="p-2.5 px-5 bg-black text-white text-sm rounded-full font-medium transition-all flex items-center gap-2"
           >
             Schedule a Demo
             <ArrowTopRightIcon />

@@ -6,17 +6,17 @@ export default function Hero() {
   return (
     <section className="relative bg-slate-50 w-full text-center flex flex-col items-center justify-center">
       <RetroGrid className="absolute inset-0 opacity-30" />
-      <div className="relative z-10 flex flex-col gap-5 pt-[30px] pb-[150px] max-w-5xl mx-auto items-center">
+      <div className="relative z-10 flex flex-col gap-5 pt-4 md:pt-[30px] pb-[150px] max-w-5xl mx-auto items-center">
         <div className="inline-flex items-center px-4 py-2 bg-white border border-blue-200 rounded-full shadow-lg backdrop-blur-sm">
           <span className="text-sm font-medium text-blue-500">
             100% Calls Analyzed in Minutes
           </span>
         </div>
 
-        <h1 className="text-xl md:text-5xl font-[800] text-gray-590 tracking-[-1px] leading-relaxed mt-5">
+        <h1 className="text-2xl md:text-5xl font-[800] text-gray-590 tracking-[-1px] leading-relaxed mt-5 max-w-[80%] md:max-w-full">
           Call Quality Audits & Training Made Simple
         </h1>
-        <p className="md:text-xl text-lg font-serif text-gray-500 font-[450]">
+        <p className="md:text-xl text-lg font-serif text-gray-500 font-[450] max-w-[75%]">
           Instantly measure how well your team is responding to customers using AI
         </p>
 
@@ -42,7 +42,7 @@ export default function Hero() {
           </a>
         </div>
         
-        <div className="flex flex-wrap justify-center gap-4 mt-10">
+        <div className="flex flex-wrap justify-center gap-4 mt-3 md:mt-10">
           <div className="flex items-center gap-2 px-4 py-2 text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 12h-4l-3 9L9 3l-3 9H2" />

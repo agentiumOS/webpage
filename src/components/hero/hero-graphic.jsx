@@ -53,7 +53,7 @@ export default function HeroGraphic() {
       <img
         src={heroImage}
         alt="Hero Image"
-        className="relative w-[80%] max-w-[1100px] object-cover xl:-top-[150px] -top-[200px] z-10"
+        className="relative w-[90%] sm:w-[80%] max-w-[1100px] object-cover xl:-top-[150px] -top-[140px] sm:-top-[200px] z-10"
         style={{
           transform: `perspective(1000px) rotateX(${currentTilt}deg) translateY(${parallaxOffset}px)`,
           transformStyle: 'preserve-3d',

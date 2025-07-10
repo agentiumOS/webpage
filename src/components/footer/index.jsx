@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { IconBrain } from "@tabler/icons-react";
 
 // Upside-down RetroGrid component for footer
 function UpsideDownRetroGrid({

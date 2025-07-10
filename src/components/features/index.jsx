@@ -21,7 +21,7 @@ export default function Features() {
 // Features Section Component
 function FeaturesSection() {
   return (
-    <section id="features" className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-[150px]">
+    <section id="features" className="relative w-full text-center flex flex-col items-center justify-center gap-0 overflow-hidden -mt-[100px] sm:-mt-[150px]">
       <div className="relative z-10 flex flex-col gap-4 container mx-auto items-center border-x border-slate-300 px-0">
         <div className="grid grid-cols-1 gap-0 w-full">
           {/* Header row - full width */}
@@ -32,8 +32,8 @@ function FeaturesSection() {
           </div> */}
 
           {/* First feature - full width with content left, graphic right */}
-          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center text-left border-b border-slate-300">
-            <div className="flex flex-col gap-2 items-start p-10 py-20">
+          <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center text-left sm:border-b border-slate-300">
+            <div className="flex flex-col gap-2 items-start p-10 pt-5 sm:pt-20 sm:py-20">
               <div className="flex items-center gap-2 mt-5">
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">
                   <Check className="w-4 h-4 text-green-600" />
@@ -84,18 +84,18 @@ function FeaturesSection() {
 
             </div>
             <div className="rounded-lg flex items-center justify-center order-first lg:order-last overflow-hidden">
-              <img src={oneHundredPercentCoverage} alt="100% Call Coverage" className="w-[80%] h-full object-cover" />
+              <img src={oneHundredPercentCoverage} alt="100% Call Coverage" className="w-[100%] sm:w-[80%] h-full object-cover" />
             </div>
           </div>
 
           {/* Second row - two columns, stack on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border-b border-slate-300">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 sm:border-b border-slate-300">
             <div className="bg-white w-full p-0 pb-10 flex flex-col gap-2 items-start text-left lg:border-r border-slate-300">
               <div className="rounded-lg w-full flex items-center justify-center overflow-hidden h-full">
-                <img src={customise} alt="Automated Training Invites" className="w-[85%] h-full object-contain" />
+                <img src={customise} alt="Automated Training Invites" className="w-[90%] sm:w-[85%] h-full object-contain" />
               </div>
               <div className="flex flex-col gap-2 items-start py-2 px-10">
-                <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
+                <h3 className="text-xl md:text-3xl font-semibold mt-1 sm:mt-4 leading-tight tracking-tight">
                   You Choose the Defects to Track{" "}<br />
                   <span className="text-gray-400">
                     Across your custom parameters{" "}
@@ -113,7 +113,7 @@ function FeaturesSection() {
                 <img src={step2PNG} alt="Automated Training Invites" className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col gap-2 items-start py-2 px-10">
-                <h3 className="text-xl md:text-3xl font-semibold mt-4 leading-tight tracking-tight">
+                <h3 className="text-xl md:text-3xl font-semibold mt-1 sm:mt-4 leading-tight tracking-tight">
                   Automated Training Invites{" "}<br />
                   <span className="text-gray-400">
                     Set it up once, LISA does the rest
@@ -130,7 +130,7 @@ function FeaturesSection() {
 
           {/* Third feature - full width with content left, graphic right */}
           <div className="bg-white w-full p-0 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center text-left border-0 border-slate-300">
-            <div className="flex flex-col gap-2 items-start p-10 py-20">
+            <div className="flex flex-col gap-2 items-start p-10 pt-5 sm:pt-20 sm:py-20">
               <div className="flex items-center gap-2 mt-5">
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-green-50 border border-green-300 rounded-full shadow-sm backdrop-blur-sm">
                   <Eye className="w-4 h-4 text-green-600" />
@@ -157,21 +157,21 @@ function FeaturesSection() {
               </p>
 
               <div className="flex items-center gap-5 mt-5">
-                <span className='flex items-center gap-1'>
+                <span className='flex sm:items-center gap-2 sm:gap-1'>
                   <BarChart3Icon className="w-4 h-4 text-gray-600" />
                   <span className="text-xs font-[600] text-gray-600">
                     Defect Trends
                   </span>
                 </span>
 
-                <span className='flex items-center gap-1'>
+                <span className='flex sm:items-center gap-2 sm:gap-1'>
                   <PersonIcon className="w-4 h-4 text-gray-600" />
                   <span className="text-xs font-[600] text-gray-600">
                     Training Attendance
                   </span>
                 </span>
 
-                <span className='flex items-center gap-1'>
+                <span className='flex sm:items-center gap-2 sm:gap-1'>
                   <TrendingUp className="w-4 h-4 text-gray-600" />
                   <span className="text-xs font-[600] text-gray-600">
                     Performance Improvements
@@ -181,7 +181,7 @@ function FeaturesSection() {
 
             </div>
             <div className="rounded-lg flex items-center justify-center order-first lg:order-last overflow-hidden">
-              <img src={step3APNG} alt="Defects, Training, Improvements" className="w-[80%] h-full object-cover" />
+              <img src={step3APNG} alt="Defects, Training, Improvements" className="w-[90%] sm:w-[80%] h-full object-cover" />
             </div>
           </div>
         </div>
@@ -200,7 +200,7 @@ function PricingSection() {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Left side - Content */}
-          <div className="flex flex-col gap-4 md:gap-6">
+          <div className="flex flex-col gap-4 md:gap-6 px-6 sm:px-0">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 tracking-[-1px]">
               Pay only for AI usage,
               <span className="text-gray-600 block mt-1">everything else is free</span>
@@ -226,7 +226,7 @@ function PricingSection() {
           </div>
 
           {/* Right side - Graphic/Visual */}
-          <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
+          <div className="flex justify-center lg:justify-end mt-3 sm:mt-8 lg:mt-0">
             <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 max-w-md w-full border border-gray-200">
               <div className="space-y-4 md:space-y-6">
                 <div className="text-center">
@@ -268,14 +268,14 @@ function PricingSection() {
 // Get Started Section Component
 function GetStartedSection() {
   return (
-    <section className="w-full py-16 pb-5 mt-5">
+    <section className="w-full py-16 pb-5 mt-0 sm:mt-5 pt-10 sm:pt-16">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
-            Get started in <span className="text-orange-600">&lt;1 minute</span>
+        <div className="text-center mb-8 sm:mb-20">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-semibold text-gray-900 mb-2 sm:mb-6 tracking-tight">
+            Get started in <span className="text-orange-600">&lt;5 mins</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-md sm:text-xl text-gray-600 max-w-2xl mx-auto">
             Start analyzing your calls in 3 simple steps.
           </p>
         </div>

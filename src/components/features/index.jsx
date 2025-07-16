@@ -212,7 +212,7 @@ function PricingSection() {
             <div className="space-y-3 md:space-y-4">
               <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium border border-blue-200">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                Powered by Gemini 2.5 Flash [ ~5 cents / call ]{" "}*
+                Powered by Gemini 2.5 Flash [ ~1 cent / call ]{" "}*
               </div>
 
               <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium border border-green-200">
@@ -241,7 +241,7 @@ function PricingSection() {
                 <div className="space-y-2 md:space-y-3">
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-sm md:text-base text-gray-600">3-minute call analysis</span>
-                    <span className="text-sm md:text-base font-semibold text-gray-900">~$0.05</span>
+                    <span className="text-sm md:text-base font-semibold text-gray-900">~$0.01</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-sm md:text-base text-gray-600">Platform & features</span>

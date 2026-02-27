@@ -1,13 +1,8 @@
-import React, { useState } from 'react'
-import { Highlight, themes } from 'prism-react-renderer'
+import React, { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { Highlight, themes } from 'prism-react-renderer'
 
-const snippets = [
-  {
-    id: 'agent',
-    label: 'Simple Agent',
-    description: 'Create an intelligent agent with tools, memory, and a specific persona in just a few lines of code.',
-    code: `import { Agent, openai } from '@radaros/core';
+const codeRadarOS = `import { Agent, openai } from '@radaros/core';
 
 const agent = new Agent({
   name: 'ResearchBot',
@@ -19,111 +14,180 @@ const agent = new Agent({
 
 const response = await agent.run('Find the latest news on AI.');
 console.log(response.text);`
-  },
-  {
-    id: 'team',
-    label: 'Multi-Agent Team',
-    description: 'Group agents into teams with coordination strategies like Route, Broadcast, or Collaborate.',
-    code: `import { Team, Agent, openai } from '@radaros/core';
 
-const researcher = new Agent({ name: 'Researcher', model: openai('gpt-4o') });
-const writer = new Agent({ name: 'Writer', model: openai('gpt-4o') });
+const codeLangChain = `import { StateGraph, MessagesAnnotation } from "@langchain/langgraph";
+import { ChatOpenAI } from "@langchain/openai";
+import { ToolNode } from "@langchain/langgraph/prebuilt";
 
-const contentTeam = new Team({
-  name: 'ContentTeam',
-  mode: 'coordinate', // Leader orchestrates the sub-agents
-  leader: new Agent({ name: 'Leader', model: openai('gpt-4o') }),
-  members: [researcher, writer],
-});
+const tools = [webSearch, fetchPage];
+const model = new ChatOpenAI({ model: "gpt-4o" }).bindTools(tools);
 
-await contentTeam.run('Write a detailed blog post about Q-learning.');`
-  },
-  {
-    id: 'workflow',
-    label: 'Stateful Workflow',
-    description: 'Orchestrate deterministic, multi-step pipelines with typed state and retry policies.',
-    code: `import { Workflow, AgentStep, FunctionStep } from '@radaros/core';
+function callModel(state: typeof MessagesAnnotation.State) {
+  return { messages: [model.invoke(state.messages)] };
+}
 
-const extractData = new AgentStep({ agent: extractorAgent });
-const validateData = new FunctionStep({ fn: validateSchema });
+function shouldContinue(state: typeof MessagesAnnotation.State) {
+  const lastMessage = state.messages[state.messages.length - 1];
+  return lastMessage.tool_calls?.length ? "tools" : "__end__";
+}
 
-const pipeline = new Workflow({
-  name: 'DataPipeline',
-  initialState: { raw: '', parsed: null },
-  steps: [extractData, validateData],
-});
+const graph = new StateGraph(MessagesAnnotation)
+  .addNode("agent", callModel)
+  .addNode("tools", new ToolNode(tools))
+  .addEdge("__start__", "agent")
+  .addConditionalEdges("agent", shouldContinue)
+  .addEdge("tools", "agent");
 
-const result = await pipeline.run({ raw: '...' });`
-  }
-]
+const app = graph.compile();
+await app.invoke({ messages: [["user", "Find latest AI news"]] });`
+
+const codeAgno = `from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+# Agno is great, but it's Python-only. 
+# RadarOS brings this declarative DX natively to TypeScript.
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    description="You are a helpful research assistant.",
+    tools=[DuckDuckGoTools()],
+    add_history_to_messages=True
+)
+
+agent.print_response("Find the latest news on AI.")`
+
+function CodeBlock({ code, language, title }) {
+  return (
+    <div className="w-full h-full bg-slate-900 flex flex-col font-mono text-sm border-2 border-emerald-500">
+      <div className="flex items-center justify-between px-4 py-3 border-b-2 border-emerald-900/50 bg-slate-800">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 bg-red-400"></div>
+          <div className="w-3 h-3 bg-yellow-400"></div>
+          <div className="w-3 h-3 bg-emerald-400"></div>
+        </div>
+        <span className="text-emerald-400 text-xs font-mono font-bold">{title}</span>
+      </div>
+      <div className="p-6 overflow-auto flex-1">
+        <Highlight theme={themes.vsDark} code={code} language={language}>
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre className={className} style={{ ...style, backgroundColor: 'transparent', margin: 0 }}>
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line })}>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
+      </div>
+    </div>
+  )
+}
 
 export default function CodeShowcase() {
-  const [activeTab, setActiveTab] = useState(snippets[0])
+  const [comparison, setComparison] = useState('langchain') // 'langchain' or 'agno'
+  const [position, setPosition] = useState(50)
+  const containerRef = useRef(null)
+  
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width))
+    const percentage = (x / rect.width) * 100
+    setPosition(percentage)
+  }
+
+  const currentRightCode = comparison === 'langchain' ? codeLangChain : codeAgno
+  const currentRightLang = comparison === 'langchain' ? 'typescript' : 'python'
+  const currentRightTitle = comparison === 'langchain' ? 'langgraph.ts' : 'agno_agent.py'
 
   return (
-    <section className="py-24 bg-surface/20 border-y border-border relative">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 items-center">
-          
-          <div className="flex-1 w-full max-w-xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Declarative API.<br/><span className="text-primary">No Graph Theory required.</span></h2>
-            <p className="text-zinc-400 mb-8 text-lg">
-              Unlike low-level frameworks, RadarOS doesn't force you to wire up nodes and edges. Define what you want, and the runtime handles the orchestration.
-            </p>
+    <section className="py-24 bg-slate-50 border-y border-emerald-200 relative z-10">
+      <div className="container mx-auto px-6 max-w-5xl">
+        
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 tracking-tight">
+            The power of <span className="text-emerald-600">Declarative</span> Orchestration.
+          </h2>
+          <p className="text-slate-600 text-lg md:text-xl max-w-2xl mx-auto">
+            Stop wiring up edges and managing state channels manually. Build agents that feel like native code.
+          </p>
+        </div>
+
+        <div className="flex justify-center gap-4 mb-8">
+          <button 
+            onClick={() => setComparison('langchain')}
+            className={`px-6 py-2 border-2 text-sm font-bold transition-all shadow-[4px_4px_0px_#d1fae5] hover:-translate-y-[2px] ${comparison === 'langchain' ? 'bg-emerald-600 text-white border-emerald-700 shadow-[4px_4px_0px_#065f46]' : 'bg-white text-slate-700 border-emerald-300 hover:border-emerald-400'}`}
+          >
+            vs LangGraph
+          </button>
+          <button 
+            onClick={() => setComparison('agno')}
+            className={`px-6 py-2 border-2 text-sm font-bold transition-all shadow-[4px_4px_0px_#d1fae5] hover:-translate-y-[2px] ${comparison === 'agno' ? 'bg-emerald-600 text-white border-emerald-700 shadow-[4px_4px_0px_#065f46]' : 'bg-white text-slate-700 border-emerald-300 hover:border-emerald-400'}`}
+          >
+            vs Agno
+          </button>
+        </div>
+
+        <motion.div 
+          className="relative w-full h-[500px] md:h-[600px] bg-slate-900 border-2 border-emerald-400 shadow-[8px_8px_0px_#d1fae5] overflow-hidden select-none cursor-crosshair"
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={() => setPosition(50)}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+        >
+          {/* Left Side - RadarOS */}
+          <div className="absolute inset-0 w-full h-full">
+            <CodeBlock code={codeRadarOS} language="typescript" title="radar-agent.ts" />
             
-            <div className="flex flex-col gap-3">
-              {snippets.map(snippet => (
-                <button
-                  key={snippet.id}
-                  onClick={() => setActiveTab(snippet)}
-                  className={`text-left px-5 py-4 rounded-xl transition-all border ${
-                    activeTab.id === snippet.id 
-                      ? 'bg-primary/10 border-primary/30 shadow-[0_0_15px_-5px_rgba(34,211,238,0.2)]' 
-                      : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900'
-                  }`}
-                >
-                  <h3 className={`font-semibold text-lg mb-1 ${activeTab.id === snippet.id ? 'text-primary' : 'text-zinc-200'}`}>
-                    {snippet.label}
-                  </h3>
-                  <p className="text-sm text-zinc-500 leading-relaxed">{snippet.description}</p>
-                </button>
-              ))}
+            {/* Label Overlay */}
+            <div className="absolute bottom-6 left-6 bg-emerald-500 text-white px-4 py-2 text-xs font-bold tracking-wider uppercase border-2 border-emerald-700 shadow-[4px_4px_0px_#065f46] z-10">
+              RadarOS
             </div>
           </div>
 
-          <motion.div 
-            className="flex-1 w-full max-w-2xl"
-            key={activeTab.id}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4 }}
+          {/* Right Side - Comparison */}
+          <div 
+            className="absolute top-0 right-0 bottom-0 overflow-hidden border-l-4 border-white"
+            style={{ width: `${100 - position}%` }}
           >
-            <div className="rounded-xl overflow-hidden border border-zinc-800 bg-[#0d0d0d] shadow-2xl">
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-zinc-800/50 bg-[#161616]">
-                <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-                <span className="ml-2 text-xs font-mono text-zinc-500">{activeTab.id}.ts</span>
-              </div>
-              <div className="p-6 overflow-x-auto text-sm">
-                <Highlight theme={themes.vsDark} code={activeTab.code} language="typescript">
-                  {({ className, style, tokens, getLineProps, getTokenProps }) => (
-                    <pre className={className} style={{ ...style, backgroundColor: 'transparent' }}>
-                      {tokens.map((line, i) => (
-                        <div key={i} {...getLineProps({ line })}>
-                          {line.map((token, key) => (
-                            <span key={key} {...getTokenProps({ token })} />
-                          ))}
-                        </div>
-                      ))}
-                    </pre>
-                  )}
-                </Highlight>
-              </div>
+            <div 
+              className="absolute top-0 bottom-0 right-0 h-full"
+              style={{ width: `${containerRef.current?.offsetWidth || 1000}px` }}
+            >
+              <CodeBlock code={currentRightCode} language={currentRightLang} title={currentRightTitle} />
             </div>
-          </motion.div>
+            
+            {/* Label Overlay */}
+            <div className="absolute bottom-6 right-6 bg-slate-800 text-emerald-400 px-4 py-2 text-xs font-bold tracking-wider uppercase border-2 border-emerald-500 shadow-[4px_4px_0px_#059669] z-10">
+              {comparison === 'langchain' ? 'LangGraph' : 'Agno'}
+            </div>
+          </div>
 
+          {/* Slider Handle (Visual only now) */}
+          <div 
+            className="absolute top-0 bottom-0 w-1 bg-white z-20 flex flex-col items-center justify-center pointer-events-none"
+            style={{ left: `${position}%`, transform: 'translateX(-50%)' }}
+          >
+            <div className="w-10 h-10 bg-white border-2 border-emerald-500 flex items-center justify-center text-emerald-600 absolute shadow-[4px_4px_0px_#059669]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M13 17l5-5-5-5M6 17l5-5-5-5"/>
+              </svg>
+            </div>
+          </div>
+
+        </motion.div>
+
+        <div className="mt-8 text-center text-sm font-bold font-mono text-emerald-600 flex items-center justify-center gap-2">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>
+          Hover over the code to compare syntax
         </div>
+
       </div>
     </section>
   )

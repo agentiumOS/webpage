@@ -7,16 +7,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#09090b',
-        surface: '#18181b',
-        border: '#27272a',
-        primary: '#22d3ee',
-        secondary: '#a78bfa',
-        muted: '#a1a1aa',
+        background: '#f8fafc',
+        surface: '#ffffff',
+        border: '#d1fae5',
+        primary: '#059669',
+        secondary: '#065f46',
+        muted: '#64748b',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+      },
+      borderRadius: {
+        'sm': '0px',
+        DEFAULT: '0px',
+        'md': '0px',
+        'lg': '0px',
+        'xl': '0px',
+        '2xl': '0px',
+        '3xl': '0px',
       },
       animation: {
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',

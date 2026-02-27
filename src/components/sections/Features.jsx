@@ -88,10 +88,12 @@ export default function Features() {
             className="lg:col-span-4 md:col-span-6"
             delay={0.2}
           >
-            <ModelAgnosticIcon />
-            <div className="font-mono text-xs md:text-sm text-emerald-400 bg-slate-900 p-3 border-2 border-emerald-500 shadow-[4px_4px_0px_#059669]">
-              <span className="text-pink-400">model</span>: <span className="text-blue-300">openai</span>('gpt-4o')<br/>
-              <span className="text-slate-500 line-through"><span className="text-pink-400/50">model</span>: <span className="text-blue-300/50">anthropic</span>('claude-3.5')</span>
+            <div className="flex flex-col h-full justify-center gap-6">
+              <ModelAgnosticIcon />
+              <div className="font-mono text-xs md:text-sm text-emerald-400 bg-slate-900 p-3 border-2 border-emerald-500 shadow-[4px_4px_0px_#059669]">
+                <span className="text-pink-400">model</span>: <span className="text-blue-300">openai</span>('gpt-4o')<br/>
+                <span className="text-slate-500 line-through"><span className="text-pink-400/50">model</span>: <span className="text-blue-300/50">anthropic</span>('claude-3.5')</span>
+              </div>
             </div>
           </BentoBox>
 

@@ -1,7 +1,6 @@
-export default (ctx) => ({
-  parser: 'postcss-scss',
+export default {
   plugins: {
     tailwindcss: {},
     autoprefixer: {},
   },
-})
+}

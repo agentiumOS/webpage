@@ -105,7 +105,7 @@ export default function Hero() {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 border border-emerald-300 text-sm font-bold text-emerald-800 mb-6 shadow-sm">
               <span className="flex h-2 w-2 bg-emerald-500 animate-pulse"></span>
-              v0.3.14 Now Available
+              v0.3.42 Now Available
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight text-slate-900">
@@ -118,7 +118,7 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
-              <a href="https://xhipment.mintlify.app/quickstart" className="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors shadow-[4px_4px_0px_#065f46] hover:shadow-[2px_2px_0px_#065f46] hover:translate-y-[2px] hover:translate-x-[2px] active:shadow-none active:translate-y-[4px] active:translate-x-[4px] text-center">
+              <a href="https://docs.xhipai.com/quickstart" className="w-full sm:w-auto px-8 py-3.5 bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-colors shadow-[4px_4px_0px_#065f46] hover:shadow-[2px_2px_0px_#065f46] hover:translate-y-[2px] hover:translate-x-[2px] active:shadow-none active:translate-y-[4px] active:translate-x-[4px] text-center">
                 Get Started
               </a>
 

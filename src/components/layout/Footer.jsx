@@ -13,14 +13,14 @@ export default function Footer() {
           </div>
 
           <div className="flex gap-6 text-sm text-slate-500">
-            <a href="https://xhipment.mintlify.app/" className="hover:text-slate-900 transition-colors">Documentation</a>
+            <a href="https://docs.xhipai.com" className="hover:text-slate-900 transition-colors">Documentation</a>
             <a href="https://github.com/xhipment/radar-os" className="hover:text-slate-900 transition-colors">GitHub</a>
             <a href="https://www.npmjs.com/org/radaros" className="hover:text-slate-900 transition-colors">npm</a>
           </div>
         </div>
 
         <div className="mt-8 text-center md:text-left text-sm text-slate-400">
-          <p>&copy; {new Date().getFullYear()} RadarOS. Built by <a href="https://lisa.xhipai.com" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-slate-900 underline decoration-emerald-300 underline-offset-4">Xhip AI</a>.</p>
+          <p>&copy; {new Date().getFullYear()} RadarOS. Built by <a href="https://xhipai.com" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-slate-900 underline decoration-emerald-300 underline-offset-4">Xhip AI</a>.</p>
         </div>
       </div>
     </footer>

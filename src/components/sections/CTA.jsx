@@ -44,7 +44,7 @@ export default function CTA() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a href="https://xhipment.mintlify.app/quickstart" className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg transition-colors shadow-[4px_4px_0px_#10b981] hover:shadow-[2px_2px_0px_#10b981] hover:translate-y-[2px] hover:translate-x-[2px] text-center border border-emerald-400">
+          <a href="https://docs.xhipai.com/quickstart" className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-lg transition-colors shadow-[4px_4px_0px_#10b981] hover:shadow-[2px_2px_0px_#10b981] hover:translate-y-[2px] hover:translate-x-[2px] text-center border border-emerald-400">
             Read the Docs
           </a>
           <a href="https://github.com/xhipment/radar-os" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-4 bg-slate-800 text-white border-2 border-slate-600 hover:border-slate-500 font-bold text-lg transition-colors shadow-[4px_4px_0px_#475569] hover:shadow-[2px_2px_0px_#475569] hover:translate-y-[2px] hover:translate-x-[2px] text-center flex items-center justify-center gap-2">

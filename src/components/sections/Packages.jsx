@@ -2,14 +2,14 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 const packages = [
-  { name: '@radaros/core', description: 'Agents, Teams, Workflows, Models, Tools, and Memory. The only required package.', required: true, version: '0.3.14' },
-  { name: '@radaros/transport', description: 'Express REST API, SSE streaming, and Socket.IO real-time gateways.', required: false, version: '0.3.14' },
-  { name: '@radaros/queue', description: 'BullMQ-based background job execution with progress tracking.', required: false, version: '0.3.14' },
-  { name: '@radaros/browser', description: 'Vision-based browser automation using Playwright and stealth mode.', required: false, version: '0.3.14' },
-  { name: '@radaros/admin', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.', required: false, version: '0.3.14' },
-  { name: '@radaros/eval', description: 'Agent output testing and scoring framework.', required: false, version: '0.1.0' },
-  { name: '@radaros/observability', description: 'Tracing, metrics, structured logging with Langfuse & OTel exporters.', required: false, version: '0.1.0' },
-  { name: '@radaros/studio', description: 'Full-stack developer dashboard for testing, tracing, and managing agents.', required: false, version: '0.1.0' },
+  { name: '@radaros/core', description: 'Agents, Teams, Workflows, Models, Tools, and Memory. The only required package.', required: true, version: '0.3.42' },
+  { name: '@radaros/transport', description: 'Express REST API, SSE streaming, and Socket.IO real-time gateways.', required: false, version: '0.3.42' },
+  { name: '@radaros/queue', description: 'BullMQ-based background job execution with progress tracking.', required: false, version: '0.3.42' },
+  { name: '@radaros/browser', description: 'Vision-based browser automation using Playwright and stealth mode.', required: false, version: '0.3.42' },
+  { name: '@radaros/admin', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.', required: false, version: '0.3.42' },
+  { name: '@radaros/eval', description: 'Agent output testing and scoring framework.', required: false, version: '0.3.42' },
+  { name: '@radaros/observability', description: 'Tracing, metrics, structured logging with Langfuse & OTel exporters.', required: false, version: '0.3.42' },
+  { name: '@radaros/studio', description: 'Full-stack developer dashboard for testing, tracing, and managing agents.', required: false, version: '0.3.42' },
 ]
 
 export default function Packages() {

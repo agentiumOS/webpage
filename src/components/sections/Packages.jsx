@@ -2,14 +2,14 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 const packages = [
-  { name: '@radaros/core', description: 'Agents, Teams, Workflows, Models, Tools, and Memory. The only required package.', required: true, version: '0.3.42' },
-  { name: '@radaros/transport', description: 'Express REST API, SSE streaming, and Socket.IO real-time gateways.', required: false, version: '0.3.42' },
-  { name: '@radaros/queue', description: 'BullMQ-based background job execution with progress tracking.', required: false, version: '0.3.42' },
-  { name: '@radaros/browser', description: 'Vision-based browser automation using Playwright and stealth mode.', required: false, version: '0.3.42' },
-  { name: '@radaros/admin', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.', required: false, version: '0.3.42' },
-  { name: '@radaros/eval', description: 'Agent output testing and scoring framework.', required: false, version: '0.3.42' },
-  { name: '@radaros/observability', description: 'Tracing, metrics, structured logging with Langfuse & OTel exporters.', required: false, version: '0.3.42' },
-  { name: '@radaros/studio', description: 'Full-stack developer dashboard for testing, tracing, and managing agents.', required: false, version: '0.3.42' },
+  { name: '@agentium/core', description: 'Agents, Teams, Workflows, Models, Tools, and Memory. The only required package.', required: true, version: '0.3.42' },
+  { name: '@agentium/transport', description: 'Express REST API, SSE streaming, and Socket.IO real-time gateways.', required: false, version: '0.3.42' },
+  { name: '@agentium/queue', description: 'BullMQ-based background job execution with progress tracking.', required: false, version: '0.3.42' },
+  { name: '@agentium/browser', description: 'Vision-based browser automation using Playwright and stealth mode.', required: false, version: '0.3.42' },
+  { name: '@agentium/admin', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.', required: false, version: '0.3.42' },
+  { name: '@agentium/eval', description: 'Agent output testing and scoring framework.', required: false, version: '0.3.42' },
+  { name: '@agentium/observability', description: 'Tracing, metrics, structured logging with Langfuse & OTel exporters.', required: false, version: '0.3.42' },
+  { name: '@agentium/studio', description: 'Full-stack developer dashboard for testing, tracing, and managing agents.', required: false, version: '0.3.42' },
 ]
 
 export default function Packages() {
@@ -17,7 +17,7 @@ export default function Packages() {
     <section id="packages" className="py-24 relative z-10">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">The RadarOS Ecosystem</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">The Agentium Ecosystem</h2>
           <p className="text-slate-500 text-lg">
             A modular approach — only install the dependencies you actually need.
           </p>
@@ -27,7 +27,7 @@ export default function Packages() {
           {packages.map((pkg, i) => (
             <motion.div
               key={pkg.name}
-              className={`bg-white p-6 border-2 transition-all hover:-translate-y-1 ${pkg.required ? 'border-emerald-500 shadow-[4px_4px_0px_#059669]' : 'border-emerald-200 hover:border-emerald-400 shadow-[4px_4px_0px_#d1fae5] hover:shadow-[4px_4px_0px_#10b981]'}`}
+              className={`bg-white p-6 border-2 transition-all hover:-translate-y-1 ${pkg.required ? 'border-red-500 shadow-[4px_4px_0px_#dc2626]' : 'border-red-200 hover:border-red-400 shadow-[4px_4px_0px_#fecaca] hover:shadow-[4px_4px_0px_#ef4444]'}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -35,7 +35,7 @@ export default function Packages() {
             >
               <div className="flex justify-between items-start mb-3">
                 <h3 className="font-mono text-slate-800 font-semibold text-sm">{pkg.name}</h3>
-                <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold shrink-0 ${pkg.required ? 'bg-emerald-100 text-emerald-700 border border-emerald-300' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>
+                <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 font-bold shrink-0 ${pkg.required ? 'bg-red-100 text-red-700 border border-red-300' : 'bg-slate-100 text-slate-500 border border-slate-200'}`}>
                   {pkg.required ? 'Required' : 'Optional'}
                 </span>
               </div>

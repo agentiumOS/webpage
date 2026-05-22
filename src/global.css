@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
+    --background: 0 0% 99%;
     --foreground: 222 47% 11%;
-    --primary: 160 84% 39%;
+    --primary: 0 72% 51%;
     --primary-foreground: 0 0% 100%;
   }
 
   body {
-    @apply bg-[#f8fafc] text-slate-900;
+    @apply bg-[#fff7f7] text-slate-950;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-white/80 backdrop-blur-md border border-emerald-200;
+    @apply bg-white/80 backdrop-blur-md border border-red-200;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-emerald-800;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-red-600 to-rose-800;
   }
 }
 

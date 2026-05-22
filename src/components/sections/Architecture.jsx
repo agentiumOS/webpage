@@ -8,7 +8,7 @@ export default function Architecture() {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Modular by Design</h2>
           <p className="text-slate-500 text-lg">
-            Install only what you need. RadarOS is built as a set of composable packages — bring your own models, DB, and UI.
+            Install only what you need. Agentium is built as a set of composable packages, so you can bring your own models, database, and UI.
           </p>
         </div>
         <ArchDiagramSVG />

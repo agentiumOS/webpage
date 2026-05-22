@@ -15,40 +15,40 @@ export default function Comparison() {
   ]
 
   return (
-    <section className="py-24 relative z-10 bg-slate-50 border-t border-emerald-200">
+    <section className="py-24 relative z-10 bg-red-50/40 border-t border-red-200">
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Why RadarOS?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Why Agentium?</h2>
           <p className="text-slate-500 text-lg">
-            We built RadarOS to solve the gaps left by other orchestration frameworks.
+            Agentium closes the gaps left by other orchestration frameworks with a production-first TypeScript stack.
           </p>
         </div>
 
         <motion.div
-          className="bg-white border-2 border-emerald-200 overflow-hidden shadow-[8px_8px_0px_#d1fae5]"
+          className="bg-white border-2 border-red-200 overflow-hidden shadow-[8px_8px_0px_#fecaca]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          <div className="grid grid-cols-12 text-sm font-semibold border-b border-emerald-200 bg-emerald-50/60">
+          <div className="grid grid-cols-12 text-sm font-semibold border-b border-red-200 bg-red-50/70">
             <div className="col-span-6 p-4 md:p-6 text-slate-700">Capability</div>
-            <div className="col-span-3 p-4 md:p-6 text-emerald-700 border-l border-emerald-200 flex items-center justify-center">RadarOS</div>
-            <div className="col-span-3 p-4 md:p-6 text-slate-400 border-l border-emerald-200 flex items-center justify-center text-center">Other Frameworks</div>
+            <div className="col-span-3 p-4 md:p-6 text-red-700 border-l border-red-200 flex items-center justify-center">Agentium</div>
+            <div className="col-span-3 p-4 md:p-6 text-slate-400 border-l border-red-200 flex items-center justify-center text-center">Other Frameworks</div>
           </div>
 
-          <div className="divide-y divide-emerald-100">
+          <div className="divide-y divide-red-100">
             {criteria.map((c, i) => (
-              <div key={i} className="grid grid-cols-12 text-sm hover:bg-emerald-50/50 transition-colors">
+              <div key={i} className="grid grid-cols-12 text-sm hover:bg-red-50/60 transition-colors">
                 <div className="col-span-6 p-4 md:p-6 text-slate-700 flex items-center">{c.name}</div>
-                <div className="col-span-3 p-4 md:p-6 border-l border-emerald-100 flex items-center justify-center">
+                <div className="col-span-3 p-4 md:p-6 border-l border-red-100 flex items-center justify-center">
                   {c.radar && (
-                    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                    <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                     </div>
                   )}
                 </div>
-                <div className="col-span-3 p-4 md:p-6 text-slate-400 border-l border-emerald-100 flex items-center justify-center text-center">
+                <div className="col-span-3 p-4 md:p-6 text-slate-400 border-l border-red-100 flex items-center justify-center text-center">
                   <span className="text-xs md:text-sm">{c.others}</span>
                 </div>
               </div>

@@ -4,14 +4,14 @@ import SectionHeader from '../ui/SectionHeader'
 import GlassCard from '../ui/GlassCard'
 
 const packages = [
-  { name: '@agentium/core', group: 'runtime', icon: 'A', description: 'Agents, teams, workflows, models, tools, and memory. The gravitational center.', required: true, version: '1.0.0' },
-  { name: '@agentium/transport', group: 'runtime', icon: 'IO', description: 'Express REST API, SSE streaming, and Socket.IO gateways for production surfaces.', version: '1.0.0' },
-  { name: '@agentium/queue', group: 'runtime', icon: 'Q', description: 'BullMQ background execution with progress, retries, and durable work queues.', version: '1.0.0' },
-  { name: '@agentium/browser', group: 'intelligence', icon: 'BR', description: 'Vision-based browser automation using Playwright and stealth mode.', version: '1.0.0' },
-  { name: '@agentium/admin', group: 'operations', icon: 'AD', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.', version: '1.0.0' },
-  { name: '@agentium/eval', group: 'operations', icon: 'EV', description: 'Agent output testing, scoring, regression checks, and quality gates.', version: '1.0.0' },
-  { name: '@agentium/observability', group: 'operations', icon: 'OB', description: 'Tracing, metrics, structured logs, Langfuse, and OTel exporters.', version: '1.0.0' },
-  { name: '@agentium/studio', group: 'operations', icon: 'ST', description: 'Developer dashboard for testing, tracing, memory, and run inspection.', version: '1.0.0' },
+  { name: '@agentium/core', group: 'runtime', icon: 'A', description: 'Agents, teams, workflows, models, tools, and memory. The gravitational center.', required: true },
+  { name: '@agentium/transport', group: 'runtime', icon: 'IO', description: 'Express REST API, SSE streaming, and Socket.IO gateways for production surfaces.' },
+  { name: '@agentium/queue', group: 'runtime', icon: 'Q', description: 'BullMQ background execution with progress, retries, and durable work queues.' },
+  { name: '@agentium/browser', group: 'intelligence', icon: 'BR', description: 'Vision-based browser automation using Playwright and stealth mode.' },
+  { name: '@agentium/admin', group: 'operations', icon: 'AD', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.' },
+  { name: '@agentium/eval', group: 'operations', icon: 'EV', description: 'Agent output testing, scoring, regression checks, and quality gates.' },
+  { name: '@agentium/observability', group: 'operations', icon: 'OB', description: 'Tracing, metrics, structured logs, Langfuse, and OTel exporters.' },
+  { name: '@agentium/studio', group: 'operations', icon: 'ST', description: 'Developer dashboard for testing, tracing, memory, and run inspection.' },
 ]
 
 export default function Packages() {
@@ -43,10 +43,6 @@ export default function Packages() {
               </div>
               <h3 className={`${pkg.required ? 'mt-8 text-2xl' : 'mt-5 text-base'} font-mono font-bold text-white`}>{pkg.name}</h3>
               <p className={`${pkg.required ? 'mt-4 text-base leading-7' : 'mt-3 text-sm leading-6'} text-slate-400`}>{pkg.description}</p>
-              <div className="mt-5 flex items-center gap-2 font-mono text-xs text-slate-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#b7a7ff]/50" />
-                v{pkg.version}
-              </div>
             </GlassCard>
           ))}
         </div>

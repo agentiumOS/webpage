@@ -13,7 +13,7 @@ export default function Footer() {
           </div>
 
           <div className="flex gap-6 text-sm text-slate-400">
-            <a href="https://docs.agenitum.in" className="transition-colors hover:text-white">Documentation</a>
+            <a href="https://docs.agentium.in" className="transition-colors hover:text-white">Documentation</a>
             <a href="https://github.com/agentiumOS/agentium" className="transition-colors hover:text-white">GitHub</a>
             <a href="#packages" className="transition-colors hover:text-white">Packages</a>
           </div>

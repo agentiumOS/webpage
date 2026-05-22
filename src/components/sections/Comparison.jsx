@@ -1,60 +1,61 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import SectionHeader from '../ui/SectionHeader'
+import GlassCard from '../ui/GlassCard'
+
+const shifts = [
+  {
+    pain: 'Graph sprawl',
+    old: 'Manual nodes, conditional edges, and state channels just to make one agent call a tool.',
+    agentium: 'Declarative agents and workflows read like product code while still exposing typed state transitions.',
+  },
+  {
+    pain: 'Fragmented memory',
+    old: 'Conversation history, user facts, summaries, and retrieval often live in separate adapters.',
+    agentium: 'Seven memory layers travel with the runtime so agents can recall, learn, and cite context consistently.',
+  },
+  {
+    pain: 'Black-box runs',
+    old: 'Debugging means logging every model call, tool result, token count, and handoff manually.',
+    agentium: 'Studio traces every model call, tool hop, browser action, and memory write from the first run.',
+  },
+]
 
 export default function Comparison() {
-  const criteria = [
-    { name: 'TypeScript Native', radar: true, others: 'Partial / Python' },
-    { name: 'Declarative API (No Graph needed)', radar: true, others: 'Varies' },
-    { name: 'Built-in Teams & Workflows', radar: true, others: 'Requires Custom Wiring' },
-    { name: 'Express & Socket.IO Transports', radar: true, others: 'Paid / External' },
-    { name: 'Playwright Browser Agents', radar: true, others: 'No' },
-    { name: 'OpenAI & Google Voice Agents', radar: true, others: 'No' },
-    { name: 'BullMQ Background Jobs', radar: true, others: 'No' },
-    { name: 'Developer Studio / Dashboard', radar: true, others: 'No' },
-    { name: 'Runtime Admin CRUD API', radar: true, others: 'No' },
-  ]
-
   return (
-    <section className="py-24 relative z-10 bg-red-50/40 border-t border-red-200">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Why Agentium?</h2>
-          <p className="text-slate-500 text-lg">
-            Agentium closes the gaps left by other orchestration frameworks with a production-first TypeScript stack.
-          </p>
-        </div>
+    <section className="section-shell border-b border-white/10 bg-slate-950">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_80%,rgba(109,95,147,0.08),transparent_36rem)]" />
+      <div className="container relative z-10 mx-auto px-6">
+        <SectionHeader eyebrow="Why Agentium" title="Less framework ceremony. More runtime signal.">
+          Agentium replaces the usual orchestration overhead with primitives that keep code readable and production behavior observable.
+        </SectionHeader>
 
-        <motion.div
-          className="bg-white border-2 border-red-200 overflow-hidden shadow-[8px_8px_0px_#fecaca]"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="grid grid-cols-12 text-sm font-semibold border-b border-red-200 bg-red-50/70">
-            <div className="col-span-6 p-4 md:p-6 text-slate-700">Capability</div>
-            <div className="col-span-3 p-4 md:p-6 text-red-700 border-l border-red-200 flex items-center justify-center">Agentium</div>
-            <div className="col-span-3 p-4 md:p-6 text-slate-400 border-l border-red-200 flex items-center justify-center text-center">Other Frameworks</div>
-          </div>
-
-          <div className="divide-y divide-red-100">
-            {criteria.map((c, i) => (
-              <div key={i} className="grid grid-cols-12 text-sm hover:bg-red-50/60 transition-colors">
-                <div className="col-span-6 p-4 md:p-6 text-slate-700 flex items-center">{c.name}</div>
-                <div className="col-span-3 p-4 md:p-6 border-l border-red-100 flex items-center justify-center">
-                  {c.radar && (
-                    <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-600">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
-                    </div>
-                  )}
+        <div className="mt-16 grid gap-6 lg:grid-cols-3">
+          {shifts.map((shift, index) => (
+            <GlassCard
+              key={shift.pain}
+              className="p-6"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08 }}
+            >
+              <div className="mb-5 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+                {shift.pain}
+              </div>
+              <div className="space-y-4">
+                <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+                  <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">typical stack</p>
+                  <p className="text-sm leading-6 text-slate-400">{shift.old}</p>
                 </div>
-                <div className="col-span-3 p-4 md:p-6 text-slate-400 border-l border-red-100 flex items-center justify-center text-center">
-                  <span className="text-xs md:text-sm">{c.others}</span>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-4">
+                  <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-slate-300">with Agentium</p>
+                  <p className="text-sm leading-6 text-slate-100">{shift.agentium}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </motion.div>
+            </GlassCard>
+          ))}
+        </div>
       </div>
     </section>
   )

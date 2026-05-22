@@ -15,7 +15,7 @@ import CTA from './components/sections/CTA'
 function App() {
   return (
     <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
-      <div className="min-h-screen flex flex-col font-sans overflow-x-hidden relative selection:bg-red-200 selection:text-red-950">
+      <div className="min-h-screen flex flex-col font-sans overflow-x-hidden relative bg-ai-ink text-slate-100 selection:bg-white selection:text-slate-950">
         <Navbar />
         <main className="flex-1 flex flex-col w-full relative z-10">
           <Hero />

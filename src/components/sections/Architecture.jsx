@@ -1,16 +1,15 @@
 import React from 'react'
 import ArchDiagramSVG from '../graphics/ArchDiagramSVG'
+import SectionHeader from '../ui/SectionHeader'
 
 export default function Architecture() {
   return (
-    <section id="architecture" className="py-24 relative z-10 bg-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">Modular by Design</h2>
-          <p className="text-slate-500 text-lg">
-            Install only what you need. Agentium is built as a set of composable packages, so you can bring your own models, database, and UI.
-          </p>
-        </div>
+    <section id="architecture" className="section-shell border-b border-white/10 bg-[#080B1D]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(109,95,147,0.08),transparent_36rem)]" />
+      <div className="container relative z-10 mx-auto px-6">
+        <SectionHeader eyebrow="Architecture graph" title="Composable packages orbit one typed core.">
+          Install only the runtime pieces you need. Agentium keeps agents, memory, workflows, transports, browser automation, and Studio traces connected through the same core contract.
+        </SectionHeader>
         <ArchDiagramSVG />
       </div>
     </section>

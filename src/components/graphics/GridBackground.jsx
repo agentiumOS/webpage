@@ -6,12 +6,13 @@ export default function GridBackground() {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(circle at center, #fecaca 1px, transparent 1px)`,
-          backgroundSize: '24px 24px',
-          opacity: 0.5
+          backgroundImage: `linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px)`,
+          backgroundSize: '42px 42px',
+          maskImage: 'linear-gradient(to bottom, black, transparent 85%)'
         }}
       />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-red-200/50 blur-[120px] rounded-full" />
+      <div className="absolute left-1/2 top-0 h-[420px] w-full max-w-4xl -translate-x-1/2 rounded-full bg-[#6d5f93]/10 blur-[140px]" />
+      <div className="absolute right-[-10%] top-24 h-[320px] w-[320px] rounded-full bg-[#36566b]/10 blur-[130px]" />
     </div>
   )
 }

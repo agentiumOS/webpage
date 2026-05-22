@@ -1,45 +1,40 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
-const usps = [
-  "Declarative TypeScript",
-  "Zero Python Required",
-  "7-Layer Unified Memory",
-  "Built-in Observability",
-  "Browser Automation",
-  "Realtime Voice Agents",
-  "Provider Agnostic",
-  "No Graph Theory"
+const capabilities = [
+  { label: 'Typed agents', value: 'TS' },
+  { label: 'Unified memory', value: '7L' },
+  { label: 'Tool routing', value: 'API' },
+  { label: 'Browser actions', value: 'DOM' },
+  { label: 'Voice loops', value: 'RT' },
+  { label: 'Trace studio', value: 'OBS' },
+  { label: 'Workflow state', value: 'FSM' },
 ]
 
 export default function ModelMarquee() {
   return (
-    <div className="w-full overflow-hidden bg-slate-950 border-y-4 border-red-500 py-6 relative z-20">
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none"></div>
-      
-      <div className="flex whitespace-nowrap">
-        <motion.div
-          className="flex items-center gap-16 px-6"
-          animate={{ x: [0, -1400] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 35,
-              ease: "linear",
-            },
-          }}
-        >
-          {/* Double the array for seamless looping */}
-          {[...usps, ...usps].map((usp, i) => (
-            <div key={i} className="flex items-center gap-4 group">
-              <div className="w-2 h-2 bg-red-400 shadow-[0_0_10px_rgba(248,113,113,0.8)] group-hover:scale-150 transition-transform"></div>
-              <span className="font-mono text-lg font-bold text-white tracking-widest group-hover:text-red-400 transition-colors uppercase">{usp}</span>
+    <section className="relative z-20 overflow-hidden border-y border-white/10 bg-slate-950/80 py-6 backdrop-blur-xl">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(109,95,147,0.06),transparent_35rem)]" />
+      <div className="absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-slate-950 to-transparent" />
+      <div className="absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-slate-950 to-transparent" />
+
+      <motion.div
+        className="relative flex w-max items-center gap-4 px-6"
+        animate={{ x: [0, -1180] }}
+        transition={{ repeat: Infinity, repeatType: 'loop', duration: 32, ease: 'linear' }}
+      >
+        {[...capabilities, ...capabilities, ...capabilities].map((capability, index) => (
+          <div key={`${capability.label}-${index}`} className="group flex items-center gap-4 rounded-full border border-white/10 bg-white/[0.035] px-4 py-3 backdrop-blur transition hover:border-white/20 hover:bg-white/[0.06]">
+            <div className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/[0.04] font-mono text-xs font-black text-slate-300">
+              {capability.value}
             </div>
-          ))}
-        </motion.div>
-      </div>
-    </div>
+            <div className="h-px w-12 bg-white/10" />
+            <span className="whitespace-nowrap font-mono text-sm font-bold uppercase tracking-[0.2em] text-slate-300 transition group-hover:text-white">
+              {capability.label}
+            </span>
+          </div>
+        ))}
+      </motion.div>
+    </section>
   )
 }

@@ -2,14 +2,14 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 const packages = [
-  { name: '@agentium/core', description: 'Agents, Teams, Workflows, Models, Tools, and Memory. The only required package.', required: true, version: '0.3.42' },
-  { name: '@agentium/transport', description: 'Express REST API, SSE streaming, and Socket.IO real-time gateways.', required: false, version: '0.3.42' },
-  { name: '@agentium/queue', description: 'BullMQ-based background job execution with progress tracking.', required: false, version: '0.3.42' },
-  { name: '@agentium/browser', description: 'Vision-based browser automation using Playwright and stealth mode.', required: false, version: '0.3.42' },
-  { name: '@agentium/admin', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.', required: false, version: '0.3.42' },
-  { name: '@agentium/eval', description: 'Agent output testing and scoring framework.', required: false, version: '0.3.42' },
-  { name: '@agentium/observability', description: 'Tracing, metrics, structured logging with Langfuse & OTel exporters.', required: false, version: '0.3.42' },
-  { name: '@agentium/studio', description: 'Full-stack developer dashboard for testing, tracing, and managing agents.', required: false, version: '0.3.42' },
+  { name: '@agentium/core', description: 'Agents, Teams, Workflows, Models, Tools, and Memory. The only required package.', required: true, version: '1.0.0' },
+  { name: '@agentium/transport', description: 'Express REST API, SSE streaming, and Socket.IO real-time gateways.', required: false, version: '1.0.0' },
+  { name: '@agentium/queue', description: 'BullMQ-based background job execution with progress tracking.', required: false, version: '1.0.0' },
+  { name: '@agentium/browser', description: 'Vision-based browser automation using Playwright and stealth mode.', required: false, version: '1.0.0' },
+  { name: '@agentium/admin', description: 'Runtime CRUD API for dynamically managing agents, teams, and workflows.', required: false, version: '1.0.0' },
+  { name: '@agentium/eval', description: 'Agent output testing and scoring framework.', required: false, version: '1.0.0' },
+  { name: '@agentium/observability', description: 'Tracing, metrics, structured logging with Langfuse & OTel exporters.', required: false, version: '1.0.0' },
+  { name: '@agentium/studio', description: 'Full-stack developer dashboard for testing, tracing, and managing agents.', required: false, version: '1.0.0' },
 ]
 
 export default function Packages() {

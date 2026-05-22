@@ -105,7 +105,7 @@ export default function Hero() {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-300 text-sm font-bold text-red-800 mb-6 shadow-sm">
               <span className="flex h-2 w-2 bg-red-500 animate-pulse"></span>
-              Agentium v0.3.42 is live
+              Agentium v1.0.0 is live
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight text-slate-900">

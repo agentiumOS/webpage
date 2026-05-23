@@ -19,8 +19,22 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-sm text-slate-500 md:text-left">
-          <p>&copy; {new Date().getFullYear()} Agentium. Built for production AI orchestration.</p>
+        <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:items-center md:justify-between">
+          <p className="text-center text-sm text-slate-500 md:text-left">
+            &copy; {new Date().getFullYear()} Agentium. Built for production AI orchestration.
+          </p>
+          <a
+            href="https://www.producthunt.com/products/agentium-typescript?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-agentium-ai-agent-runtime"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              alt="Agentium - AI Agent Runtime - Agentium brings models, memory, tools into one TS runtime. | Product Hunt"
+              width="250"
+              height="54"
+              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1153560&theme=dark&t=1779513937547"
+            />
+          </a>
         </div>
       </div>
     </footer>

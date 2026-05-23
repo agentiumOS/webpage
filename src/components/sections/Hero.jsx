@@ -89,9 +89,23 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', stiffness: 100, damping: 20 }}
           >
-            <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.045] px-4 py-2 text-sm font-bold text-slate-200 backdrop-blur">
-              <RadarPulseSVG className="h-5 w-5" />
-              Agentium v1.0.0 is live
+            <div className="mb-7 flex flex-col items-center gap-4 lg:items-start">
+              <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.045] px-4 py-2 text-sm font-bold text-slate-200 backdrop-blur">
+                <RadarPulseSVG className="h-5 w-5" />
+                Agentium v1.0.0 is live
+              </div>
+              <a
+                href="https://www.producthunt.com/products/agentium-typescript?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-agentium-ai-agent-runtime"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  alt="Agentium - AI Agent Runtime - Agentium brings models, memory, tools into one TS runtime. | Product Hunt"
+                  width="250"
+                  height="54"
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1153560&theme=light&t=1779513937547"
+                />
+              </a>
             </div>
 
             <h1 className="mx-auto max-w-4xl text-4xl font-semibold tracking-[-0.04em] text-white md:text-5xl lg:mx-0 lg:text-6xl">

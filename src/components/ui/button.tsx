@@ -9,7 +9,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-ink text-canvas hover:bg-dark-surface",
-        citron: "bg-citron text-ink hover:bg-citron-hover",
+        citron: "bg-citron text-canvas hover:bg-citron-hover",
         secondary:
           "bg-transparent text-ink border-control-line hover:bg-surface-muted",
         "secondary-dark":

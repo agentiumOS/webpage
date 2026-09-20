@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { Icon } from "@/components/graphics/icon";
 import { RevealGroup, RevealItem } from "@/components/interactive/reveal";
+import { NotFoundEvent } from "@/components/analytics/not-found-event";
 
 export default function NotFound() {
   return (
-    <section aria-labelledby="nf-title" className="section-y-lg bg-canvas">
+    <section id="not-found" aria-labelledby="nf-title" className="section-y-lg bg-canvas">
+      <NotFoundEvent />
       <Container className="max-w-[720px]!">
         <RevealGroup>
           <RevealItem>

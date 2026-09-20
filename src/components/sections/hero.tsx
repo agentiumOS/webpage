@@ -4,7 +4,7 @@ import { Container } from "@/components/layout/container";
 import { Eyebrow } from "@/components/layout/section-header";
 import { SmartLink } from "@/components/layout/smart-link";
 import { Artwork } from "@/components/graphics/artwork";
-import { CopyButton } from "@/components/interactive/copy-button";
+import { InstallCopyButton } from "@/components/interactive/install-copy-button";
 import { UspMarquee } from "@/components/interactive/usp-marquee";
 import { Icon } from "@/components/graphics/icon";
 import { Reveal } from "@/components/interactive/reveal";
@@ -17,15 +17,15 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate overflow-hidden bg-canvas"
     >
-      {/* Soft citron wash in the top-right corner, fading into the canvas. */}
+      {/* Soft blue wash in the top-right corner, fading into the canvas. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px] bg-[radial-gradient(60%_55%_at_82%_-10%,rgb(214_242_104/0.22),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px] bg-[radial-gradient(60%_55%_at_82%_-10%,rgb(47_107_255/0.16),transparent_70%)]"
       />
       {/* Hairline grid, masked so it only shows near the top of the section. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[440px] bg-[linear-gradient(to_right,rgb(32_37_33/0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgb(32_37_33/0.035)_1px,transparent_1px)] bg-size-[56px_56px] mask-[linear-gradient(to_bottom,black,transparent_85%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[440px] bg-[linear-gradient(to_right,rgb(18_24_38/0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgb(18_24_38/0.04)_1px,transparent_1px)] bg-size-[56px_56px] mask-[linear-gradient(to_bottom,black,transparent_85%)]"
       />
 
       <Container className="pt-12 pb-10 lg:pt-[72px] lg:pb-[56px]">
@@ -58,14 +58,14 @@ export function Hero() {
                 size="hero"
                 className="w-full shadow-[0_10px_24px_-14px_rgb(32_37_33/0.55)] xs:w-auto"
               >
-                <a href={h.primary.href}>
+                <a href={h.primary.href} data-track="cta_click" data-track-cta-id="hero_primary" data-track-location="hero">
                   <Icon name="code" className="size-4" />
                   {h.primary.label}
                   <Icon name="arrowRight" data-arrow="" className="size-4" />
                 </a>
               </Button>
               <Button asChild size="hero" variant="secondary" className="w-full xs:w-auto">
-                <SmartLink href={h.secondary.href}>
+                <SmartLink href={h.secondary.href} data-track="cta_click" data-track-cta-id="hero_secondary" data-track-location="hero">
                   <Icon name="layers" className="size-4" />
                   {h.secondary.label}
                   <Icon name="arrowRight" data-arrow="" className="size-4" />
@@ -81,7 +81,7 @@ export function Hero() {
                   </span>
                   {h.install}
                 </code>
-                <CopyButton text={h.install} label="Copy install command" />
+                <InstallCopyButton text={h.install} location="hero" />
               </div>
               <p className="type-small mt-2.5 text-ink-muted">{h.helper}</p>
             </div>
@@ -92,10 +92,10 @@ export function Hero() {
               {/* Halo behind the panel so it lifts off the canvas. */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -inset-8 -z-10 rounded-[48px] bg-[radial-gradient(55%_55%_at_65%_35%,rgb(214_242_104/0.32),transparent_72%)] blur-2xl"
+                className="pointer-events-none absolute -inset-8 -z-10 rounded-[48px] bg-[radial-gradient(55%_55%_at_65%_35%,rgb(47_107_255/0.22),transparent_72%)] blur-2xl"
               />
 
-              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[24px] border border-line bg-[#F1F0E8] shadow-[0_32px_64px_-40px_rgb(32_37_33/0.45),0_1px_0_rgb(255_255_255/0.8)_inset] lg:min-h-[440px]">
+              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[24px] border border-line bg-surface-muted shadow-[0_32px_64px_-40px_rgb(18_24_38/0.38),0_1px_0_rgb(255_255_255/0.8)_inset] lg:min-h-[440px]">
                 <Artwork
                   id="stack"
                   priority
@@ -111,7 +111,7 @@ export function Hero() {
                 {/* Ground vignette. */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-[#E7E6DD]/80 to-transparent"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-surface-muted/80 to-transparent"
                 />
 
                 {/* Package badge. */}

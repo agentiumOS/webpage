@@ -16,17 +16,28 @@ import {
   JudgeGraphic,
   ToolAgentGraphic,
 } from "@/components/graphics/jev-way-graphics";
+import { JsonLd } from "@/components/seo/json-ld";
+import { routeManifest } from "@/content/route-manifest";
+import {
+  JEV_ID,
+  TYPESAFE_ID,
+  breadcrumb,
+  globalGraph,
+  jevSoftware,
+  typesafeOrganization,
+  webPage,
+} from "@/lib/structured-data";
 import { Reveal, RevealGroup, RevealItem } from "@/components/interactive/reveal";
 
+const route = routeManifest["/jev"];
+
 export const metadata: Metadata = {
-  title: { absolute: "Jev + Agentium — Put decisions to work" },
-  description:
-    "Use Jev for typed decisions, judgment tools, and evaluation inside your Agentium application.",
+  title: { absolute: route.title },
+  description: route.description,
   alternates: { canonical: "/jev" },
   openGraph: {
-    title: "Jev + Agentium — Put decisions to work",
-    description:
-      "Use Jev for typed decisions, judgment tools, and evaluation inside your Agentium application.",
+    title: route.title,
+    description: route.description,
     url: "/jev",
   },
 };
@@ -40,8 +51,17 @@ export default async function JevPage() {
 
   return (
     <>
+      <JsonLd
+        graph={[
+          ...globalGraph(),
+          typesafeOrganization(),
+          jevSoftware(),
+          webPage({ path: "/jev", mentions: [{ "@id": JEV_ID }, { "@id": TYPESAFE_ID }] }),
+          breadcrumb("/jev"),
+        ]}
+      />
       {/* Hero */}
-      <section aria-labelledby="jev-hero-title" className="bg-ink text-canvas">
+      <section id="jev-hero" aria-labelledby="jev-hero-title" className="bg-ink text-canvas">
         <Container className="pt-12 pb-12 lg:pt-[72px] lg:pb-[64px]">
           <div className="grid-main items-center">
             <RevealGroup className="md:col-span-6 lg:col-span-7">
@@ -54,16 +74,19 @@ export default async function JevPage() {
               <RevealItem as="p" className="type-lead mt-6 max-w-[48ch] text-dark-muted">
                 {p.hero.lead}
               </RevealItem>
+              <RevealItem as="p" className="type-body mt-4 max-w-[52ch] text-dark-muted">
+                {p.hero.ownership}
+              </RevealItem>
               <RevealItem className="mt-8 flex flex-col gap-3 xs:flex-row xs:flex-wrap">
                 <Button asChild variant="citron" size="hero" className="w-full xs:w-auto">
-                  <a href={p.hero.primary.href}>
+                  <a href={p.hero.primary.href} data-track="cta_click" data-track-cta-id="jev_hero_primary" data-track-location="hero">
                     <Icon name="target" className="size-4" />
                     {p.hero.primary.label}
                     <Icon name="arrowRight" data-arrow="" className="size-4" />
                   </a>
                 </Button>
                 <Button asChild variant="secondary-dark" size="hero" className="w-full xs:w-auto">
-                  <a href={p.hero.secondary.href}>
+                  <a href={p.hero.secondary.href} data-track="cta_click" data-track-cta-id="jev_hero_secondary" data-track-location="hero">
                     <Icon name="layers" className="size-4" />
                     {p.hero.secondary.label}
                     <Icon name="arrowRight" data-arrow="" className="size-4" />
@@ -207,6 +230,20 @@ export default async function JevPage() {
             <Reveal delay={0.08}>
               <FaqAccordion items={p.details.items} className="mt-10" />
             </Reveal>
+            <nav aria-labelledby="related-title" className="mt-12">
+              <h3 id="related-title" className="type-h3 text-ink">
+                {p.related.heading}
+              </h3>
+              <ul className="mt-4 flex flex-col">
+                {p.related.links.map((l) => (
+                  <li key={l.href} className="border-t border-line last:border-b">
+                    <ArrowLink href={l.href} external={l.external} className="w-full justify-between py-3">
+                      {l.label}
+                    </ArrowLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </Container>
       </section>
@@ -226,14 +263,14 @@ export default async function JevPage() {
               </RevealGroup>
               <Reveal delay={0.12} className="flex flex-col gap-3 xs:flex-row xs:flex-wrap lg:col-span-5 lg:justify-end">
                 <Button asChild variant="citron" className="w-full xs:w-auto">
-                  <a href={p.finalCta.primary.href}>
+                  <a href={p.finalCta.primary.href} data-track="cta_click" data-track-cta-id="jev_final_primary" data-track-location="final_cta">
                     <Icon name="bookOpen" className="size-4" />
                     {p.finalCta.primary.label}
                     <Icon name="arrowRight" data-arrow="" className="size-4" />
                   </a>
                 </Button>
                 <Button asChild variant="secondary-dark" className="w-full xs:w-auto">
-                  <Link href={p.finalCta.secondary.href}>
+                  <Link href={p.finalCta.secondary.href} data-track="cta_click" data-track-cta-id="jev_final_secondary" data-track-location="final_cta">
                     <Icon name="layers" className="size-4" />
                     {p.finalCta.secondary.label}
                   </Link>

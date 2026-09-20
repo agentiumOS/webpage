@@ -14,6 +14,11 @@ import { LazyMotion, MotionConfig, domAnimation, m, useReducedMotion, type Varia
  * No clip-path — a leftover inset clip was cutting Faculty Glyphic’s ink.
  * Other elements keep the softer fade-up.
  *
+ * Every animated node carries `data-reveal`. Server HTML ships Motion's hidden
+ * inline styles, and `globals.css` neutralises them unless `<html class="js">`
+ * (set by an inline script in the root layout before paint). Without
+ * JavaScript, all content is visible; with it, the reveal runs as authored.
+ *
  * Full `transform` strings (not `y`/`scale` shorthands) so Motion can hand the
  * animation to the compositor. `MotionConfig reducedMotion="user"` plus an
  * explicit reduced-motion branch: headings keep only the opacity fade.
@@ -141,7 +146,7 @@ export function Reveal({
         className={className}
         {...rest}
       >
-        <Inner className="block origin-left" variants={{ hidden, visible: shown }}>
+        <Inner data-reveal="" className="block origin-left overflow-visible" variants={{ hidden, visible: shown }}>
           {children}
         </Inner>
       </Comp>
@@ -150,6 +155,7 @@ export function Reveal({
 
   return (
     <Comp
+      data-reveal=""
       initial={hidden}
       whileInView={shown}
       viewport={VIEWPORT}
@@ -201,7 +207,7 @@ export function RevealItem({ as = "div", kind, className, children, ...rest }: B
         className={className}
         {...rest}
       >
-        <Inner className="block origin-left" variants={variants}>
+        <Inner data-reveal="" className="block origin-left overflow-visible" variants={variants}>
           {children}
         </Inner>
       </Comp>
@@ -209,7 +215,7 @@ export function RevealItem({ as = "div", kind, className, children, ...rest }: B
   }
 
   return (
-    <Comp variants={variants} className={className} {...rest}>
+    <Comp data-reveal="" variants={variants} className={className} {...rest}>
       {children}
     </Comp>
   );

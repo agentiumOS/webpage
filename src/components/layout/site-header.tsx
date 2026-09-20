@@ -74,11 +74,13 @@ export function SiteHeader() {
 
 function AnnouncementStrip() {
   return (
-    <div id="top" className="bg-[#E4F0C9] text-ink">
+    <div id="top" className="bg-citron/14 text-ink">
       <Container className="flex min-h-11 flex-wrap items-center justify-center gap-x-3 gap-y-1 py-2 text-center font-mono text-[11px] leading-[18px] tracking-[0.02em] lg:min-h-9 lg:py-0">
         <span>{site.announcement.copy}</span>
         <Link
           href={site.announcement.href}
+          data-track="announcement_click"
+          data-track-campaign="jev_launch"
           className="arrow-shift link-underline inline-flex min-h-7 items-center gap-1.5 font-medium text-citron-ink"
         >
           <Icon name="target" className="size-3.5" />
@@ -133,6 +135,8 @@ function DesktopNav() {
         <SmartLink
           key={link.label}
           href={link.href}
+          data-track="nav_click"
+          data-track-location="header"
           className="type-ui inline-flex h-11 items-center gap-2 rounded-[8px] px-3 text-ink hover:bg-surface-muted"
         >
           <Icon name={navLinkIcons[link.label] ?? "cube"} className="size-4" />
@@ -140,7 +144,7 @@ function DesktopNav() {
         </SmartLink>
       ))}
       <Button asChild size="compact" className="ml-2">
-        <a href={site.nav.cta.href}>
+        <a href={site.nav.cta.href} data-track="cta_click" data-track-cta-id="nav_start_building" data-track-location="header">
           <Icon name="code" className="size-4" />
           {site.nav.cta.label}
           <Icon name="arrowRight" data-arrow="" className="size-4" />
@@ -213,6 +217,8 @@ function MobileNav() {
                 <li key={link.label}>
                   <SmartLink
                     href={link.href}
+                    data-track="nav_click"
+                    data-track-location="mobile_nav"
                     onClick={() => setOpen(false)}
                     className="flex min-h-12 items-center gap-3 rounded-[8px] px-3 text-[15px] font-medium text-ink hover:bg-surface-muted"
                   >
@@ -224,7 +230,7 @@ function MobileNav() {
             </ul>
             <div className="mt-auto px-3 pt-6">
               <Button asChild className="w-full">
-                <a href={site.nav.cta.href}>
+                <a href={site.nav.cta.href} data-track="cta_click" data-track-cta-id="mobile_start_building" data-track-location="mobile_nav">
                   <Icon name="code" className="size-4" />
                   {site.nav.cta.label}
                   <Icon name="arrowRight" data-arrow="" className="size-4" />

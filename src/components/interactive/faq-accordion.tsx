@@ -1,11 +1,26 @@
 "use client";
 
+import * as React from "react";
 import { Accordion as AccordionPrimitive } from "radix-ui";
 import { cn } from "cn";
 import { Icon } from "@/components/graphics/icon";
+import { track } from "@/lib/analytics";
 
 type Item = { q: string; a: string };
 
+function slug(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 60);
+}
+
+/**
+ * Answers are always rendered (`forceMount`) so the question/answer pairs are
+ * present in the initial HTML for crawlers and answer engines; closed panels
+ * are hidden with CSS (see `[data-slot="faq-content"]` in globals.css).
+ */
 export function FaqAccordion({
   items,
   className,
@@ -16,12 +31,31 @@ export function FaqAccordion({
   headingLevel?: "h3" | "h4";
 }) {
   const Heading = headingLevel;
+  const ids = React.useMemo(() => items.map((item) => slug(item.q)), [items]);
+  const [value, setValue] = React.useState<string>("");
+
+  const onValueChange = (next: string) => {
+    if (next) {
+      track("faq_toggle", { question_id: next, state: "open" });
+    } else if (value) {
+      track("faq_toggle", { question_id: value, state: "closed" });
+    }
+    setValue(next);
+  };
+
   return (
-    <AccordionPrimitive.Root type="single" collapsible className={cn("w-full", className)}>
+    <AccordionPrimitive.Root
+      type="single"
+      collapsible
+      value={value}
+      onValueChange={onValueChange}
+      className={cn("w-full", className)}
+    >
       {items.map((item, i) => (
         <AccordionPrimitive.Item
           key={item.q}
-          value={`item-${i}`}
+          value={ids[i]}
+          id={`faq-${ids[i]}`}
           className="border-t border-line last:border-b"
         >
           <AccordionPrimitive.Header asChild>
@@ -35,7 +69,11 @@ export function FaqAccordion({
               </AccordionPrimitive.Trigger>
             </Heading>
           </AccordionPrimitive.Header>
-          <AccordionPrimitive.Content className="overflow-hidden motion-safe:data-[state=open]:animate-faq-down motion-safe:data-[state=closed]:animate-faq-up">
+          <AccordionPrimitive.Content
+            forceMount
+            data-slot="faq-content"
+            className="overflow-hidden motion-safe:data-[state=open]:animate-faq-down"
+          >
             <p className="max-w-[70ch] px-6 pb-6 text-[15px] leading-[1.7] text-ink-muted">{item.a}</p>
           </AccordionPrimitive.Content>
         </AccordionPrimitive.Item>

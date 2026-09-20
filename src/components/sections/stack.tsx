@@ -28,7 +28,7 @@ export function Stack() {
           lead={s.lead}
         />
 
-        <Reveal className="relative mt-10 rounded-[24px] border border-line bg-[#F1F0E8] p-4 sm:p-5 lg:p-6">
+        <Reveal className="relative mt-10 rounded-[24px] border border-line bg-surface-muted p-4 sm:p-5 lg:p-6">
           <div className="mb-5 flex items-center justify-between gap-4">
             <p className="type-eyebrow text-ink-muted">{s.frameLabel}</p>
             <p className="type-eyebrow text-ink-muted">{s.modules.length} connected parts</p>
@@ -86,7 +86,7 @@ function Connector() {
               i === 2 && "right-1/2 left-0",
             )}
           />
-          <span className="absolute top-1/2 left-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink ring-[5px] ring-[#F1F0E8]" />
+          <span className="absolute top-1/2 left-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink ring-[5px] ring-surface-muted" />
         </div>
       ))}
     </div>
@@ -111,7 +111,7 @@ function Cell({
         )}
       >
         <div className="flex items-start justify-between gap-3">
-          <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-ink text-citron transition-colors duration-160 ease-(--ease-state) group-hover/cell:bg-citron group-hover/cell:text-ink">
+          <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-[#F1F2F4] text-ink transition-colors duration-160 ease-(--ease-state) group-hover/cell:bg-citron group-hover/cell:text-canvas">
             <Icon name={module.icon as IconName} variant="bulk" className="size-5" />
           </span>
           <span className="type-eyebrow text-ink-muted">{String(index + 1).padStart(2, "0")}</span>

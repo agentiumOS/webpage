@@ -14,6 +14,7 @@ import {
 import { integrationsPage } from "@/content/site";
 import { categoryIcons } from "@/components/graphics/nav-icons";
 import type { IconName } from "@/components/graphics/icon";
+import { track } from "@/lib/analytics";
 
 type Category = IntegrationCategory | "all";
 
@@ -42,11 +43,14 @@ export function IntegrationSearch() {
   const [announced, setAnnounced] = React.useState("");
   const debounce = React.useRef<number | null>(null);
 
-  // Back/forward: sync local state from the URL.
-  React.useEffect(() => {
+  // Back/forward: when the URL-derived state changes, adopt it during render
+  // (React's "adjusting state when a prop changes" pattern; no effect needed).
+  const [seenUrlState, setSeenUrlState] = React.useState(urlState);
+  if (seenUrlState.q !== urlState.q || seenUrlState.category !== urlState.category) {
+    setSeenUrlState(urlState);
     setQuery(urlState.q);
     setCategory(urlState.category);
-  }, [urlState.q, urlState.category]);
+  }
 
   // Normalize invalid category in URL once on mount.
   React.useEffect(() => {
@@ -62,6 +66,9 @@ export function IntegrationSearch() {
     if (debounce.current) window.clearTimeout(debounce.current);
     debounce.current = window.setTimeout(() => {
       writeUrl(query, category);
+      if (query.trim().length >= 2) {
+        track("search", { search_term: query.trim(), results_count: results.length, category });
+      }
       setAnnounced(
         results.length === 0
           ? p.empty.heading
@@ -121,7 +128,13 @@ export function IntegrationSearch() {
                 key={f.id}
                 type="button"
                 aria-pressed={pressed}
-                onClick={() => setCategory(f.id as Category)}
+                onClick={() => {
+                  setCategory(f.id as Category);
+                  track("integration_filter", {
+                    category: f.id,
+                    results_count: filterIntegrations(query, f.id as Category).length,
+                  });
+                }}
                 className={cn(
                   "inline-flex h-11 items-center gap-2 rounded-full border px-4 type-ui transition-colors duration-[160ms] ease-[var(--ease-state)]",
                   pressed
@@ -165,6 +178,9 @@ export function IntegrationSearch() {
             <li key={item.id}>
               <a
                 href={item.docsUrl}
+                data-track="integration_open"
+                data-track-integration-id={item.id}
+                data-track-category={item.category}
                 className="card-hover arrow-shift flex min-h-[180px] flex-col rounded-[16px] border border-line bg-surface p-6"
               >
                 <div className="flex items-start justify-between gap-3">

@@ -5,6 +5,7 @@ import { cn } from "cn";
 import { Tabs as TabsPrimitive } from "radix-ui";
 import { CopyButton } from "./copy-button";
 import { Icon } from "@/components/graphics/icon";
+import { track } from "@/lib/analytics";
 
 export type HighlightedSample = {
   id: string;
@@ -32,7 +33,10 @@ export function CodeTabs({ samples, className, label = "Code examples" }: Props)
   return (
     <TabsPrimitive.Root
       value={value}
-      onValueChange={setValue}
+      onValueChange={(v) => {
+        setValue(v);
+        track("code_tab_select", { sample_id: v, link_location: "section:code" });
+      }}
       className={cn("flex flex-col", className)}
     >
       <div className="overflow-hidden rounded-[18px] border border-dark-surface bg-ink text-canvas">
@@ -62,6 +66,7 @@ export function CodeTabs({ samples, className, label = "Code examples" }: Props)
               text={active.code}
               label={`Copy ${active.filename}`}
               tone="dark"
+              onCopied={() => track("code_copy", { sample_id: active.id })}
             />
           </div>
         </div>

@@ -4,6 +4,9 @@ import { exampleRecipes } from "@/content/examples";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { Icon, type IconName } from "@/components/graphics/icon";
+import { JsonLd } from "@/components/seo/json-ld";
+import { routeManifest } from "@/content/route-manifest";
+import { breadcrumb, collectionPage, globalGraph, itemList, listRef } from "@/lib/structured-data";
 import { Reveal, RevealGroup, RevealItem } from "@/components/interactive/reveal";
 
 const recipeIcons: Record<string, IconName> = {
@@ -13,17 +16,18 @@ const recipeIcons: Record<string, IconName> = {
   tools: "wrench",
   skills: "folder",
   "voice-browser": "audio",
+  approval: "shieldCheck",
 };
 
+const route = routeManifest["/examples"];
+
 export const metadata: Metadata = {
-  title: "Examples",
-  description:
-    "Start with focused Agentium patterns for tools, memory, retrieval, Jev decisions, voice, and browser agents.",
+  title: { absolute: route.title },
+  description: route.description,
   alternates: { canonical: "/examples" },
   openGraph: {
-    title: "Examples — Agentium",
-    description:
-      "Start with focused Agentium patterns for tools, memory, retrieval, Jev decisions, voice, and browser agents.",
+    title: route.title,
+    description: route.description,
     url: "/examples",
   },
 };
@@ -47,7 +51,19 @@ export default function ExamplesPage() {
   const p = examplesPage;
   return (
     <>
-      <section aria-labelledby="examples-h1" className="bg-canvas">
+      <JsonLd
+        graph={[
+          ...globalGraph(),
+          itemList(
+            "/examples",
+            "Agentium example recipes",
+            exampleRecipes.map((r) => ({ name: r.title, url: r.links[0].href, description: r.description })),
+          ),
+          collectionPage({ path: "/examples", mainEntity: listRef("/examples") }),
+          breadcrumb("/examples"),
+        ]}
+      />
+      <section id="examples-intro" aria-labelledby="examples-h1" className="bg-canvas">
         <Container className="pt-12 pb-10 lg:pt-[72px] lg:pb-12">
           <RevealGroup>
             <RevealItem as="h1" id="examples-h1" className="type-h1-sub max-w-[18ch] text-ink">
@@ -60,10 +76,19 @@ export default function ExamplesPage() {
         </Container>
       </section>
 
-      <section aria-label="Recipes" className="bg-canvas pb-16 lg:pb-20">
+      <section id="recipes" aria-label="Recipes" className="bg-canvas pb-16 lg:pb-20">
         <Container>
           <Reveal as="p" className="type-small border-t border-line pt-4 text-ink-muted">
-            {p.note}
+            {p.note}{" "}
+            <a
+              href={p.repo.href}
+              className="link-underline text-ink"
+              data-track="cta_click"
+              data-track-cta-id="examples_github_repo"
+            >
+              {p.repo.label}
+            </a>
+            .
           </Reveal>
           <RevealGroup as="ul" className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {exampleRecipes.map((r) => {
@@ -83,6 +108,9 @@ export default function ExamplesPage() {
                   {single ? (
                     <a
                       href={r.links[0].href}
+                      data-track="example_open"
+                      data-track-example-id={r.anchor}
+                      data-track-link-text={r.links[0].label}
                       className="card-hover arrow-shift flex h-full min-h-[220px] flex-col rounded-[18px] border border-line bg-surface p-6"
                     >
                       {inner}
@@ -99,6 +127,9 @@ export default function ExamplesPage() {
                           <li key={l.href}>
                             <a
                               href={l.href}
+                              data-track="example_open"
+                              data-track-example-id={r.anchor}
+                              data-track-link-text={l.label}
                               className="arrow-shift link-underline type-ui inline-flex min-h-11 items-center gap-2 text-ink"
                             >
                               {l.label}
@@ -116,7 +147,7 @@ export default function ExamplesPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="examples-cta" className="section-y bg-canvas pt-0!">
+      <section id="examples-final" aria-labelledby="examples-cta" className="section-y bg-canvas pt-0!">
         <Container>
           <Reveal className="rounded-[24px] border border-line bg-surface-muted p-8 sm:p-12 lg:p-16">
             <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
@@ -130,7 +161,7 @@ export default function ExamplesPage() {
               </RevealGroup>
               <Reveal delay={0.12} className="lg:col-span-4 lg:justify-self-end">
                 <Button asChild size="hero">
-                  <a href={p.finalCta.cta.href}>
+                  <a href={p.finalCta.cta.href} data-track="cta_click" data-track-cta-id="examples_final_primary" data-track-location="final_cta">
                     <Icon name="code" className="size-4" />
                     {p.finalCta.cta.label}
                     <Icon name="arrowRight" data-arrow="" className="size-4" />

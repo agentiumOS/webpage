@@ -3,6 +3,7 @@
 import { cn } from "cn";
 import { CopyButton } from "./copy-button";
 import { Icon } from "@/components/graphics/icon";
+import { track } from "@/lib/analytics";
 
 type Props = {
   filename: string;
@@ -23,7 +24,12 @@ export function CodePanel({ filename, code, html, install, env, note, docsUrl, d
       <div className="overflow-hidden rounded-[18px] border border-dark-surface bg-ink text-canvas">
         <div className="flex items-center justify-between gap-2 border-b border-white/10 py-1 pr-1 pl-4">
           <span className="font-mono text-[11px] tracking-[0.04em] text-dark-muted">{filename}</span>
-          <CopyButton text={code} label={`Copy ${filename}`} tone="dark" />
+          <CopyButton
+            text={code}
+            label={`Copy ${filename}`}
+            tone="dark"
+            onCopied={() => track("code_copy", { sample_id: filename })}
+          />
         </div>
         <div
           tabIndex={0}

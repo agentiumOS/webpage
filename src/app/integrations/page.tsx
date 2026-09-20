@@ -6,17 +6,20 @@ import { Container } from "@/components/layout/container";
 import { ArrowLink } from "@/components/layout/arrow-link";
 import { IntegrationSearch } from "@/components/interactive/integration-search";
 import { Icon, isIconName } from "@/components/graphics/icon";
+import { JsonLd } from "@/components/seo/json-ld";
+import { routeManifest } from "@/content/route-manifest";
+import { breadcrumb, collectionPage, globalGraph, itemList, listRef } from "@/lib/structured-data";
 import { Reveal, RevealGroup, RevealItem } from "@/components/interactive/reveal";
 
+const route = routeManifest["/integrations"];
+
 export const metadata: Metadata = {
-  title: "Integrations",
-  description:
-    "Explore model providers, tools, storage, and protocols for your Agentium application.",
+  title: { absolute: route.title },
+  description: route.description,
   alternates: { canonical: "/integrations" },
   openGraph: {
-    title: "Integrations — Agentium",
-    description:
-      "Explore model providers, tools, storage, and protocols for your Agentium application.",
+    title: route.title,
+    description: route.description,
     url: "/integrations",
   },
 };
@@ -29,6 +32,9 @@ function StaticCatalog() {
         <li key={item.id}>
           <a
             href={item.docsUrl}
+            data-track="integration_open"
+            data-track-integration-id={item.id}
+            data-track-category={item.category}
             className="card-hover flex min-h-[180px] flex-col rounded-[16px] border border-line bg-surface p-6"
           >
             <div className="flex items-start justify-between gap-3">
@@ -56,7 +62,19 @@ export default function IntegrationsPage() {
   const p = integrationsPage;
   return (
     <>
-      <section aria-labelledby="integrations-h1" className="bg-canvas">
+      <JsonLd
+        graph={[
+          ...globalGraph(),
+          itemList(
+            "/integrations",
+            "Agentium integrations",
+            integrations.map((i) => ({ name: i.name, url: i.docsUrl, description: i.description })),
+          ),
+          collectionPage({ path: "/integrations", mainEntity: listRef("/integrations") }),
+          breadcrumb("/integrations"),
+        ]}
+      />
+      <section id="integrations-intro" aria-labelledby="integrations-h1" className="bg-canvas">
         <Container className="pt-12 pb-10 lg:pt-[72px] lg:pb-12">
           <RevealGroup>
             <RevealItem as="h1" id="integrations-h1" className="type-h1-sub max-w-[18ch] text-ink">
@@ -68,11 +86,14 @@ export default function IntegrationsPage() {
             <RevealItem as="p" className="type-small mt-4 max-w-[62ch] text-ink-muted">
               {p.helper}
             </RevealItem>
+            <RevealItem as="p" className="type-small mt-2 max-w-[62ch] text-ink-muted">
+              {p.packaging}
+            </RevealItem>
           </RevealGroup>
         </Container>
       </section>
 
-      <section aria-labelledby="catalog-title" className="bg-canvas pb-16 lg:pb-20">
+      <section id="catalog" aria-labelledby="catalog-title" className="bg-canvas pb-16 lg:pb-20">
         <Container>
           <Reveal as="h2" id="catalog-title" className="type-h2 text-ink">
             {p.catalogTitle}
@@ -85,7 +106,7 @@ export default function IntegrationsPage() {
         </Container>
       </section>
 
-      <section aria-labelledby="more-title" className="section-y border-t border-line bg-surface">
+      <section id="more" aria-labelledby="more-title" className="section-y border-t border-line bg-surface">
         <Container>
           <div className="grid-main items-start">
             <RevealGroup className="lg:col-span-6">

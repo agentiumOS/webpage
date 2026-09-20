@@ -4,6 +4,7 @@ import * as React from "react";
 import { cn } from "cn";
 import { home } from "@/content/site";
 import { Icon } from "@/components/graphics/icon";
+import { track } from "@/lib/analytics";
 import { RevealGroup, RevealItem } from "@/components/interactive/reveal";
 
 type ApprovalState = "waiting" | "approved" | "denied";
@@ -248,7 +249,7 @@ function StepMarker({ state }: { state: StepState }) {
       className={cn(
         "mt-0.5 inline-flex size-4 shrink-0 items-center justify-center rounded-full border transition-colors duration-[240ms] ease-[var(--ease-state)]",
         state === "done" && "border-ink bg-ink text-canvas",
-        state === "active" && "border-citron-ink bg-citron text-ink",
+        state === "active" && "border-citron-ink bg-citron text-canvas",
         state === "pending" && "border-line bg-surface",
       )}
     >
@@ -307,7 +308,7 @@ function StageDecision() {
               className={cn(
                 "inline-flex h-10 items-center rounded-[8px] border px-3 font-mono text-[12px]",
                 r.chosen
-                  ? "border-citron bg-citron text-ink"
+                  ? "border-citron bg-citron text-canvas"
                   : "border-line bg-surface text-ink-muted",
               )}
             >
@@ -332,7 +333,7 @@ function StageTools() {
           <span>
             <span className="text-citron">lookup_invoice</span>
             <span className="text-dark-muted">{"({ id: "}</span>
-            <span className="text-[#EBD9A8]">&quot;A104&quot;</span>
+            <span className="text-[#E8C98A]">&quot;A104&quot;</span>
             <span className="text-dark-muted">{" })"}</span>
           </span>
           <span className="inline-flex items-center gap-1.5 text-[11px] text-citron">
@@ -370,7 +371,7 @@ function StageApproval({
           <span>
             <span className="text-citron">issue_credit</span>
             <span className="text-dark-muted">{"({ invoice: "}</span>
-            <span className="text-[#EBD9A8]">&quot;A104&quot;</span>
+            <span className="text-[#E8C98A]">&quot;A104&quot;</span>
             <span className="text-dark-muted">{" })"}</span>
           </span>
           <span
@@ -396,7 +397,10 @@ function StageApproval({
       <div className="mt-3 flex flex-wrap gap-2">
         <button
           type="button"
-          onClick={() => onApproval("approved")}
+          onClick={() => {
+            onApproval("approved");
+            track("flow_demo_interact", { action: "approve", stage_id: "approval" });
+          }}
           disabled={approval !== "waiting"}
           className="inline-flex h-11 items-center gap-2 rounded-[8px] bg-ink px-4 type-ui text-canvas transition-colors duration-[160ms] hover:bg-dark-surface disabled:bg-surface-muted disabled:text-ink-muted"
         >
@@ -405,7 +409,10 @@ function StageApproval({
         </button>
         <button
           type="button"
-          onClick={() => onApproval("denied")}
+          onClick={() => {
+            onApproval("denied");
+            track("flow_demo_interact", { action: "deny", stage_id: "approval" });
+          }}
           disabled={approval !== "waiting"}
           className="inline-flex h-11 items-center gap-2 rounded-[8px] border border-control-line px-4 type-ui text-ink transition-colors duration-[160ms] hover:bg-surface-muted disabled:border-line disabled:text-ink-muted"
         >
@@ -414,7 +421,10 @@ function StageApproval({
         </button>
         <button
           type="button"
-          onClick={() => onApproval("waiting")}
+          onClick={() => {
+            onApproval("waiting");
+            track("flow_demo_interact", { action: "reset", stage_id: "approval" });
+          }}
           className="inline-flex h-11 items-center gap-2 rounded-[8px] px-4 type-ui text-ink-muted transition-colors duration-[160ms] hover:bg-surface-muted hover:text-ink"
         >
           <Icon name="replay" className="size-4" />

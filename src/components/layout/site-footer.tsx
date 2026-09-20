@@ -1,7 +1,7 @@
 import { site } from "@/content/site";
 import { Icon } from "@/components/graphics/icon";
 import { footerColumnIcons } from "@/components/graphics/nav-icons";
-import { CopyButton } from "@/components/interactive/copy-button";
+import { InstallCopyButton } from "@/components/interactive/install-copy-button";
 import { Container } from "./container";
 import { SmartLink } from "./smart-link";
 import { Wordmark } from "./wordmark";
@@ -15,7 +15,7 @@ export function SiteFooter() {
   const f = site.footer;
 
   return (
-    <footer className="border-t border-line bg-[#F1F0E8]">
+    <footer className="border-t border-line bg-surface-muted">
       <Container className="pt-14 pb-0 lg:pt-16">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10 xl:gap-x-14">
           <div className="lg:col-span-4">
@@ -38,12 +38,12 @@ export function SiteFooter() {
           >
             {f.columns.map((col) => (
               <div key={col.heading} className="min-w-0">
-                <h2 className="flex items-center gap-2">
+                <p className="flex items-center gap-2">
                   <span className="inline-flex size-6 shrink-0 items-center justify-center rounded-[6px] bg-surface text-ink-muted ring-1 ring-line">
                     <Icon name={footerColumnIcons[col.heading] ?? "cube"} className="size-3.5" />
                   </span>
                   <span className="type-eyebrow text-ink-muted">{col.heading}</span>
-                </h2>
+                </p>
                 <ul className="mt-4 flex flex-col gap-0.5">
                   {col.links.map((link) => {
                     const external = isExternal(link.href);
@@ -51,6 +51,8 @@ export function SiteFooter() {
                       <li key={link.label}>
                         <SmartLink
                           href={link.href}
+                          data-track="nav_click"
+                          data-track-location="footer"
                           className="group/flink inline-flex min-h-10 w-full items-center gap-2 rounded-[8px] px-2 -mx-2 text-[14px] leading-5 font-normal text-ink transition-[color,background-color] duration-160 ease-(--ease-state) hover:bg-surface"
                         >
                           <span>{link.label}</span>
@@ -82,7 +84,7 @@ export function SiteFooter() {
                   {f.install}
                 </span>
               </code>
-              <CopyButton text={f.install} label="Copy install command" />
+              <InstallCopyButton text={f.install} location="footer" />
             </div>
             <p className="type-small mt-2 text-ink-muted">{f.installHelper}</p>
           </div>

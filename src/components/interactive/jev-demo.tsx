@@ -5,6 +5,7 @@ import { cn } from "cn";
 import { Tabs as TabsPrimitive } from "radix-ui";
 import { home } from "@/content/site";
 import { Icon } from "@/components/graphics/icon";
+import { track } from "@/lib/analytics";
 
 type Example = (typeof home.jev.demo.examples)[number];
 
@@ -17,6 +18,11 @@ export function JevDemo({ className }: { className?: string }) {
   const select = (v: string) => {
     setValue(v);
     setRun((r) => r + 1);
+    track("jev_demo_interact", { example_id: v, action: "select" });
+  };
+  const replay = () => {
+    setRun((r) => r + 1);
+    track("jev_demo_interact", { example_id: value, action: "replay" });
   };
 
   return (
@@ -33,7 +39,7 @@ export function JevDemo({ className }: { className?: string }) {
         </div>
         <button
           type="button"
-          onClick={() => setRun((r) => r + 1)}
+          onClick={replay}
           className="inline-flex h-11 items-center gap-2 rounded-[8px] px-3 type-ui text-dark-muted transition-colors duration-[160ms] hover:bg-white/8 hover:text-canvas focus-visible:outline-citron"
         >
           <Icon name="replay" className="size-4" />
@@ -50,7 +56,7 @@ export function JevDemo({ className }: { className?: string }) {
               className={cn(
                 "inline-flex h-11 items-center gap-2 rounded-[8px] px-4 type-ui text-dark-muted transition-colors duration-[160ms] ease-[var(--ease-state)] outline-none",
                 "hover:text-canvas focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-citron",
-                "data-[state=active]:bg-citron data-[state=active]:text-ink",
+                "data-[state=active]:bg-citron data-[state=active]:text-canvas",
               )}
             >
               <Icon
@@ -180,7 +186,7 @@ function Flow({ example }: { example: Example }) {
       >
         <p className="type-eyebrow text-dark-muted">Output</p>
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <span className="inline-flex h-10 items-center rounded-[8px] bg-citron px-3 font-mono text-[14px] font-medium text-ink">
+          <span className="inline-flex h-10 items-center rounded-[8px] bg-citron px-3 font-mono text-[14px] font-medium text-canvas">
             {example.output}
           </span>
           {example.alternatives.map((alt) => (

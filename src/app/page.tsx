@@ -10,16 +10,19 @@ import { IntegrationsPreview } from "@/components/sections/integrations-preview"
 import { ExamplesPreview } from "@/components/sections/examples-preview";
 import { Faq } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
+import { JsonLd } from "@/components/seo/json-ld";
+import { routeManifest } from "@/content/route-manifest";
+import { globalGraph, sourceCode, webPage } from "@/lib/structured-data";
+
+const route = routeManifest["/"];
 
 export const metadata: Metadata = {
-  title: { absolute: "Agentium — Everything you need to make agents in TypeScript" },
-  description:
-    "Build agent applications with models, tools, memory, teams, workflows, and runtime integrations in one TypeScript framework.",
+  title: { absolute: route.title },
+  description: route.description,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Agentium — Everything you need to make agents in TypeScript",
-    description:
-      "Build agent applications with models, tools, memory, teams, workflows, and runtime integrations in one TypeScript framework.",
+    title: route.title,
+    description: route.description,
     url: "/",
   },
 };
@@ -27,6 +30,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <JsonLd graph={[...globalGraph(), sourceCode(), webPage({ path: "/" })]} />
       <Hero />
       <Stack />
       <Code />

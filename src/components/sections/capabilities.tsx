@@ -72,7 +72,7 @@ export function Capabilities() {
                   </div>
                   <div
                     className={cn(
-                      "relative min-h-[220px] overflow-hidden bg-[#F1F0E8]",
+                      "relative min-h-[220px] overflow-hidden bg-surface-muted",
                       stack
                         ? "mx-4 mb-4 rounded-[14px] ring-1 ring-line/80 sm:mx-5 sm:mb-5 lg:mt-auto"
                         : "mx-4 mb-4 rounded-[14px] ring-1 ring-line/80 sm:mx-5 sm:mb-5 lg:mx-0 lg:my-5 lg:mr-5 lg:min-h-0 lg:flex-1",

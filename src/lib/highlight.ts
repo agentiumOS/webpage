@@ -1,35 +1,35 @@
 import "server-only";
 import { createHighlighter, type Highlighter, type ThemeRegistration } from "shiki";
 
-/** Restrained graphite theme tuned to the site palette. */
+/** Dark theme tuned to the site palette — electric blue keywords on cool graphite. */
 const agentiumDark: ThemeRegistration = {
   name: "agentium-dark",
   type: "dark",
   colors: {
-    "editor.background": "#202521",
-    "editor.foreground": "#F1EFE7",
+    "editor.background": "#121826",
+    "editor.foreground": "#F3F6FC",
   },
   settings: [
-    { settings: { foreground: "#F1EFE7", background: "#202521" } },
-    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#8A948B" } },
+    { settings: { foreground: "#F3F6FC", background: "#121826" } },
+    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#7A8498" } },
     {
       scope: ["keyword", "storage.type", "storage.modifier", "keyword.operator.new", "keyword.control"],
-      settings: { foreground: "#D6F268" },
+      settings: { foreground: "#8FB6FF" },
     },
-    { scope: ["keyword.operator", "punctuation"], settings: { foreground: "#C3CBC0" } },
+    { scope: ["keyword.operator", "punctuation"], settings: { foreground: "#B5BDD0" } },
     {
       scope: ["string", "string.quoted", "punctuation.definition.string"],
-      settings: { foreground: "#EBD9A8" },
+      settings: { foreground: "#E8C98A" },
     },
-    { scope: ["constant.numeric", "constant.language"], settings: { foreground: "#EBD9A8" } },
+    { scope: ["constant.numeric", "constant.language"], settings: { foreground: "#E8C98A" } },
     {
       scope: ["entity.name.function", "support.function", "meta.function-call entity.name.function"],
-      settings: { foreground: "#BBD5EE" },
+      settings: { foreground: "#C5D8FF" },
     },
-    { scope: ["entity.name.type", "support.class", "support.type", "new.expr entity.name.type"], settings: { foreground: "#F1EFE7" } },
-    { scope: ["variable", "variable.other", "meta.object-literal.key"], settings: { foreground: "#F1EFE7" } },
-    { scope: ["variable.other.property", "support.variable.property"], settings: { foreground: "#DDE3DA" } },
-    { scope: ["meta.import variable", "meta.import"], settings: { foreground: "#F1EFE7" } },
+    { scope: ["entity.name.type", "support.class", "support.type", "new.expr entity.name.type"], settings: { foreground: "#F3F6FC" } },
+    { scope: ["variable", "variable.other", "meta.object-literal.key"], settings: { foreground: "#F3F6FC" } },
+    { scope: ["variable.other.property", "support.variable.property"], settings: { foreground: "#D5DCEC" } },
+    { scope: ["meta.import variable", "meta.import"], settings: { foreground: "#F3F6FC" } },
   ],
 };
 

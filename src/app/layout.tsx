@@ -4,7 +4,9 @@ import "./globals.css";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { MotionProvider } from "@/components/interactive/reveal";
-import { IS_PRODUCTION_ORIGIN, SITE_ORIGIN } from "@/lib/site-config";
+import { Analytics } from "@/components/analytics/analytics";
+import { POSITIONING, SITE_NAME, routeManifest } from "@/content/route-manifest";
+import { IS_INDEXABLE, SITE_ORIGIN } from "@/lib/site-config";
 
 const faculty = Faculty_Glyphic({
   weight: "400",
@@ -16,7 +18,7 @@ const faculty = Faculty_Glyphic({
 });
 
 const lexend = Lexend({
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
   subsets: ["latin"],
   variable: "--font-lexend",
   display: "swap",
@@ -36,16 +38,17 @@ const martian = Martian_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: "Agentium — Everything you need to make agents in TypeScript",
-    template: "%s — Agentium",
+    default: routeManifest["/"].title,
+    template: `%s — ${SITE_NAME}`,
   },
-  description:
-    "Build agent applications with models, tools, memory, teams, workflows, and runtime integrations in one TypeScript framework.",
-  applicationName: "Agentium",
-  robots: IS_PRODUCTION_ORIGIN ? { index: true, follow: true } : { index: false, follow: false },
+  description: POSITIONING,
+  applicationName: SITE_NAME,
+  robots: IS_INDEXABLE
+    ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } }
+    : { index: false, follow: false },
   openGraph: {
     type: "website",
-    siteName: "Agentium",
+    siteName: SITE_NAME,
     locale: "en_US",
   },
   twitter: {
@@ -54,10 +57,16 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f5ef",
+  themeColor: "#f3f6fc",
   width: "device-width",
   initialScale: 1,
 };
+
+/**
+ * Adds a `js` class before first paint so reveal animations can start hidden
+ * only when JavaScript is available. Without JS every section renders visible.
+ */
+const JS_FLAG = "document.documentElement.classList.add('js')";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -65,6 +74,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${faculty.variable} ${lexend.variable} ${martian.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: JS_FLAG }} />
+      </head>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"
@@ -79,6 +91,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <SiteFooter />
         </MotionProvider>
+        <Analytics />
       </body>
     </html>
   );

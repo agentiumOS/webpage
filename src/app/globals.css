@@ -81,18 +81,19 @@
   /* Hero stack loop: shared by the sculpture and its compose/connect/run labels. */
   --stack-cycle: 12s;
 
-  --canvas: #f6f5ef;
+  --canvas: #f3f6fc;
   --surface: #ffffff;
-  --surface-muted: #eeeee6;
-  --ink: #202521;
-  --ink-muted: #5b645c;
-  --line: #d8ddd2;
-  --control-line: #7b8579;
-  --citron: #d6f268;
-  --citron-hover: #c5e352;
-  --citron-ink: #263c24;
-  --dark-surface: #2b312c;
-  --dark-muted: #c3cbc0;
+  --surface-muted: #e8edf6;
+  --ink: #121826;
+  --ink-muted: #5a6578;
+  --line: #d3d9e6;
+  --control-line: #748094;
+  /* Brand accent: electric blue. Token name is historical (`citron`). */
+  --citron: #2f6bff;
+  --citron-hover: #1e54f0;
+  --citron-ink: #1a44e8;
+  --dark-surface: #1a2030;
+  --dark-muted: #b5bdd0;
   --success: #286140;
   --warning: #805a12;
   --error: #a33a31;
@@ -205,7 +206,7 @@
   }
   ::selection {
     background: var(--citron);
-    color: var(--ink);
+    color: var(--canvas);
   }
   :focus-visible {
     outline: 2px solid var(--citron-ink);
@@ -438,6 +439,20 @@
     box-shadow: 0 12px 32px -20px rgb(32 37 33 / 20%);
     border-color: var(--control-line);
   }
+}
+
+/* ---- No-JS resilience for in-view reveals ----
+   Motion's hidden start state is inline; only honour it once the root layout's
+   inline script has confirmed JavaScript is running. */
+html:not(.js) [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Accordion answers stay in the DOM (crawlable, extractable) and are hidden by
+   CSS when closed; the height animation still runs on open/close. */
+[data-slot="faq-content"][data-state="closed"] {
+  display: none;
 }
 
 /* ---- Keyframes ---- */

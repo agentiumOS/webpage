@@ -121,7 +121,7 @@ export const home = {
   hero: {
     eyebrow: "Agentium / TypeScript agent framework",
     h1: ["Your next big thing.", "Built with agents."],
-    lead: "Bring models, tools, memory, and workflows together in one TypeScript framework. Everything connected, ready for you to build.",
+    lead: "Agentium is a TypeScript agent framework for Node.js. Bring models, tools, memory, and workflows together in one framework. Everything connected, ready for you to build.",
     primary: { label: "Start building", href: docs("/quickstart"), kind: "primary" } satisfies Cta,
     secondary: { label: "Explore the stack", href: "/#stack", kind: "secondary" } satisfies Cta,
     install: "npm install @agentium/core",
@@ -508,6 +508,8 @@ export const jevPage = {
     eyebrow: "Jev, inside your agent application",
     h1: "Give Jev a place in the whole workflow.",
     lead: "Use Jev for the decision. Use Agentium to connect it to the context, agents, and evaluation around it.",
+    ownership:
+      "Jev is a decision model built and operated by TypeSafe AI. Agentium integrates it through the @typesafe-ai/sdk; Agentium does not build, host, or sell Jev.",
     primary: { label: "Start with Jev", href: docs("/models/jev"), kind: "primary" } satisfies Cta,
     secondary: { label: "See three ways to use it", href: "#ways", kind: "secondary" } satisfies Cta,
     strip: "Labels. Probabilities. Rubric scores. Results your code can act on.",
@@ -575,6 +577,15 @@ export const jevPage = {
       },
     ],
   },
+  related: {
+    heading: "Related on this site",
+    links: [
+      { label: "Jev in the integrations catalog", href: "/integrations#catalog" },
+      { label: "Example: route a request with Jev", href: "/examples#jev-decisions" },
+      { label: "Runtime controls and approval gates", href: "/#controls" },
+      { label: "TypeSafe AI", href: "https://typesafe.ai", external: true },
+    ] satisfies NavLink[],
+  },
   finalCta: {
     heading: "Put a decision to work.",
     body: "Start with one question. Connect the answer to the next step.",
@@ -592,6 +603,8 @@ export const integrationsPage = {
   lead: "Explore the models, services, storage, and protocols you can use with Agentium.",
   helper:
     "Each integration may require its own package, credentials, or service setup. Open its guide for the details.",
+  packaging:
+    "Provider and storage clients are optional peer dependencies of @agentium/core, so you install only what you use. Since v3, concrete toolkits are imported from @agentium/core/toolkits (or a single toolkit such as @agentium/core/toolkits/github).",
   catalogTitle: "Explore integrations",
   search: {
     label: "Find an integration",
@@ -628,6 +641,10 @@ export const examplesPage = {
   h1: "Start with a working pattern.",
   lead: "Explore focused recipes, then adapt them to the job your agent needs to do.",
   note: "Examples and guides open in the documentation.",
+  repo: {
+    label: "Browse the examples folder on GitHub",
+    href: "https://github.com/agentiumOS/agentium/tree/main/examples",
+  },
   finalCta: {
     heading: "Ready to make it yours?",
     body: "Build the smallest useful agent first. Add the capabilities your application needs.",

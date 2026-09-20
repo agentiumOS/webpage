@@ -50,6 +50,17 @@ export const exampleRecipes: ExampleRecipe[] = [
     links: [{ label: "Open recipe", href: docs("/examples/skills") }],
   },
   {
+    anchor: "approval",
+    title: "Require approval before an action",
+    description:
+      "Pause a sensitive tool call until a human approves it, then record the outcome.",
+    tags: ["Approval", "Controls"],
+    links: [
+      { label: "Human-in-the-loop guide", href: docs("/agents/approval") },
+      { label: "Approval gates", href: docs("/features/approval-gates") },
+    ],
+  },
+  {
     anchor: "voice-browser",
     title: "Explore voice and browser agents",
     description: "Follow dedicated guides for spoken interaction and browser tasks.",

@@ -1,26 +1,716 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Sticky scroll narrative is enabled only when all three hold. */
+@custom-variant story (@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand tokens */
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-control-line: var(--control-line);
+  --color-citron: var(--citron);
+  --color-citron-hover: var(--citron-hover);
+  --color-citron-ink: var(--citron-ink);
+  --color-dark-surface: var(--dark-surface);
+  --color-dark-muted: var(--dark-muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  --font-display: var(--font-faculty);
+  --font-sans: var(--font-lexend);
+  --font-mono: var(--font-martian);
+  --font-heading: var(--font-faculty);
+
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 10px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-4xl: 40px;
+
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-state: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Strong ease-in-out for things that move while already on screen. */
+  --ease-move: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --breakpoint-xs: 390px;
 }
 
-@media (prefers-color-scheme: dark) {
+:root {
+  --page-gutter: 20px;
+  /* Hero stack loop: shared by the sculpture and its compose/connect/run labels. */
+  --stack-cycle: 12s;
+
+  --canvas: #f6f5ef;
+  --surface: #ffffff;
+  --surface-muted: #eeeee6;
+  --ink: #202521;
+  --ink-muted: #5b645c;
+  --line: #d8ddd2;
+  --control-line: #7b8579;
+  --citron: #d6f268;
+  --citron-hover: #c5e352;
+  --citron-ink: #263c24;
+  --dark-surface: #2b312c;
+  --dark-muted: #c3cbc0;
+  --success: #286140;
+  --warning: #805a12;
+  --error: #a33a31;
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--canvas);
+  --secondary: var(--surface-muted);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surface-muted);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--surface-muted);
+  --accent-foreground: var(--ink);
+  --destructive: var(--error);
+  --border: var(--line);
+  --input: var(--control-line);
+  --ring: var(--citron-ink);
+  --chart-1: var(--ink);
+  --chart-2: var(--ink-muted);
+  --chart-3: var(--control-line);
+  --chart-4: var(--line);
+  --chart-5: var(--citron);
+  --radius: 10px;
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--canvas);
+  --sidebar-accent: var(--surface-muted);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--citron-ink);
+}
+
+@media (max-width: 359px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --page-gutter: 16px;
+  }
+}
+@media (min-width: 768px) {
+  :root {
+    --page-gutter: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --page-gutter: 48px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    min-width: 0;
+  }
+  html {
+    @apply font-sans;
+    scroll-padding-top: 80px;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (min-width: 1024px) {
+    html {
+      scroll-padding-top: 96px;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-size: 15px;
+    line-height: 1.65;
+    font-feature-settings: "kern" 1;
+    text-rendering: optimizeLegibility;
+  }
+  @media (min-width: 768px) {
+    body {
+      font-size: 16px;
+    }
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  code,
+  kbd,
+  pre {
+    @apply font-mono;
+  }
+  :not(pre) > code {
+    font-size: 0.82em;
+    background: var(--surface-muted);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+  }
+  ::selection {
+    background: var(--citron);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--citron-ink);
+    outline-offset: 3px;
+  }
+  [id] {
+    scroll-margin-top: 80px;
+  }
+  @media (min-width: 1024px) {
+    [id] {
+      scroll-margin-top: 96px;
+    }
+  }
+}
+
+/* ---- Layout utilities ---- */
+@utility container-x {
+  width: min(100% - 2 * var(--page-gutter), 1280px);
+  margin-inline: auto;
+}
+
+@utility section-y {
+  padding-block: 56px;
+  @media (min-width: 768px) {
+    padding-block: 64px;
+  }
+  @media (min-width: 1024px) {
+    padding-block: 80px;
+  }
+}
+
+@utility section-y-lg {
+  padding-block: 64px;
+  @media (min-width: 768px) {
+    padding-block: 80px;
+  }
+  @media (min-width: 1024px) {
+    padding-block: 96px;
+  }
+}
+
+@utility card-pad {
+  padding: 24px;
+  @media (min-width: 768px) {
+    padding: 28px;
+  }
+  @media (min-width: 1024px) {
+    padding: 32px;
+  }
+}
+
+@utility grid-main {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  @media (min-width: 768px) {
+    gap: 20px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  @media (min-width: 1024px) {
+    gap: 24px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+}
+
+/* ---- Type utilities ---- */
+@utility type-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  @media (max-width: 359px) {
+    font-size: 36px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 60px;
+    line-height: 1.09;
+  }
+  @media (min-width: 1280px) {
+    font-size: 64px;
+  }
+  @media (min-width: 1440px) {
+    font-size: 72px;
+    line-height: 1.08;
+  }
+}
+
+/* Homepage hero only: a step down from type-h1, optically a touch heavier.
+   Faculty Glyphic ships a single weight — a hairline stroke adds mass without fake-bold. */
+@utility type-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+  -webkit-text-stroke: 0.38px currentColor;
+  paint-order: stroke fill;
+  @media (max-width: 359px) {
+    font-size: 30px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 48px;
+    line-height: 1.14;
+  }
+  @media (min-width: 1280px) {
+    font-size: 52px;
+  }
+  @media (min-width: 1440px) {
+    font-size: 56px;
+    line-height: 1.12;
+  }
+}
+
+@utility type-h1-sub {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  @media (min-width: 1024px) {
+    font-size: 56px;
+    line-height: 1.09;
+  }
+}
+
+@utility type-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  @media (min-width: 1024px) {
+    font-size: 44px;
+    line-height: 1.16;
+  }
+}
+
+@utility type-h3 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+}
+
+@utility type-lead {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
+}
+
+@utility type-body {
+  font-size: 15px;
+  line-height: 1.65;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+@utility type-ui {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@utility type-small {
+  font-size: 13px;
+  line-height: 20px;
+}
+
+@utility type-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  @media (min-width: 1024px) {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
+
+@utility type-code {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+/* ---- Interaction helpers ---- */
+@utility link-underline {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 160ms var(--ease-state);
+  &:hover,
+  &:focus-visible {
+    text-decoration-color: currentColor;
+  }
+}
+
+@utility arrow-shift {
+  & [data-arrow] {
+    transition: transform 160ms var(--ease-state);
+  }
+  &:hover [data-arrow],
+  &:focus-visible [data-arrow] {
+    transform: translateX(3px);
+  }
+}
+
+@utility card-hover {
+  transition:
+    box-shadow 160ms var(--ease-state),
+    border-color 160ms var(--ease-state);
+  &:hover,
+  &:focus-within {
+    box-shadow: 0 12px 32px -20px rgb(32 37 33 / 20%);
+    border-color: var(--control-line);
+  }
+}
+
+/* ---- Keyframes ---- */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@utility animate-hero-in {
+  animation: hero-in 500ms var(--ease-enter) both;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@utility animate-marquee {
+  animation: marquee 48s linear infinite;
+}
+
+@keyframes fade-in-once {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@utility animate-fade-once {
+  animation: fade-in-once 420ms var(--ease-enter) both;
+}
+
+/* ---- Hero stack labels: progress rules that track the sculpture's phases ----
+   Phase map (see StackSculpture): 0–6 reset · 6–34 compose · 34–66 connect · 66–100 run.
+   The rule fills like a progress bar (linear), the text brightens while active. */
+@keyframes stack-rule-0 {
+  0% { transform: scaleX(1); }
+  6% { transform: scaleX(0); }
+  34%, 100% { transform: scaleX(1); }
+}
+@keyframes stack-rule-1 {
+  0% { transform: scaleX(1); }
+  6%, 34% { transform: scaleX(0); }
+  66%, 100% { transform: scaleX(1); }
+}
+@keyframes stack-rule-2 {
+  0% { transform: scaleX(1); }
+  6%, 66% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+@keyframes stack-text-0 {
+  0% { opacity: 0.55; }
+  6%, 34% { opacity: 1; }
+  38%, 100% { opacity: 0.55; }
+}
+@keyframes stack-text-1 {
+  0%, 34% { opacity: 0.55; }
+  38%, 66% { opacity: 1; }
+  70%, 100% { opacity: 0.55; }
+}
+@keyframes stack-text-2 {
+  0%, 66% { opacity: 0.55; }
+  70%, 100% { opacity: 1; }
+}
+.stack-rule {
+  transform-origin: left center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .stack-rule-0 { animation: stack-rule-0 var(--stack-cycle) linear infinite; }
+  .stack-rule-1 { animation: stack-rule-1 var(--stack-cycle) linear infinite; }
+  .stack-rule-2 { animation: stack-rule-2 var(--stack-cycle) linear infinite; }
+  .stack-text-0 { animation: stack-text-0 var(--stack-cycle) linear infinite; }
+  .stack-text-1 { animation: stack-text-1 var(--stack-cycle) linear infinite; }
+  .stack-text-2 { animation: stack-text-2 var(--stack-cycle) linear infinite; }
+}
+
+/* ---- Small explanatory loops for authored graphics ----
+   Predetermined motion → CSS so it stays smooth while the page is busy.
+   Transform/opacity where possible; stroke-dashoffset for line drawing;
+   background/border colour only on tiny chips. All gated on reduced motion. */
+
+/* Packet travelling along a path with pathLength="1" (dash 0.2, period 1.2). */
+@keyframes flow-dash {
+  from { stroke-dashoffset: 1.4; }
+  to { stroke-dashoffset: 0; }
+}
+/* Draw a path (pathLength="1") in, hold, fade, reset. */
+@keyframes draw-loop {
+  0% { stroke-dashoffset: 1.02; opacity: 1; }
+  35% { stroke-dashoffset: 0; }
+  75% { stroke-dashoffset: 0; opacity: 1; }
+  85% { opacity: 0; }
+  85.1%, 100% { stroke-dashoffset: 1.02; opacity: 0; }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes ping-soft {
+  0%, 60%, 100% { transform: scale(1); opacity: 1; }
+  70% { transform: scale(1.25); opacity: 0.8; }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.97); }
+}
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+/* Step highlight cycles: item i sets animation-delay = i × (cycle / n). */
+@keyframes cycle-3 {
+  0%, 26% { border-color: var(--control-line); background-color: color-mix(in srgb, var(--citron) 40%, transparent); }
+  36%, 100% { border-color: var(--line); background-color: var(--surface-muted); }
+}
+@keyframes cycle-5-pill {
+  0%, 14% { border-color: var(--citron); background-color: color-mix(in srgb, var(--citron) 40%, transparent); }
+  22%, 100% { border-color: var(--line); background-color: var(--surface); }
+}
+@keyframes cycle-5-row {
+  0%, 14% { background-color: color-mix(in srgb, var(--citron) 40%, transparent); }
+  22%, 100% { background-color: transparent; }
+}
+@keyframes cycle-5-pop {
+  0% { transform: scale(1); }
+  4% { transform: scale(1.06); }
+  14%, 100% { transform: scale(1); }
+}
+@keyframes cycle-2 {
+  0%, 40% { border-color: var(--control-line); }
+  50%, 100% { border-color: var(--line); }
+}
+/* Sound bars: vary height by scaling, never by animating height. */
+@keyframes bar-bounce {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(1); }
+}
+/* A line of text "typing" in: scale from the left edge, then fade before reset. */
+@keyframes type-in {
+  0% { transform: scaleX(0); opacity: 1; }
+  28% { transform: scaleX(1); }
+  88% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+.gfx-flow { stroke-dasharray: 0.2 1; stroke-dashoffset: 1.4; }
+.gfx-draw { stroke-dasharray: 1 2; }
+.gfx-origin-center { transform-box: fill-box; transform-origin: center; }
+.gfx-origin-left { transform-box: fill-box; transform-origin: left center; }
+.gfx-origin-bottom { transform-box: fill-box; transform-origin: center bottom; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .gfx-flow { animation: flow-dash 2.4s linear infinite; }
+  .gfx-draw { animation: draw-loop 3.2s linear infinite; }
+  .gfx-float { animation: float-y 4.5s var(--ease-move) infinite; }
+  .gfx-ping { animation: ping-soft 2.4s var(--ease-enter) infinite; }
+  .gfx-breathe { animation: breathe 3s var(--ease-move) infinite; }
+  .gfx-caret { animation: caret-blink 1s step-end infinite; }
+  .gfx-cycle-3 { animation: cycle-3 3.6s linear infinite; }
+  .gfx-cycle-5-pill { animation: cycle-5-pill 4.5s linear infinite; }
+  .gfx-cycle-5-row { animation: cycle-5-row 4.5s linear infinite; }
+  .gfx-cycle-5-pop { animation: cycle-5-pop 4.5s var(--ease-enter) infinite; }
+  .gfx-cycle-2 { animation: cycle-2 3.6s linear infinite; }
+  .gfx-bar { animation: bar-bounce 1.1s var(--ease-move) infinite; }
+  .gfx-type { animation: type-in 4.8s var(--ease-enter) infinite; }
+}
+
+@keyframes faq-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+@keyframes faq-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+@utility animate-faq-down {
+  animation: faq-down 180ms var(--ease-state);
+}
+@utility animate-faq-up {
+  animation: faq-up 180ms var(--ease-state);
+}
+
+/* Jev demo sequence: ~700ms total, runs once per selection/replay. */
+@keyframes jev-step-in {
+  from {
+    opacity: 0.35;
+    border-color: rgb(255 255 255 / 0.1);
+  }
+  to {
+    opacity: 1;
+    border-color: rgb(214 242 104 / 0.6);
+  }
+}
+@keyframes jev-line-draw {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes jev-node-in {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .jev-step {
+    animation: jev-step-in 200ms var(--ease-state) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  .jev-line {
+    animation: jev-line-draw 200ms var(--ease-state) both;
+    animation-delay: var(--delay, 0ms);
+  }
+  .jev-node {
+    animation: jev-node-in 200ms var(--ease-state) both;
+    animation-delay: var(--delay, 0ms);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .jev-step {
+    border-color: rgb(214 242 104 / 0.6);
+  }
+}
+
+/* Shiki code theme mapping */
+.shiki,
+.shiki span {
+  background-color: transparent !important;
+}
+.shiki code {
+  display: block;
+  counter-reset: line;
+}
+.shiki .line {
+  display: inline-block;
+  min-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

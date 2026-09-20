@@ -78,8 +78,6 @@
 
 :root {
   --page-gutter: 20px;
-  /* Hero stack loop: shared by the sculpture and its compose/connect/run labels. */
-  --stack-cycle: 12s;
 
   --canvas: #f3f6fc;
   --surface: #ffffff;
@@ -492,50 +490,6 @@ html:not(.js) [data-reveal] {
 }
 @utility animate-fade-once {
   animation: fade-in-once 420ms var(--ease-enter) both;
-}
-
-/* ---- Hero stack labels: progress rules that track the sculpture's phases ----
-   Phase map (see StackSculpture): 0–6 reset · 6–34 compose · 34–66 connect · 66–100 run.
-   The rule fills like a progress bar (linear), the text brightens while active. */
-@keyframes stack-rule-0 {
-  0% { transform: scaleX(1); }
-  6% { transform: scaleX(0); }
-  34%, 100% { transform: scaleX(1); }
-}
-@keyframes stack-rule-1 {
-  0% { transform: scaleX(1); }
-  6%, 34% { transform: scaleX(0); }
-  66%, 100% { transform: scaleX(1); }
-}
-@keyframes stack-rule-2 {
-  0% { transform: scaleX(1); }
-  6%, 66% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
-@keyframes stack-text-0 {
-  0% { opacity: 0.55; }
-  6%, 34% { opacity: 1; }
-  38%, 100% { opacity: 0.55; }
-}
-@keyframes stack-text-1 {
-  0%, 34% { opacity: 0.55; }
-  38%, 66% { opacity: 1; }
-  70%, 100% { opacity: 0.55; }
-}
-@keyframes stack-text-2 {
-  0%, 66% { opacity: 0.55; }
-  70%, 100% { opacity: 1; }
-}
-.stack-rule {
-  transform-origin: left center;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .stack-rule-0 { animation: stack-rule-0 var(--stack-cycle) linear infinite; }
-  .stack-rule-1 { animation: stack-rule-1 var(--stack-cycle) linear infinite; }
-  .stack-rule-2 { animation: stack-rule-2 var(--stack-cycle) linear infinite; }
-  .stack-text-0 { animation: stack-text-0 var(--stack-cycle) linear infinite; }
-  .stack-text-1 { animation: stack-text-1 var(--stack-cycle) linear infinite; }
-  .stack-text-2 { animation: stack-text-2 var(--stack-cycle) linear infinite; }
 }
 
 /* ---- Small explanatory loops for authored graphics ----

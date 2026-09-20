@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { Eyebrow } from "@/components/layout/section-header";
 import { SmartLink } from "@/components/layout/smart-link";
-import { Artwork } from "@/components/graphics/artwork";
+import { AgentSculpture } from "@/components/graphics/agent-sculpture";
 import { InstallCopyButton } from "@/components/interactive/install-copy-button";
 import { UspMarquee } from "@/components/interactive/usp-marquee";
 import { Icon } from "@/components/graphics/icon";
@@ -30,7 +30,7 @@ export function Hero() {
 
       <Container className="pt-12 pb-10 lg:pt-[72px] lg:pb-[56px]">
         <div className="grid-main items-center lg:min-h-[560px]">
-          <div className="md:col-span-6 lg:col-span-7">
+          <div className="md:col-span-6 lg:col-span-6">
             <Eyebrow className="motion-safe:animate-hero-in rounded-full border border-line bg-surface/80 py-1.5 pr-3.5 pl-3 shadow-[0_1px_2px_rgb(32_37_33/0.04)] backdrop-blur-sm">
               {h.eyebrow}
             </Eyebrow>
@@ -87,60 +87,11 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="mt-12 md:col-span-6 lg:col-span-5 lg:mt-0">
-            <figure className="motion-safe:animate-hero-in relative motion-safe:[animation-delay:120ms]">
-              {/* Halo behind the panel so it lifts off the canvas. */}
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -inset-8 -z-10 rounded-[48px] bg-[radial-gradient(55%_55%_at_65%_35%,rgb(47_107_255/0.22),transparent_72%)] blur-2xl"
-              />
-
-              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-[24px] border border-line bg-surface-muted shadow-[0_32px_64px_-40px_rgb(18_24_38/0.38),0_1px_0_rgb(255_255_255/0.8)_inset] lg:min-h-[440px]">
-                <Artwork
-                  id="stack"
-                  priority
-                  sizes="(min-width: 1280px) 520px, (min-width: 1024px) 42vw, 100vw"
-                  className="absolute inset-0 scale-[1.14]"
-                />
-
-                {/* Dot grid, visible only toward the edges so the sculpture stays clean. */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgb(32_37_33/0.12)_1px,transparent_1.2px)] bg-size-[18px_18px] mask-[radial-gradient(62%_62%_at_50%_50%,transparent_40%,black_100%)]"
-                />
-                {/* Ground vignette. */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-surface-muted/80 to-transparent"
-                />
-
-                {/* Package badge. */}
-                <div className="absolute top-4 left-4 inline-flex h-8 items-center gap-2 rounded-full border border-line/80 bg-surface/85 px-3 font-mono text-[11px] leading-none tracking-[0.04em] text-ink shadow-[0_1px_2px_rgb(32_37_33/0.06)] backdrop-blur-sm">
-                  <span aria-hidden="true" className="size-1.5 rounded-full bg-citron-ink" />
-                  {h.artBadge}
-                </div>
-
-                {/* Corner ticks, like a blueprint frame. */}
-                <CornerTicks />
-              </div>
-
-              {/* Labels follow the sculpture's loop: the rule fills during its phase. */}
-              <figcaption className="mt-5 grid grid-cols-3 gap-3">
-                {h.artLabels.map((label, i) => (
-                  <span key={label} className="flex flex-col gap-2.5">
-                    <span aria-hidden="true" className="relative h-px w-full bg-line">
-                      <span className={`stack-rule stack-rule-${i} absolute inset-0 bg-citron-ink`} />
-                    </span>
-                    <span
-                      className={`stack-text-${i} flex items-baseline gap-2 font-mono text-[11px] leading-[18px] tracking-[0.06em] text-ink uppercase`}
-                    >
-                      <span className="text-citron-ink">{String(i + 1).padStart(2, "0")}</span>
-                      {label}
-                    </span>
-                  </span>
-                ))}
-              </figcaption>
-            </figure>
+          <div className="mt-12 md:col-span-6 lg:col-span-6 lg:mt-0">
+            {/* The engine sits straight on the canvas: no frame, its own ground shadow. */}
+            <div className="motion-safe:animate-hero-in relative motion-safe:[animation-delay:120ms]">
+              <AgentSculpture className="mx-auto h-auto w-full max-w-[560px] lg:max-w-none" />
+            </div>
           </div>
         </div>
 
@@ -150,25 +101,5 @@ export function Hero() {
         />
       </Container>
     </section>
-  );
-}
-
-function CornerTicks() {
-  const corners = [
-    "top-3 left-3 border-t border-l",
-    "top-3 right-3 border-t border-r",
-    "bottom-3 left-3 border-b border-l",
-    "bottom-3 right-3 border-b border-r",
-  ];
-  return (
-    <>
-      {corners.map((c) => (
-        <span
-          key={c}
-          aria-hidden="true"
-          className={`pointer-events-none absolute size-3 border-ink/25 ${c}`}
-        />
-      ))}
-    </>
   );
 }

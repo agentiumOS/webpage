@@ -2,15 +2,14 @@ import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import { cn } from "cn";
-import { AssemblySculpture, RoutingSculpture, StackSculpture } from "./sculptures";
+import { AssemblySculpture, RoutingSculpture } from "./sculptures";
 
-export type ArtworkId = "stack" | "jev" | "assembly";
+export type ArtworkId = "jev" | "assembly";
 
 const ASSETS: Record<
   ArtworkId,
   { file: string; width: number; height: number; Fallback: (p: { className?: string }) => React.JSX.Element }
 > = {
-  stack: { file: "agentium-stack.png", width: 1536, height: 1024, Fallback: StackSculpture },
   jev: { file: "jev-decisions.png", width: 1536, height: 1024, Fallback: RoutingSculpture },
   assembly: { file: "agentium-assembly.png", width: 1672, height: 941, Fallback: AssemblySculpture },
 };

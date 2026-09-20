@@ -142,8 +142,6 @@ export const home = {
       "MCP and A2A",
       "Voice and browser agents",
     ],
-    artLabels: ["Compose", "Connect", "Run"],
-    artBadge: "@agentium/core",
   },
 
   stack: {

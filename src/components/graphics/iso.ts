@@ -51,6 +51,6 @@ export function box(
   };
 }
 
-export const IVORY = { top: "#F4F2EA", left: "#E5E3D9", right: "#D3D1C6", edge: "#C9C7BC" };
-export const GRAPHITE = { top: "#333A34", left: "#272C28", right: "#1B1F1C", edge: "#40473F" };
-export const CITRON = { top: "#DDF57E", left: "#C9E65A", right: "#B4D33E", edge: "#A8C736" };
+export const IVORY = { top: "#F4F7FD", left: "#E4EAF4", right: "#D0D7E4", edge: "#C2CAD8" };
+export const GRAPHITE = { top: "#2A3140", left: "#222836", right: "#161B26", edge: "#3D4658" };
+export const CITRON = { top: "#5B8CFF", left: "#3D72F5", right: "#2A5AE0", edge: "#1E4AD4" };

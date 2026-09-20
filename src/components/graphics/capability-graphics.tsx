@@ -49,7 +49,7 @@ export function ToolsGraphic() {
       <div className="rounded-[12px] border border-ink bg-ink p-4 font-mono text-[12px] leading-5 text-canvas shadow-[0_16px_32px_-20px_rgb(32_37_33/0.55)]">
         <div className="mb-3 flex items-center gap-1.5">
           <span className="size-1.5 rounded-full bg-[#F0B4AD]" />
-          <span className="size-1.5 rounded-full bg-[#EBD9A8]" />
+          <span className="size-1.5 rounded-full bg-[#E8C98A]" />
           <span className="size-1.5 rounded-full bg-citron" />
           <span className="ml-2 text-[10px] tracking-[0.06em] text-dark-muted uppercase">tool call</span>
         </div>
@@ -57,7 +57,7 @@ export function ToolsGraphic() {
           <span>
             <span className="text-citron">lookup_order</span>
             <span className="text-dark-muted">{"({ orderId: "}</span>
-            <span className="text-[#EBD9A8]">&quot;A104&quot;</span>
+            <span className="text-[#E8C98A]">&quot;A104&quot;</span>
             <span className="text-dark-muted">{" })"}</span>
           </span>
           <span className="inline-flex items-center gap-1.5 text-[11px] text-citron">
@@ -202,7 +202,7 @@ export function KnowledgeGraphic() {
           tag: "policy.md",
           text: (
             <>
-              Items may be returned within <mark className="rounded-[3px] bg-citron/70 px-0.5 text-ink">30 days</mark> of
+              Items may be returned within <mark className="rounded-[3px] bg-citron/20 px-0.5 text-citron-ink">30 days</mark> of
               delivery.
             </>
           ),
@@ -239,7 +239,7 @@ export function HarnessGraphic() {
       <div className="flex flex-1 flex-col overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_10px_24px_-18px_rgb(32_37_33/0.3)]">
         <div className="flex h-9 items-center gap-1.5 border-b border-line px-3">
           <span className="size-1.5 rounded-full bg-[#F0B4AD]" />
-          <span className="size-1.5 rounded-full bg-[#EBD9A8]" />
+          <span className="size-1.5 rounded-full bg-[#E8C98A]" />
           <span className="size-1.5 rounded-full bg-[#C8D9B8]" />
           <span className="ml-2 font-mono text-[10px] tracking-[0.06em] text-ink-muted uppercase">
             Project files

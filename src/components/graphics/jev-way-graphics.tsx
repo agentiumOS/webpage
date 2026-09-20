@@ -13,7 +13,7 @@ function Node({
     tone === "dark"
       ? "border-ink bg-ink text-canvas"
       : tone === "citron"
-        ? "border-citron bg-citron text-ink"
+        ? "border-citron bg-citron text-canvas"
         : "border-line bg-surface text-ink";
   return (
     <span

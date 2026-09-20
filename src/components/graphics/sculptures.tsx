@@ -2,7 +2,7 @@ import { box, CITRON, GRAPHITE, IVORY, project, type Iso } from "./iso";
 
 type Palette = typeof IVORY;
 
-function IsoBox({
+export function IsoBox({
   iso,
   x,
   y,
@@ -33,345 +33,122 @@ function IsoBox({
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Asset A — Modular stack (3:2)                                       */
-/* ------------------------------------------------------------------ */
+/* Shared by the authored sculptures (and `agent-sculpture.tsx`). */
 
 /** Codebase entrance curve (`--ease-enter`), inlined so it resolves inside keyframes. */
-const EASE_ENTER = "cubic-bezier(0.22, 1, 0.36, 1)";
+export const EASE_ENTER = "cubic-bezier(0.22, 1, 0.36, 1)";
+
+/** Codebase `--ease-move`: strong ease-in-out for parts that move while on screen. */
+export const EASE_MOVE = "cubic-bezier(0.77, 0, 0.175, 1)";
 
 /** Only run continuous motion for people who haven't asked for less of it. */
-const MOTION_OK = "@media (prefers-reduced-motion: no-preference)";
-
-const EASE_MOVE = "cubic-bezier(0.77, 0, 0.175, 1)";
-
-type Pose = { x: number; y: number; z: number };
-
-function screenDelta(iso: Iso, from: Pose, to: Pose): [number, number] {
-  const a = project(iso, from.x, from.y, from.z);
-  const b = project(iso, to.x, to.y, to.z);
-  return [+(b[0] - a[0]).toFixed(1), +(b[1] - a[1]).toFixed(1)];
-}
-
-function arcPath(a: [number, number], b: [number, number], bulge: number): string {
-  const dx = b[0] - a[0];
-  const dy = b[1] - a[1];
-  const len = Math.hypot(dx, dy) || 1;
-  const mx = (a[0] + b[0]) / 2 - (dy / len) * bulge;
-  const my = (a[1] + b[1]) / 2 + (dx / len) * bulge;
-  return `M ${a[0].toFixed(1)} ${a[1].toFixed(1)} Q ${mx.toFixed(1)} ${my.toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`;
-}
-
-/**
- * One cycle (`--stack-cycle`), shared with the hero's Compose / Connect / Run labels.
- *
- *   0–6%    reset    engine dissolves into loose parts
- *   6–34%   compose  parts assemble into a tower (hold 22–34)
- *   34–66%  connect  tower unpacks into a flat linked board (hold 46–64)
- *   66–100% run      board locks into a running engine + circuit (hold 78–100)
- *
- * 0% === 100% (engine). Reduced motion keeps the stacked tower.
- */
-function stackAnimationCss(
-  deltas: { scatter: [number, number]; connect: [number, number]; run: [number, number] }[],
-): string {
-  const rules: string[] = [];
-  const anim: string[] = [];
-  const base = `
-    .agst-slab, .agst-grommet { transform-box: fill-box; transform-origin: center; }
-    .agst-cable { stroke-dasharray: 1 2; }
-    .agst-cable-stack { stroke-dashoffset: 0; opacity: 1; }
-    .agst-cable-net, .agst-cable-run { stroke-dashoffset: 1.02; opacity: 0; }
-    .agst-pulse { stroke-dasharray: 0.18 1; stroke-dashoffset: 1.36; opacity: 0; }
-    .agst-plinth { opacity: 1; }
-  `;
-
-  deltas.forEach((d, i) => {
-    const [sx, sy] = d.scatter;
-    const [cx, cy] = d.connect;
-    const [rx, ry] = d.run;
-    const enter = 8 + i * 3.2;
-    rules.push(`@keyframes agst-slab-${i} {
-      0% { opacity: 1; transform: translate(${rx}px, ${ry}px) scale(0.78); }
-      6% { opacity: 0.9; transform: translate(${sx}px, ${sy - 28}px) scale(0.92); animation-timing-function: ${EASE_ENTER}; }
-      ${enter}% { opacity: 0.9; transform: translate(${sx}px, ${sy - 40}px) scale(0.92); animation-timing-function: ${EASE_ENTER}; }
-      ${enter + 7}% { opacity: 1; transform: translate(0px, 2px) scale(1); }
-      22% { transform: translate(0px, 0px) scale(1); }
-      34% { transform: translate(0px, 0px) scale(1); animation-timing-function: ${EASE_MOVE}; }
-      46% { transform: translate(${cx}px, ${cy}px) scale(0.56); }
-      64% { transform: translate(${cx}px, ${cy}px) scale(0.56); animation-timing-function: ${EASE_MOVE}; }
-      78% { transform: translate(${rx}px, ${ry}px) scale(0.78); }
-      100% { opacity: 1; transform: translate(${rx}px, ${ry}px) scale(0.78); }
-    }`);
-    anim.push(`.agst-slab-${i} { animation: agst-slab-${i} var(--stack-cycle) linear infinite; }`);
-
-    rules.push(`@keyframes agst-grommet-${i} {
-      0% { opacity: 1; transform: scale(1); }
-      6%, 30% { opacity: 0.25; transform: scale(1); }
-      ${46 + i}% { opacity: 0.25; transform: scale(1); animation-timing-function: ${EASE_ENTER}; }
-      ${49 + i}% { opacity: 1; transform: scale(1.45); }
-      ${53 + i}% { transform: scale(1); }
-      78% { transform: scale(1); }
-      ${82 + i * 2}% { transform: scale(1.35); }
-      ${86 + i * 2}% { transform: scale(1); }
-      100% { opacity: 1; transform: scale(1); }
-    }`);
-    anim.push(`.agst-grommet-${i} { animation: agst-grommet-${i} var(--stack-cycle) linear infinite; }`);
-  });
-
-  rules.push(`@keyframes agst-plinth {
-    0%, 8% { opacity: 0; }
-    20%, 34% { opacity: 1; }
-    46%, 100% { opacity: 0; }
-  }`);
-  anim.push(`.agst-plinth { animation: agst-plinth var(--stack-cycle) linear infinite; }`);
-
-  rules.push(`@keyframes agst-cable-stack {
-    0%, 16% { stroke-dashoffset: 1.02; opacity: 0; }
-    20% { stroke-dashoffset: 1.02; opacity: 1; }
-    30% { stroke-dashoffset: 0; opacity: 1; }
-    34% { stroke-dashoffset: 0; opacity: 1; }
-    42%, 100% { stroke-dashoffset: 0; opacity: 0; }
-  }`);
-  anim.push(`.agst-cable-stack { animation: agst-cable-stack var(--stack-cycle) linear infinite; }`);
-
-  rules.push(`@keyframes agst-cable-net {
-    0%, 44% { stroke-dashoffset: 1.02; opacity: 0; }
-    48% { stroke-dashoffset: 1.02; opacity: 1; }
-    58% { stroke-dashoffset: 0; opacity: 1; }
-    64% { stroke-dashoffset: 0; opacity: 1; }
-    72%, 100% { stroke-dashoffset: 0; opacity: 0; }
-  }`);
-  anim.push(`.agst-cable-net { animation: agst-cable-net var(--stack-cycle) linear infinite; }`);
-
-  rules.push(`@keyframes agst-cable-run {
-    0% { stroke-dashoffset: 0; opacity: 1; }
-    6% { stroke-dashoffset: 0; opacity: 0; }
-    76% { stroke-dashoffset: 1.02; opacity: 0; }
-    80% { stroke-dashoffset: 1.02; opacity: 1; }
-    90% { stroke-dashoffset: 0; opacity: 1; }
-    100% { stroke-dashoffset: 0; opacity: 1; }
-  }`);
-  anim.push(`.agst-cable-run { animation: agst-cable-run var(--stack-cycle) linear infinite; }`);
-
-  rules.push(`@keyframes agst-pulse {
-    0%, 79.9% { opacity: 0; stroke-dashoffset: 1.36; }
-    80% { opacity: 1; stroke-dashoffset: 1.36; }
-    90% { opacity: 1; stroke-dashoffset: 0; }
-    90.1%, 92.9% { opacity: 0; stroke-dashoffset: 1.36; }
-    93% { opacity: 1; stroke-dashoffset: 1.36; }
-    99% { opacity: 1; stroke-dashoffset: 0; }
-    99.1%, 100% { opacity: 0; stroke-dashoffset: 0; }
-  }`);
-  anim.push(`.agst-pulse { animation: agst-pulse var(--stack-cycle) linear infinite; }`);
-
-  return `${base}\n${rules.join("\n")}\n${MOTION_OK} {\n${anim.join("\n")}\n}`;
-}
-
-export function StackSculpture({ className }: { className?: string }) {
-  const iso: Iso = { ox: 700, oy: 500, s: 160 };
-  const stacked: Pose[] = [
-    { x: 0.15, y: 0.15, z: 0.2 },
-    { x: 0.15, y: 0.15, z: 0.7 },
-    { x: 0.15, y: 0.15, z: 1.2 },
-    { x: 0.15, y: 0.15, z: 1.7 },
-    { x: 0.15, y: 0.15, z: 2.2 },
-  ];
-  // Loose cloud — compose starts here.
-  const scatter: Pose[] = [
-    { x: -0.85, y: 1.05, z: 0.9 },
-    { x: 1.35, y: -0.55, z: 1.7 },
-    { x: -0.7, y: -0.8, z: 2.5 },
-    { x: 1.2, y: 1.1, z: 0.35 },
-    { x: 0.15, y: -1.2, z: 2.9 },
-  ];
-  // Flat plus — connect is a board, not a sheared tower.
-  const connect: Pose[] = [
-    { x: 0.15, y: 1.75, z: 0.4 },
-    { x: 1.75, y: 0.15, z: 0.55 },
-    { x: 0.15, y: 0.15, z: 0.7 },
-    { x: -1.15, y: 0.2, z: 0.85 },
-    { x: 0.15, y: -1.45, z: 1.0 },
-  ];
-  // Interlocking brick — run is a compact engine.
-  const run: Pose[] = [
-    { x: 0.5, y: 0.45, z: 0.2 },
-    { x: -0.3, y: 0.5, z: 0.55 },
-    { x: 0.45, y: -0.25, z: 0.95 },
-    { x: -0.25, y: 0.05, z: 1.3 },
-    { x: 0.2, y: -0.4, z: 1.65 },
-  ];
-
-  const deltas = stacked.map((home, i) => ({
-    scatter: screenDelta(iso, home, scatter[i]),
-    connect: screenDelta(iso, home, connect[i]),
-    run: screenDelta(iso, home, run[i]),
-  }));
-
-  const grommetAt = (pose: Pose): [number, number] =>
-    project(iso, pose.x + 1.25, pose.y + 0.75, pose.z + 0.18);
-
-  const stackedGrommets = stacked.map((p) => grommetAt(p));
-  const connectGrommets = connect.map((p) => grommetAt(p));
-  const runGrommets = run.map((p) => grommetAt(p));
-
-  const stackBottom = project(iso, 2.5, 1.55, -0.2);
-  const stackTop = project(iso, 2.35, 1.55, 2.6);
-  const stackPath = [
-    `M ${stackBottom[0].toFixed(1)} ${stackBottom[1].toFixed(1)}`,
-    ...stackedGrommets.map((p) => `L ${p[0].toFixed(1)} ${p[1].toFixed(1)}`),
-    `L ${stackTop[0].toFixed(1)} ${stackTop[1].toFixed(1)}`,
-  ].join(" ");
-
-  // Star from the center slab, then a ring around the four arms.
-  const netPaths = [
-    arcPath(connectGrommets[2], connectGrommets[0], 22),
-    arcPath(connectGrommets[2], connectGrommets[1], -22),
-    arcPath(connectGrommets[2], connectGrommets[3], 22),
-    arcPath(connectGrommets[2], connectGrommets[4], -22),
-    arcPath(connectGrommets[0], connectGrommets[1], 18),
-    arcPath(connectGrommets[1], connectGrommets[4], 18),
-    arcPath(connectGrommets[4], connectGrommets[3], 18),
-    arcPath(connectGrommets[3], connectGrommets[0], 18),
-  ];
-  const runHops = [
-    arcPath(runGrommets[0], runGrommets[1], 16),
-    arcPath(runGrommets[1], runGrommets[2], -16),
-    arcPath(runGrommets[2], runGrommets[3], 16),
-    arcPath(runGrommets[3], runGrommets[4], -16),
-    arcPath(runGrommets[4], runGrommets[0], 22),
-  ];
-  const runCircuit = runHops.join(" ");
-
-  const baseShadow = project(iso, 1.4, 0.9, -0.35);
-  const css = stackAnimationCss(deltas);
-  return (
-    <svg
-      viewBox="0 0 1536 1024"
-      className={className}
-      role="presentation"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <style dangerouslySetInnerHTML={{ __html: css }} />
-      <defs>
-        <radialGradient id="a-bg" cx="50%" cy="40%" r="70%">
-          <stop offset="0" stopColor="#FBFAF5" />
-          <stop offset="1" stopColor="#EFEEE6" />
-        </radialGradient>
-        <filter id="a-blur" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="28" />
-        </filter>
-      </defs>
-      <rect width="1536" height="1024" fill="url(#a-bg)" />
-      <g className="agst-plinth">
-        <ellipse
-          cx={baseShadow[0]}
-          cy={baseShadow[1] + 70}
-          rx="360"
-          ry="80"
-          fill="#202521"
-          opacity="0.16"
-          filter="url(#a-blur)"
-        />
-        <IsoBox iso={iso} x={0} y={0} z={-0.35} w={2.8} d={1.8} h={0.28} palette={GRAPHITE} />
-      </g>
-      <path
-        className="agst-cable agst-cable-stack"
-        d={stackPath}
-        pathLength={1}
-        fill="none"
-        stroke="#D6F268"
-        strokeWidth="14"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {stacked.map((s, i) => (
-        <g key={s.z} className={`agst-slab agst-slab-${i}`}>
-          <IsoBox
-            iso={iso}
-            x={s.x}
-            y={s.y}
-            z={s.z}
-            w={2.5}
-            d={1.5}
-            h={0.18}
-            palette={i % 2 === 0 ? IVORY : GRAPHITE}
-          />
-          <polygon
-            points={box(iso, s.x + 0.3, s.y + 0.3, s.z + 0.18, 1.9, 0.14, 0.001).top}
-            fill={i % 2 === 0 ? "#E2E0D6" : "#262B27"}
-          />
-          <polygon
-            className={`agst-grommet agst-grommet-${i}`}
-            points={box(iso, s.x + 1.17, s.y + 0.67, s.z + 0.18, 0.16, 0.16, 0.001).top}
-            fill="#D6F268"
-          />
-        </g>
-      ))}
-      {netPaths.map((d) => (
-        <path
-          key={d}
-          className="agst-cable agst-cable-net"
-          d={d}
-          pathLength={1}
-          fill="none"
-          stroke="#D6F268"
-          strokeWidth="10"
-          strokeLinecap="round"
-        />
-      ))}
-      <path
-        className="agst-cable agst-cable-run"
-        d={runCircuit}
-        pathLength={1}
-        fill="none"
-        stroke="#D6F268"
-        strokeWidth="11"
-        strokeLinecap="round"
-      />
-      <path
-        className="agst-pulse"
-        d={runCircuit}
-        pathLength={1}
-        fill="none"
-        stroke="#F6FFCF"
-        strokeWidth="13"
-        strokeLinecap="round"
-      />
-      <ellipse cx="520" cy="220" rx="380" ry="200" fill="#FFFFFF" opacity="0.28" filter="url(#a-blur)" />
-    </svg>
-  );
-}
+export const MOTION_OK = "@media (prefers-reduced-motion: no-preference)";
 
 /* ------------------------------------------------------------------ */
 /* Asset B — Jev routing sculpture (3:2, graphite)                     */
 /* ------------------------------------------------------------------ */
 
+type CableTone = "ivory" | "blue";
+
+function Cable({
+  d,
+  width,
+  tone,
+  flowClass,
+}: {
+  d: string;
+  width: number;
+  tone: CableTone;
+  flowClass?: string;
+}) {
+  const colors =
+    tone === "ivory"
+      ? { body: "#F4F7FD", shade: "#B4BDCD", ridge: "#FFFFFF", core: "#E4EAF4", packet: "#2A3140" }
+      : { body: "#2F6BFF", shade: "#1739C8", ridge: "#D4E2FF", core: "#8FB6FF", packet: "#F4F7FD" };
+  return (
+    <g>
+      <path
+        d={d}
+        fill="none"
+        stroke="#05070C"
+        strokeWidth={width + 10}
+        strokeLinecap="round"
+        opacity="0.16"
+        transform="translate(2 22)"
+        filter="url(#jev-blur-soft)"
+      />
+      <path
+        d={d}
+        fill="none"
+        stroke="#05070C"
+        strokeWidth={width}
+        strokeLinecap="round"
+        opacity="0.3"
+        transform="translate(1 7)"
+        filter="url(#jev-blur-tight)"
+      />
+      <path d={d} fill="none" stroke={colors.shade} strokeWidth={width} strokeLinecap="round" transform="translate(0 3)" />
+      <path d={d} fill="none" stroke={colors.body} strokeWidth={width} strokeLinecap="round" />
+      <path
+        d={d}
+        fill="none"
+        stroke={colors.ridge}
+        strokeWidth={Math.max(3, width * 0.26)}
+        strokeLinecap="round"
+        transform="translate(0 -2.2)"
+        opacity="0.68"
+      />
+      <path d={d} fill="none" stroke={colors.core} strokeWidth={Math.max(4, width * 0.32)} strokeLinecap="round" />
+      {flowClass ? (
+        <path
+          className={flowClass}
+          d={d}
+          pathLength={1}
+          fill="none"
+          stroke={colors.packet}
+          strokeWidth={Math.max(4, width * 0.32)}
+          strokeLinecap="round"
+        />
+      ) : null}
+    </g>
+  );
+}
+
 export function RoutingSculpture({ className }: { className?: string }) {
-  const junction = { x: 1010, y: 560 };
-  const channels = [
-    { from: { x: 420, y: 300 } },
-    { from: { x: 380, y: 560 } },
-    { from: { x: 440, y: 820 } },
+  const half = 0.62;
+  const iso: Iso = { ox: 1008, oy: 512, s: 112 };
+  const faces = box(iso, -half, -half, -half, half * 2, half * 2, half * 2);
+  const label = project(iso, 0.02, 0.02, half);
+  // End slightly inside the left / right faces so the cube covers the caps.
+  const dockIn = project(iso, 0, half - 0.14, 0);
+  const dockOut = project(iso, half - 0.14, 0, 0);
+  const groundPts = [
+    project(iso, -half, -half, -half),
+    project(iso, half, -half, -half),
+    project(iso, half, half, -half),
+    project(iso, -half, half, -half),
+  ]
+    .map((p) => p.map((n) => n.toFixed(1)).join(","))
+    .join(" ");
+
+  const end = { x: +dockIn[0].toFixed(1), y: +dockIn[1].toFixed(1) };
+  const inlets = [
+    `M -24 248 C 560 248, ${end.x - 70} ${end.y - 6}, ${end.x} ${end.y}`,
+    `M -24 512 C 620 512, ${end.x - 40} ${end.y}, ${end.x} ${end.y}`,
+    `M -24 776 C 560 776, ${end.x - 70} ${end.y + 6}, ${end.x} ${end.y}`,
   ];
-  const channelPath = (from: { x: number; y: number }) =>
-    `M ${from.x} ${from.y} C ${from.x + 260} ${from.y}, ${junction.x - 260} ${junction.y}, ${junction.x - 60} ${junction.y}`;
-  const track = `M ${junction.x + 40} ${junction.y} C ${junction.x + 200} ${junction.y}, ${junction.x + 280} ${junction.y - 40}, 1500 ${junction.y - 60}`;
-  const iso: Iso = { ox: junction.x, oy: junction.y - 40, s: 110 };
-  // Requests arrive on the three channels in turn; each decision leaves on the track.
-  // 2.7s per packet, channels offset by a third so there is always one in flight.
+  const track = `M ${dockOut[0].toFixed(1)} ${dockOut[1].toFixed(1)} C ${(dockOut[0] + 180).toFixed(1)} ${dockOut[1].toFixed(1)}, ${(dockOut[0] + 320).toFixed(1)} ${dockOut[1].toFixed(1)}, 1608 ${dockOut[1].toFixed(1)}`;
+
   const css = `
-    .agrt-flow { stroke-dasharray: 0.16 1; stroke-dashoffset: 1.32; opacity: 0; }
-    .agrt-pad { transform-box: fill-box; transform-origin: center; }
+    .agrt-flow { stroke-dasharray: 0.14 1; stroke-dashoffset: 1.28; opacity: 0; }
+    .agrt-glow { transform-box: fill-box; transform-origin: center; }
     @keyframes agrt-travel {
-      0% { stroke-dashoffset: 1.32; opacity: 1; }
+      0% { stroke-dashoffset: 1.28; opacity: 1; }
       100% { stroke-dashoffset: 0; opacity: 1; }
     }
-    @keyframes agrt-pad {
-      0%, 30% { transform: scale(1); }
-      36% { transform: scale(1.12); }
-      48%, 100% { transform: scale(1); }
+    @keyframes agrt-glow {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 0.8; }
     }
     ${MOTION_OK} {
       .agrt-flow { animation: agrt-travel 2.7s linear infinite; }
@@ -379,12 +156,13 @@ export function RoutingSculpture({ className }: { className?: string }) {
       .agrt-flow-1 { animation-delay: 0.9s; }
       .agrt-flow-2 { animation-delay: 1.8s; }
       .agrt-flow-out { animation-delay: 0.45s; }
-      .agrt-pad { animation: agrt-pad 0.9s ${EASE_ENTER} infinite; }
+      .agrt-glow { animation: agrt-glow 4.8s ${EASE_MOVE} infinite; }
     }
   `;
   return (
     <svg
       viewBox="0 0 1536 1024"
+      preserveAspectRatio="xMidYMid meet"
       className={className}
       role="presentation"
       aria-hidden="true"
@@ -392,99 +170,81 @@ export function RoutingSculpture({ className }: { className?: string }) {
     >
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <defs>
-        <radialGradient id="b-bg" cx="68%" cy="50%" r="75%">
-          <stop offset="0" stopColor="#2C322D" />
-          <stop offset="1" stopColor="#1B1F1C" />
+        <radialGradient id="jev-bg" cx="64%" cy="48%" r="72%">
+          <stop offset="0" stopColor="#161C2A" />
+          <stop offset="1" stopColor="#0C1018" />
         </radialGradient>
-        <filter id="b-blur" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="22" />
+        <radialGradient id="jev-bloom" cx="50%" cy="42%" r="50%">
+          <stop offset="0" stopColor="#9EC0FF" stopOpacity="0.62" />
+          <stop offset="0.42" stopColor="#2F6BFF" stopOpacity="0.22" />
+          <stop offset="1" stopColor="#2F6BFF" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="jev-face-top" x1="16%" y1="6%" x2="90%" y2="94%">
+          <stop offset="0" stopColor="#D7E4FF" />
+          <stop offset="0.4" stopColor="#7AA6FF" />
+          <stop offset="1" stopColor="#3D72F5" />
+        </linearGradient>
+        <linearGradient id="jev-face-left" x1="50%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0" stopColor="#4B80F7" />
+          <stop offset="1" stopColor="#1A3FBE" />
+        </linearGradient>
+        <linearGradient id="jev-face-right" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0" stopColor="#2F5DE8" />
+          <stop offset="1" stopColor="#122F9C" />
+        </linearGradient>
+        <radialGradient id="jev-core" cx="40%" cy="30%" r="70%">
+          <stop offset="0" stopColor="#FFFFFF" stopOpacity="0.48" />
+          <stop offset="1" stopColor="#FFFFFF" stopOpacity="0" />
+        </radialGradient>
+        <pattern id="jev-grid" width="56" height="56" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="1.15" fill="#F4F7FD" opacity="0.08" />
+        </pattern>
+        <clipPath id="jev-top-clip">
+          <polygon points={faces.top} />
+        </clipPath>
+        <filter id="jev-blur-soft" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="12" />
+        </filter>
+        <filter id="jev-blur-tight" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3.5" />
+        </filter>
+        <filter id="jev-blur-glow" x="-70%" y="-70%" width="240%" height="240%">
+          <feGaussianBlur stdDeviation="30" />
         </filter>
       </defs>
-      <rect width="1536" height="1024" fill="url(#b-bg)" />
-      {/* contact shadows */}
-      {channels.map((c, i) => (
-        <path
-          key={`s-${i}`}
-          d={channelPath(c.from)}
-          fill="none"
-          stroke="#0F120F"
-          strokeWidth="46"
-          strokeLinecap="round"
-          opacity="0.55"
-          transform="translate(0 26)"
-          filter="url(#b-blur)"
-        />
+      <rect width="1536" height="1024" fill="url(#jev-bg)" />
+      <rect width="1536" height="1024" fill="url(#jev-grid)" />
+      <ellipse className="agrt-glow" cx={iso.ox} cy={iso.oy} rx="300" ry="190" fill="url(#jev-bloom)" filter="url(#jev-blur-glow)" />
+
+      {inlets.map((d, i) => (
+        <Cable key={d} d={d} width={44} tone="ivory" flowClass={`agrt-flow agrt-flow-${i}`} />
       ))}
-      {/* channels: shaded body then top surface */}
-      {channels.map((c, i) => (
-        <g key={`c-${i}`}>
-          <path
-            d={channelPath(c.from)}
-            fill="none"
-            stroke="#C9C7BC"
-            strokeWidth="40"
-            strokeLinecap="round"
-            transform="translate(0 10)"
-          />
-          <path
-            d={channelPath(c.from)}
-            fill="none"
-            stroke="#F4F2EA"
-            strokeWidth="40"
-            strokeLinecap="round"
-          />
-          <path
-            d={channelPath(c.from)}
-            fill="none"
-            stroke="#E5E3D9"
-            strokeWidth="14"
-            strokeLinecap="round"
-          />
-          {/* packet travelling toward the junction */}
-          <path
-            className={`agrt-flow agrt-flow-${i}`}
-            d={channelPath(c.from)}
-            pathLength={1}
-            fill="none"
-            stroke="#333A34"
-            strokeWidth="14"
-            strokeLinecap="round"
-          />
-        </g>
-      ))}
-      {/* citron track continuing forward */}
-      <path
-        d={track}
-        fill="none"
-        stroke="#0F120F"
-        strokeWidth="46"
-        strokeLinecap="round"
-        opacity="0.55"
-        transform="translate(0 26)"
-        filter="url(#b-blur)"
-      />
-      <path d={track} fill="none" stroke="#A8C736" strokeWidth="40" strokeLinecap="round" transform="translate(0 10)" />
-      <path d={track} fill="none" stroke="#D6F268" strokeWidth="40" strokeLinecap="round" />
-      <path d={track} fill="none" stroke="#E4F7A0" strokeWidth="12" strokeLinecap="round" />
-      {/* decision leaving on the track */}
-      <path
-        className="agrt-flow agrt-flow-out"
-        d={track}
-        pathLength={1}
-        fill="none"
-        stroke="#FBFFE6"
-        strokeWidth="12"
-        strokeLinecap="round"
-      />
-      {/* junction block */}
-      <ellipse cx={junction.x + 10} cy={junction.y + 120} rx="150" ry="40" fill="#0F120F" opacity="0.6" filter="url(#b-blur)" />
-      <IsoBox iso={iso} x={-1} y={-0.9} z={-0.5} w={2} d={1.8} h={0.9} palette={GRAPHITE} />
-      <polygon points={box(iso, -0.7, -0.6, 0.4, 1.4, 1.2, 0.001).top} fill="#3B433C" />
-      <polygon
-        className="agrt-pad"
-        points={box(iso, -0.35, -0.3, 0.4, 0.7, 0.6, 0.001).top}
-        fill="#D6F268"
-      />
+      <Cable d={track} width={44} tone="blue" flowClass="agrt-flow agrt-flow-out" />
+
+      <polygon points={groundPts} fill="#05070C" opacity="0.38" transform="translate(6 18)" filter="url(#jev-blur-soft)" />
+      <polygon points={groundPts} fill="#05070C" opacity="0.28" transform="translate(1 5)" filter="url(#jev-blur-tight)" />
+
+      <g stroke="#C5D8FF" strokeWidth="1.15" strokeLinejoin="round">
+        <polygon points={faces.left} fill="url(#jev-face-left)" />
+        <polygon points={faces.right} fill="url(#jev-face-right)" />
+        <polygon points={faces.top} fill="url(#jev-face-top)" />
+      </g>
+      <polygon points={faces.top} fill="url(#jev-core)" clipPath="url(#jev-top-clip)" />
+      <ellipse cx={iso.ox - 14} cy={iso.oy - 62} rx="58" ry="26" fill="#FFFFFF" opacity="0.28" clipPath="url(#jev-top-clip)" />
+
+      <g transform={`translate(${label[0]} ${label[1]})`}>
+        <text
+          textAnchor="middle"
+          dominantBaseline="central"
+          fill="#FFFFFF"
+          fontFamily="var(--font-faculty), ui-serif, serif"
+          fontSize="86"
+          letterSpacing="-0.05em"
+          transform="rotate(-30) scale(1 0.56)"
+        >
+          Jev
+        </text>
+      </g>
     </svg>
   );
 }
@@ -529,23 +289,23 @@ export function AssemblySculpture({ className }: { className?: string }) {
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <defs>
         <radialGradient id="c-bg" cx="65%" cy="45%" r="75%">
-          <stop offset="0" stopColor="#FBFAF5" />
-          <stop offset="1" stopColor="#EFEEE6" />
+          <stop offset="0" stopColor="#F7F9FD" />
+          <stop offset="1" stopColor="#E8EDF6" />
         </radialGradient>
         <filter id="c-blur" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="30" />
         </filter>
       </defs>
       <rect width="1672" height="941" fill="url(#c-bg)" />
-      <ellipse cx={shadow[0]} cy={shadow[1] + 110} rx="460" ry="110" fill="#202521" opacity="0.14" filter="url(#c-blur)" />
+      <ellipse cx={shadow[0]} cy={shadow[1] + 110} rx="460" ry="110" fill="#121826" opacity="0.14" filter="url(#c-blur)" />
       {/* central graphite base */}
       <IsoBox iso={iso} x={0} y={0} z={-0.2} w={3} d={2} h={0.42} palette={GRAPHITE} />
-      {/* recessed citron tracks on the top face */}
+      {/* recessed blue tracks on the top face */}
       <g className="agas-track">
-        <polygon points={box(iso, 0.3, 0.95, 0.22, 2.4, 0.1, 0.001).top} fill="#D6F268" />
-        <polygon points={box(iso, 1.45, 0.3, 0.22, 0.1, 1.4, 0.001).top} fill="#D6F268" />
-        <polygon points={box(iso, 0.3, 0.3, 0.22, 0.1, 0.75, 0.001).top} fill="#D6F268" />
-        <polygon points={box(iso, 2.6, 0.95, 0.22, 0.1, 0.75, 0.001).top} fill="#D6F268" />
+        <polygon points={box(iso, 0.3, 0.95, 0.22, 2.4, 0.1, 0.001).top} fill="#2F6BFF" />
+        <polygon points={box(iso, 1.45, 0.3, 0.22, 0.1, 1.4, 0.001).top} fill="#2F6BFF" />
+        <polygon points={box(iso, 0.3, 0.3, 0.22, 0.1, 0.75, 0.001).top} fill="#2F6BFF" />
+        <polygon points={box(iso, 2.6, 0.95, 0.22, 0.1, 0.75, 0.001).top} fill="#2F6BFF" />
       </g>
       {/* docked ivory modules */}
       {modules.map((m, i) => (
@@ -553,7 +313,7 @@ export function AssemblySculpture({ className }: { className?: string }) {
           <IsoBox iso={iso} {...m} palette={IVORY} />
           <polygon
             points={box(iso, m.x + 0.15, m.y + 0.15, m.z + m.h, m.w - 0.3, m.d - 0.3, 0.001).top}
-            fill="#E5E3D9"
+            fill="#D4DCEC"
           />
         </g>
       ))}

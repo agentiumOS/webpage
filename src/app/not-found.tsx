@@ -5,10 +5,12 @@ import { Container } from "@/components/layout/container";
 import { Icon } from "@/components/graphics/icon";
 import { RevealGroup, RevealItem } from "@/components/interactive/reveal";
 import { NotFoundEvent } from "@/components/analytics/not-found-event";
+import SiteLayout from "./(site)/layout";
 
 export default function NotFound() {
   return (
-    <section id="not-found" aria-labelledby="nf-title" className="section-y-lg bg-canvas">
+    <SiteLayout>
+      <section id="not-found" aria-labelledby="nf-title" className="section-y-lg bg-canvas">
       <NotFoundEvent />
       <Container className="max-w-[720px]!">
         <RevealGroup>
@@ -37,6 +39,7 @@ export default function NotFound() {
           </RevealItem>
         </RevealGroup>
       </Container>
-    </section>
+      </section>
+    </SiteLayout>
   );
 }

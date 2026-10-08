@@ -82,7 +82,7 @@ export function software(): SoftwareApplication {
     description: POSITIONING,
     url: PRODUCTION_ORIGIN,
     applicationCategory: "DeveloperApplication",
-    applicationSubCategory: "Agent framework",
+    applicationSubCategory: "AI application SDK",
     operatingSystem: "Cross-platform (Node.js)",
     runtimePlatform: "Node.js",
     license: MIT_LICENSE,
@@ -133,7 +133,7 @@ export function webPage({ path, mentions, mainEntity }: PageOptions): WebPage {
     about: { "@id": SOFTWARE_ID },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: `${pageUrl(path)}${path === "/" ? "" : "/"}opengraph-image`,
+      url: path === "/" ? `${pageUrl(path)}og-image.png` : `${pageUrl(path)}/opengraph-image`,
       width: "1200",
       height: "630",
     },

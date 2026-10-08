@@ -38,7 +38,7 @@ for (const route of ROUTES) {
 test("skip link and landmarks", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("main#main")).toHaveCount(1);
-  await expect(page.locator('nav[aria-label="Primary"], nav[aria-label="Mobile"]').first()).toBeAttached();
+  await expect(page.locator('nav[aria-label="Main navigation"], nav[aria-label="Mobile navigation"]').first()).toBeAttached();
   await page.keyboard.press("Tab");
   await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
 });

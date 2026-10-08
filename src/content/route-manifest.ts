@@ -8,7 +8,7 @@
 
 /** One positioning sentence, reused verbatim across metadata and structured data. */
 export const POSITIONING =
-  "Agentium is a TypeScript agent framework for Node.js: models, tools, memory, teams, workflows, and runtime integrations in one codebase.";
+  "Agentium is an open-source TypeScript SDK for agents, harnesses, voice, image generation, telephony, workflows, and cost tracking in Node.js.";
 
 export const SITE_NAME = "Agentium";
 
@@ -29,11 +29,11 @@ export type RouteEntry = {
 export const routeManifest: Record<RoutePath, RouteEntry> = {
   "/": {
     path: "/",
-    title: "Agentium — TypeScript agent framework for Node.js",
+    title: "Agentium — TypeScript SDK for AI Agents, Voice & Tools",
     description:
-      "Build agent applications in TypeScript: models, typed tools, memory, teams, workflows, approvals, evaluation, and runtime integrations in one framework. Open source, MIT.",
+      "Build AI apps with Agentium, the open-source TypeScript SDK for agents, harnesses, voice, images, phone calls, workflows, and cost tracking.",
     label: "Agentium",
-    lastModified: "2026-09-20",
+    lastModified: "2026-10-08",
   },
   "/jev": {
     path: "/jev",

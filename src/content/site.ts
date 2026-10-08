@@ -16,7 +16,7 @@ export type PlatformItem = {
 
 export const site = {
   name: "Agentium",
-  tagline: "The framework behind your agent application.",
+  tagline: "The TypeScript SDK behind your AI application.",
   announcement: {
     copy: "Jev + Agentium: decisions, tools, and evaluations.",
     linkLabel: "See how",
@@ -57,7 +57,7 @@ export const site = {
     cta: { label: "Start building", href: docs("/quickstart"), kind: "primary" } satisfies Cta,
   },
   footer: {
-    eyebrow: "TypeScript agent framework",
+    eyebrow: "Open-source TypeScript SDK",
     install: "npm install @agentium/core",
     installHelper: "Start with core. Add packages as you need them.",
     start: { label: "Open the quickstart", href: docs("/quickstart") },
@@ -119,16 +119,16 @@ export const site = {
 
 export const home = {
   hero: {
-    eyebrow: "Agentium / TypeScript agent framework",
+    eyebrow: "Agentium / TypeScript AI SDK",
     h1: ["Your next big thing.", "Built with agents."],
-    lead: "Agentium is a TypeScript agent framework for Node.js. Bring models, tools, memory, and workflows together in one framework. Everything connected, ready for you to build.",
+    lead: "Agentium is an open-source TypeScript SDK for Node.js. Compose agents, voice, image tools, workflows, and provider adapters in your application.",
     primary: { label: "Start building", href: docs("/quickstart"), kind: "primary" } satisfies Cta,
     secondary: { label: "Explore the stack", href: "/#stack", kind: "secondary" } satisfies Cta,
     install: "npm install @agentium/core",
     helper: "Start with core. Add the integrations your application needs.",
     capabilities: ["Models", "Tools", "Memory", "Teams", "Workflows", "Evaluations"],
     usps: [
-      "One TypeScript framework",
+      "One composable TypeScript SDK",
       "Choose your models",
       "Keep your infrastructure",
       "Typed tools with Zod",
@@ -145,7 +145,7 @@ export const home = {
   },
 
   stack: {
-    eyebrow: "One framework, connected parts",
+    eyebrow: "One SDK, connected parts",
     h2: "Everything around the model, working together.",
     lead: "A useful agent needs context, tools, coordination, and a way into your product. Build those pieces around a shared TypeScript foundation.",
     frameLabel: "Your agent application",
@@ -460,7 +460,7 @@ export const home = {
     items: [
       {
         q: "What is Agentium?",
-        a: "Agentium is a TypeScript framework for building agent applications on Node.js. It brings together agent execution, tools, memory, teams, and workflows, with additional packages for serving, background work, browser automation, observability, and evaluation.",
+        a: "Agentium is an open-source TypeScript SDK for building AI applications on Node.js. Core includes agents, tools, memory, teams, workflows, voice adapters, image tools, telephony, and cost accounting. Additional packages provide harnesses, background work, browser automation, observability, and evaluation.",
       },
       {
         q: "Do I have to use one model provider?",
@@ -480,7 +480,7 @@ export const home = {
       },
       {
         q: "Does Agentium host the application for me?",
-        a: "This website describes the framework and its runtime integrations. You choose the infrastructure on which your application runs. Use the transport and queue guides to connect it to your deployment.",
+        a: "This website describes the SDK and its runtime integrations. You choose the infrastructure on which your application runs. Use the transport and queue guides to connect it to your deployment.",
       },
       {
         q: "Where should I start?",

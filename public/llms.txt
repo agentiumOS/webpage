@@ -1,0 +1,73 @@
+# Agentium
+
+> Build AI applications with Agentium, an open-source TypeScript SDK for agents, harnesses, voice, image generation, telephony, workflows, and cost tracking.
+
+Agentium is an MIT-licensed TypeScript SDK for Node.js applications. Developers install its npm packages in their own applications and configure their own provider accounts. Provider fees and hosting are separate.
+
+## Authoritative resources
+
+- [Homepage](https://agentium.in/): Product and capability overview.
+- [Documentation](https://docs.agentium.in): API contracts, setup, provider details, and limitations.
+- [Quickstart](https://docs.agentium.in/quickstart): Build a first application.
+- [Source code](https://github.com/agentiumOS/agentium): Implementation and package READMEs.
+- [npm packages](https://www.npmjs.com/org/agentium): Published packages and versions.
+
+## Capabilities
+
+- [Agents](https://docs.agentium.in/agents/overview): Model and tool-calling loop.
+- [Harnesses](https://docs.agentium.in/harness/overview): Separate package for reusable context, policies, drivers, and lifecycle.
+- [Voice](https://docs.agentium.in/voice/overview): Native realtime sessions and composable speech pipelines.
+- [Images](https://docs.agentium.in/toolkits/image-generation): Image generation and editing tools.
+- [Telephony](https://docs.agentium.in/voice/telephony): Carrier call-control adapters; media transport is separate.
+- [Workflows](https://docs.agentium.in/workflows/overview): Typed state and step orchestration.
+- [Cost tracking](https://docs.agentium.in/cost/overview): Usage evidence and cost estimates.
+- [Observability](https://docs.agentium.in/observability/overview): Traces, metrics, and exporters.
+
+## Provider integrations
+
+- [OpenAI](https://docs.agentium.in/models/openai): Models, images & realtime voice.
+- [Anthropic](https://docs.agentium.in/models/anthropic): Claude models.
+- [Google Gemini](https://docs.agentium.in/models/google): Models & live voice sessions.
+- [Ollama](https://docs.agentium.in/models/ollama): Run local models.
+- [ElevenLabs](https://docs.agentium.in/voice/elevenlabs): Speech recognition & synthesis.
+- [Twilio](https://docs.agentium.in/telephony/twilio): Outbound call control.
+- [LiveKit](https://docs.agentium.in/voice/livekit): Audio transport & SIP calls.
+- [GitHub](https://docs.agentium.in/toolkits/github): Repositories & issues.
+- [Notion](https://docs.agentium.in/toolkits/notion): Pages & databases.
+- [Slack](https://docs.agentium.in/toolkits/slack): Channels & messages.
+- [PostgreSQL](https://docs.agentium.in/storage/postgres): Persistent storage.
+- [Redis](https://docs.agentium.in/storage/redis): Storage & queues.
+
+## Frequently asked questions
+
+### What is Agentium?
+
+Agentium is an open-source TypeScript SDK for building AI applications in Node.js. Core includes agents, teams, workflows, memory, tools, voice adapters, image generation, outbound call control, and cost accounting. Separate packages add harnesses, browser automation, background jobs, evaluation, and observability. You run it within your own application and infrastructure.
+
+### Where does Agentium run?
+
+Agentium runs inside your Node.js application as an npm dependency. Your application supplies authentication, resource ownership, provider credentials, and lifecycle management. Choose your own hosting and storage, and add transport or queue packages when you need HTTP endpoints or background workers.
+
+### How are agents and harnesses different?
+
+An Agent runs the model and tool-calling loop. The separate @agentium/harness package composes context, skills, tool access, policies, budgets, and sessions around an execution driver. Drivers can run an Agent, Team, Workflow, or custom loop. Use core execution on its own, or add a harness to reuse these controls.
+
+### Can I choose my own models and voice providers?
+
+Yes. Model adapters include OpenAI, Anthropic, Google Gemini, and Ollama. For voice, use OpenAI Realtime or Gemini Live, or compose a streaming pipeline with separate speech recognition, agent, speech synthesis, and audio transport adapters. You supply provider credentials, and supported features vary by adapter.
+
+### Does Agentium support image generation and phone calls?
+
+Yes. The image toolkit provides OpenAI generation and editing tools; editing support depends on the selected model. Telephony adapters manage outbound calls through Twilio, Telnyx, Exotel, SignalWire, Vonage, and LiveKit SIP. Your application connects the carrier’s call control to its voice runtime and audio transport.
+
+### Can I track AI usage and costs?
+
+Yes. Enable cost accounting to record provider usage, estimate charges, and inspect costs by run. Configure budgets to check costs before new work starts, and add the observability package for traces and metrics. Estimates depend on reported usage and available pricing; missing information stays visible as incomplete cost. Budgets do not guarantee a final provider invoice.
+
+### Is Agentium free to use?
+
+Yes. Agentium is released under the MIT license and can be used in commercial applications. You run it on your own infrastructure. Model APIs, speech services, phone carriers, hosting, and other services you connect have their own charges.
+
+## Accuracy notes
+
+UI previews on the homepage are illustrative, not live customer results. Provider features vary; consult each adapter guide. Refer to npm and release documentation for version availability.

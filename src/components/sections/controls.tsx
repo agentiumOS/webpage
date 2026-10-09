@@ -88,7 +88,7 @@ export function Controls() {
 /** Small schematics explain each control without presenting invented metrics. */
 function ControlGraphic({ kind }: { kind: IconName }) {
   return (
-    <div aria-hidden="true" className="relative flex h-36 items-center justify-center overflow-hidden rounded-[12px] border border-line bg-canvas">
+    <div aria-hidden="true" className="relative flex h-52 items-center justify-center overflow-hidden rounded-[12px] border border-line bg-canvas">
       <svg viewBox="0 0 240 132" fill="none" className="h-full w-full" focusable="false">
         <g fill="var(--line)" opacity="0.65">
           {Array.from({ length: 9 }, (_, column) => Array.from({ length: 4 }, (_, row) => <circle key={`${column}-${row}`} cx={16 + column * 26} cy={16 + row * 33} r="0.7" />))}

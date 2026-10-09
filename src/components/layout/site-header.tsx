@@ -80,10 +80,10 @@ function AnnouncementStrip() {
         <Link
           href={site.announcement.href}
           data-track="announcement_click"
-          data-track-campaign="jev_launch"
+          data-track-campaign="sdk_overview"
           className="arrow-shift link-underline inline-flex min-h-7 items-center gap-1.5 font-medium text-citron-ink"
         >
-          <Icon name="target" className="size-3.5" />
+          <Icon name="layers" className="size-3.5" />
           {site.announcement.linkLabel}
           <Icon name="arrowRight" data-arrow="" className="size-3.5" />
         </Link>

@@ -2,7 +2,6 @@ import type { IconName } from "./icon";
 
 export const navLinkIcons: Record<string, IconName> = {
   Platform: "layers",
-  Jev: "target",
   Integrations: "cube",
   Examples: "sparkle",
   Docs: "bookOpen",
@@ -28,7 +27,6 @@ export const footerLinkIcons: Record<string, IconName> = {
   Examples: "sparkle",
   Documentation: "bookOpen",
   "The stack": "layers",
-  Jev: "target",
   Integrations: "cube",
   Architecture: "cube",
   "Migration guide": "replay",
@@ -45,6 +43,7 @@ export const footerLinkIcons: Record<string, IconName> = {
   Teams: "team",
   Workflows: "workflow",
   "Voice & calls": "mic",
+  "Voice & media": "audio",
   "Image generation": "image",
   Harnesses: "folder",
   "Cost tracking": "gauge",

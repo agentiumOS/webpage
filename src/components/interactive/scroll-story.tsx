@@ -295,10 +295,10 @@ function StageDecision() {
   ];
   return (
     <div>
-      <Label>Typed decision</Label>
+      <Label>Team routing</Label>
       <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="inline-flex h-11 shrink-0 items-center justify-center rounded-[10px] border-2 border-citron bg-ink px-4 font-mono text-[13px] text-canvas">
-          Jev
+          Router
         </div>
         <span aria-hidden="true" className="hidden h-px flex-1 bg-citron sm:block" />
         <ul className="flex flex-wrap gap-2">
@@ -318,7 +318,7 @@ function StageDecision() {
         </ul>
       </div>
       <p className="type-small mt-4 text-ink-muted">
-        Jev returns the label. Your application chooses the next step.
+        Use a model or application logic to choose the next specialist.
       </p>
     </div>
   );

@@ -9,6 +9,8 @@ export type Integration = {
   description: string;
   keywords: string[];
   docsUrl: string;
+  /** Optional on-site overview; provider documentation remains available there. */
+  overviewUrl?: string;
   /** Hugeicons name from `src/components/graphics/icon.tsx`. */
   icon: string;
   /** Internal editorial metadata: date the docs path was checked against the index. */
@@ -132,6 +134,7 @@ export const integrations: Integration[] = [
     description: "Ask typed decision questions through TypeSafe.",
     keywords: ["typesafe", "decision", "choice", "noul", "score", "judgment"],
     docsUrl: docs("/models/jev"),
+    overviewUrl: "/jev",
     icon: "target",
     verifiedAt: V,
   },

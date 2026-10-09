@@ -53,11 +53,11 @@ export const routeManifest: Record<RoutePath, RouteEntry> = {
   },
   "/examples": {
     path: "/examples",
-    title: "Examples — Agentium patterns for tools, memory, RAG, Jev, voice, browser",
+    title: "Agentium Examples — Agents, Voice, Images & Workflows",
     description:
-      "Start with focused Agentium patterns for tools, memory, retrieval, Jev decisions, human approval, voice, and browser agents. Each recipe opens in the documentation.",
+      "Explore TypeScript examples for agents, harnesses, voice, image generation, telephony, workflows, and cost tracking. Build from focused recipes.",
     label: "Examples",
-    lastModified: "2026-09-20",
+    lastModified: "2026-10-09",
   },
 };
 

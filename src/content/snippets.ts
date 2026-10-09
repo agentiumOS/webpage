@@ -1,7 +1,7 @@
 import { docs } from "@/lib/site-config";
 
 export type CodeSample = {
-  id: "agent" | "tool" | "jev" | "jev-toolkit";
+  id: "agent" | "tool" | "images" | "costs" | "jev" | "jev-toolkit";
   label: string;
   filename: string;
   code: string;
@@ -123,5 +123,64 @@ console.log((await serviceDesk.run("I cannot download my invoice.")).text);
   validation: "typechecked",
 };
 
-export const homeSamples: CodeSample[] = [firstAgent, toolAgent, decisionAgent];
-export const allSamples: CodeSample[] = [firstAgent, toolAgent, decisionAgent, jevToolkitAgent];
+export const imageAgent: CodeSample = {
+  id: "images",
+  label: "Images",
+  filename: "image-agent.ts",
+  code: `import { Agent, openai } from "@agentium/core";
+import { ImageGenerationToolkit } from "@agentium/core/toolkits";
+
+const images = new ImageGenerationToolkit({ model: "dall-e-3" });
+const illustrator = new Agent({
+  name: "illustrator",
+  model: openai("gpt-6-astra"),
+  instructions: "Use image_generate to illustrate the supplied brief.",
+  tools: [...images.getTools()],
+});
+
+try {
+  const result = await illustrator.run(
+    "Illustrate a field guide to native wildflowers.",
+  );
+  console.log(result.text);
+} finally {
+  await illustrator.close();
+}
+`,
+  install: "npm install @agentium/core openai",
+  env: "OPENAI_API_KEY",
+  note: "Image generation uses a separate provider request. Editing uses the toolkit’s supported editing model.",
+  docsUrl: docs("/toolkits/image-generation"),
+  validation: "typechecked",
+};
+
+export const costAgent: CodeSample = {
+  id: "costs",
+  label: "Costs",
+  filename: "run-costs.ts",
+  code: `import { Agent, openai } from "@agentium/core";
+
+const assistant = new Agent({
+  name: "support-assistant",
+  model: openai("gpt-6-astra"),
+  cost: true,
+});
+
+try {
+  const result = await assistant.run("Explain how sessions work.");
+  console.log(result.text);
+  console.log(result.usage);
+  console.log(result.costs);
+} finally {
+  await assistant.close();
+}
+`,
+  install: "npm install @agentium/core openai",
+  env: "OPENAI_API_KEY",
+  note: "Costs are estimates based on reported usage and available prices. A null total means pricing is incomplete.",
+  docsUrl: docs("/cost/overview"),
+  validation: "typechecked",
+};
+
+export const homeSamples: CodeSample[] = [firstAgent, toolAgent, imageAgent, costAgent];
+export const allSamples: CodeSample[] = [...homeSamples, decisionAgent, jevToolkitAgent];

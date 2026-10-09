@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/hero";
 import { Stack } from "@/components/sections/stack";
 import { Code } from "@/components/sections/code";
-import { JevSpotlight } from "@/components/sections/jev-spotlight";
+import { MediaSpotlight } from "@/components/sections/media-spotlight";
 import { Capabilities } from "@/components/sections/capabilities";
 import { Flow } from "@/components/sections/flow";
 import { Controls } from "@/components/sections/controls";
@@ -34,7 +34,7 @@ export default function HomePage() {
       <Hero />
       <Stack />
       <Code />
-      <JevSpotlight />
+      <MediaSpotlight />
       <Capabilities />
       <Flow />
       <Controls />

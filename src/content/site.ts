@@ -18,9 +18,9 @@ export const site = {
   name: "Agentium",
   tagline: "The TypeScript SDK behind your AI application.",
   announcement: {
-    copy: "Jev + Agentium: decisions, tools, and evaluations.",
-    linkLabel: "See how",
-    href: "/jev",
+    copy: "Agents, voice, images, and phone calls. Built with TypeScript.",
+    linkLabel: "Explore the SDK",
+    href: "/#stack",
   },
   nav: {
     platform: {
@@ -49,7 +49,6 @@ export const site = {
       ] satisfies PlatformItem[],
     },
     links: [
-      { label: "Jev", href: "/jev" },
       { label: "Integrations", href: "/integrations" },
       { label: "Examples", href: "/examples" },
       { label: "Docs", href: docs("/"), external: true },
@@ -73,7 +72,7 @@ export const site = {
         heading: "Product",
         links: [
           { label: "The stack", href: "/#stack" },
-          { label: "Jev", href: "/jev" },
+          { label: "Voice & media", href: "/#voice-media" },
           { label: "Integrations", href: "/integrations" },
           { label: "Examples", href: "/examples" },
           { label: "Runtime controls", href: "/#controls" },
@@ -134,7 +133,7 @@ export const home = {
       "Typed tools with Zod",
       "Memory you configure",
       "Teams and workflows",
-      "Jev typed decisions",
+      "Structured output",
       "Approval gates",
       "Budget checks",
       "Tracing and metrics",
@@ -208,78 +207,40 @@ export const home = {
 
   code: {
     eyebrow: "Start with TypeScript",
-    h2: "Your first agent should look familiar.",
-    lead: "Define its job, choose a model, and run it. Add capabilities when the work calls for them.",
+    h2: "Small examples. Real building blocks.",
+    lead: "Run an agent, connect a typed tool, generate an image, or inspect a run’s costs. Start with a focused API and build from there.",
     link: { label: "Read the quickstart", href: docs("/quickstart") },
   },
 
-  jev: {
-    eyebrow: "Jev + Agentium",
-    h2: ["Let the model talk.", "Let Jev make the call."],
-    lead: "Add Jev’s typed decisions to your Agentium application. Use it to choose a route, give a chat agent a judgment tool, or score a response in an evaluation.",
-    primary: { label: "Build with Jev", href: "/jev", kind: "primary" } satisfies Cta,
-    secondary: {
-      label: "Read the integration guide",
-      href: docs("/models/jev"),
-      kind: "secondary",
-    } satisfies Cta,
+  media: {
+    eyebrow: "Voice, images & telephony",
+    h2: ["Give your application", "more ways to interact."],
+    lead: "Speak with users, create images, or manage outbound calls. Choose dedicated adapters for each capability and connect them to your application’s tools and workflows.",
+    primary: { label: "Explore voice", href: docs("/voice/overview"), kind: "primary" } satisfies Cta,
+    secondary: { label: "Browse adapters", href: "/integrations?category=voice", kind: "secondary" } satisfies Cta,
     cards: [
       {
-        title: "Make the decision",
-        copy: "Pass context and a defined set of questions. Get decisions your code can use.",
-        link: { label: "Model integration", href: docs("/models/jev") },
+        icon: "mic",
+        title: "Build a voice conversation.",
+        copy: "Use a native realtime model or compose speech recognition, an agent, and speech synthesis. Your application supplies the audio transport.",
+        providers: ["openai-realtime", "elevenlabs", "livekit"],
+        link: { label: "Voice adapters", href: docs("/voice/adapters") },
       },
       {
-        title: "Give your agent a second opinion",
-        copy: "Let a chat agent call Jev when it needs a label, probability, or rubric score.",
-        link: { label: "Jev toolkit", href: docs("/toolkits/jev") },
+        icon: "image",
+        title: "Give an agent image tools.",
+        copy: "Generate an image from a brief or edit an existing asset with the OpenAI image toolkit. Choose the model and supported options for the job.",
+        providers: ["openai-images"],
+        link: { label: "Image generation", href: docs("/toolkits/image-generation") },
       },
       {
-        title: "Put judgments into your evals",
-        copy: "Score generated responses against criteria you define.",
-        link: { label: "Evaluation guide", href: docs("/eval/jev") },
+        icon: "phone",
+        title: "Connect outbound calls.",
+        copy: "Create, inspect, and end calls with carrier adapters. Use call intents to coordinate retries and authorization; connect voice and media separately.",
+        providers: ["twilio"],
+        link: { label: "Telephony guide", href: docs("/telephony/quickstart") },
       },
     ],
-    demo: {
-      heading: "See a decision flow",
-      badge: "Illustrative example",
-      replay: "Replay example",
-      examples: [
-        {
-          id: "route",
-          label: "Route",
-          input: "My invoice shows the same charge twice.",
-          question: "Which team should receive this?",
-          helper: "choice",
-          output: "billing",
-          alternatives: ["technical", "other"],
-          caption: "Example choice label.",
-          note: "Your application decides what happens with the result.",
-        },
-        {
-          id: "urgency",
-          label: "Urgency",
-          input: "Checkout has stopped working for every customer.",
-          question: "Does this need immediate review?",
-          helper: "noul",
-          output: "0.94",
-          alternatives: [],
-          caption: "Example noul value · 0–1.",
-          note: "Your application decides the escalation rule.",
-        },
-        {
-          id: "quality",
-          label: "Quality",
-          input: "Draft reply evaluated against a helpfulness rubric.",
-          question: "How useful is this reply?",
-          helper: "score",
-          output: "Useful",
-          alternatives: [],
-          caption: "Example rubric level.",
-          note: "Define the rubric levels that matter to your product.",
-        },
-      ],
-    },
   },
 
   capabilities: {
@@ -338,10 +299,10 @@ export const home = {
       {
         id: "decision",
         number: "02",
-        label: "Decision",
-        heading: "Make a decision you can use.",
-        body: "Ask Jev to classify the request, then let your application choose the next step.",
-        summary: "Jev classified the request as Billing",
+        label: "Routing",
+        heading: "Send the work to the right specialist.",
+        body: "Route by the request’s context, using a model or your own application logic. Give each specialist the tools it needs.",
+        summary: "Billing specialist selected",
       },
       {
         id: "tools",
@@ -440,7 +401,7 @@ export const home = {
         id: "support",
         title: "Support that remembers",
         copy: "Bring account context, ticket routing, and useful tools into the same support flow.",
-        tags: ["Memory", "Tools", "Jev"],
+        tags: ["Memory", "Tools", "Workflows"],
         href: "/examples#support",
       },
       {
@@ -470,11 +431,11 @@ export const home = {
       },
       {
         q: "Do I have to use one model provider?",
-        a: "No. Agentium supports multiple providers and custom integrations. Choose models according to the task. Capabilities differ: a chat model, a realtime voice provider, and Jev’s decision model serve different purposes.",
+        a: "No. Choose from model adapters including OpenAI, Anthropic, Google Gemini, and Ollama, or bring a custom integration. You can select separate providers for text, realtime voice, and speech. Features vary by adapter.",
       },
       {
-        q: "How does Jev fit into Agentium?",
-        a: "Use Jev directly for typed decisions, give a chat agent access to Jev through a toolkit, or use it to judge responses in an evaluation. Your chat model still handles the conversation when prose is needed.",
+        q: "When would I use a harness?",
+        a: "An Agent runs the model and tool-calling loop. The separate @agentium/harness package adds reusable context, skills, tool access, policies, budgets, and sessions around an execution driver. Use a harness when you want to share those controls across agents, teams, or workflows.",
       },
       {
         q: "Can the agent remember previous conversations?",
@@ -487,6 +448,10 @@ export const home = {
       {
         q: "Can I use voice, images, and telephony separately?",
         a: "Yes. Use the dedicated voice and telephony APIs or image-generation toolkit for the capabilities your application needs. Voice supports native realtime providers and composed speech pipelines. Carrier adapters handle call control; your application connects the voice runtime and audio transport.",
+      },
+      {
+        q: "Can I track usage and control costs?",
+        a: "Enable cost accounting to inspect reported usage and estimated charges for each run. Configure budgets to check recorded costs before further requests, and add tracing and metrics through the observability package. Estimates depend on provider usage and available prices; incomplete costs stay visible.",
       },
       {
         q: "Does Agentium host the application for me?",

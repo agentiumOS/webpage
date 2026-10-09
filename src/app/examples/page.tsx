@@ -16,6 +16,11 @@ const recipeIcons: Record<string, IconName> = {
   tools: "wrench",
   skills: "folder",
   "voice-browser": "audio",
+  images: "image",
+  telephony: "phone",
+  harness: "layers",
+  costs: "gauge",
+  workflows: "workflow",
   approval: "shieldCheck",
 };
 

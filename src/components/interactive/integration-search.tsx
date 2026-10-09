@@ -178,7 +178,7 @@ export function IntegrationSearch() {
           {results.map((item) => (
             <li key={item.id}>
               <a
-                href={item.docsUrl}
+                href={item.overviewUrl ?? item.docsUrl}
                 data-track="integration_open"
                 data-track-integration-id={item.id}
                 data-track-category={item.category}
@@ -195,7 +195,7 @@ export function IntegrationSearch() {
                 </div>
                 <p className="type-body mt-2 flex-1 text-ink-muted">{item.description}</p>
                 <span className="type-ui mt-5 inline-flex items-center gap-2 text-ink">
-                  Open guide
+                  {item.overviewUrl ? "Explore integration" : "Open guide"}
                   <Icon name="arrowUpRight" data-arrow="" className="size-4" />
                 </span>
               </a>

@@ -36,7 +36,7 @@ export function IntegrationsPreview() {
                   return (
                     <li key={id}>
                       <a
-                        href={item.docsUrl}
+                        href={item.overviewUrl ?? item.docsUrl}
                         className="inline-flex min-h-11 items-center gap-2 rounded-[10px] border border-line bg-surface px-4 py-3 type-ui text-ink transition-colors duration-[160ms] ease-[var(--ease-state)] hover:border-control-line hover:bg-surface-muted"
                       >
                         <IntegrationMark id={item.id} icon={item.icon} className="size-4" />

@@ -28,44 +28,86 @@ import { Container } from "./container";
 import { Wordmark } from "./wordmark";
 import { SmartLink } from "./smart-link";
 
-function useScrolled(threshold = 12) {
-  const [scrolled, setScrolled] = React.useState(false);
+function useHeaderScroll() {
+  const [state, setState] = React.useState({ scrolled: false, hidden: false });
+  const reveal = React.useCallback(() => {
+    setState((previous) => previous.hidden ? { ...previous, hidden: false } : previous);
+  }, []);
   React.useEffect(() => {
     let frame = 0;
+    let lastY = Math.max(0, window.scrollY);
+    let downDistance = 0;
+    let upDistance = 0;
     const update = () => {
       frame = 0;
-      setScrolled(window.scrollY > threshold);
+      const y = Math.max(0, window.scrollY);
+      const delta = y - lastY;
+      if (delta > 0) {
+        downDistance += delta;
+        upDistance = 0;
+      } else if (delta < 0) {
+        upDistance -= delta;
+        downDistance = 0;
+      }
+      const shouldHide = downDistance > 12;
+      const shouldShow = upDistance > 32;
+      setState((previous) => {
+        const scrolled = y > 12;
+        const hidden = y < 80 ? false : shouldHide ? true : shouldShow ? false : previous.hidden;
+        return previous.scrolled === scrolled && previous.hidden === hidden ? previous : { scrolled, hidden };
+      });
+      lastY = y;
     };
     const onScroll = () => {
       if (!frame) frame = window.requestAnimationFrame(update);
     };
+    const onHashChange = () => {
+      lastY = Math.max(0, window.scrollY);
+      downDistance = 0;
+      upDistance = 0;
+      setState((previous) => ({ ...previous, hidden: false }));
+    };
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("hashchange", onHashChange);
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("hashchange", onHashChange);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [threshold]);
-  return scrolled;
+  }, []);
+  return { ...state, reveal };
 }
 
 export function SiteHeader() {
-  const scrolled = useScrolled();
+  const { scrolled, hidden, reveal } = useHeaderScroll();
+  const [focused, setFocused] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const handleMenuOpenChange = React.useCallback((open: boolean) => {
+    setMenuOpen(open);
+    reveal();
+  }, [reveal]);
   return (
     <>
       <AnnouncementStrip />
       <header
         data-scrolled={scrolled ? "" : undefined}
+        data-hidden={hidden && !focused && !menuOpen ? "" : undefined}
+        onFocusCapture={() => { setFocused(true); reveal(); }}
+        onBlurCapture={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
+        }}
         className={cn(
-          "sticky top-0 z-40 bg-canvas transition-[box-shadow,border-color] duration-[160ms] ease-[var(--ease-state)]",
+          "sticky top-0 z-40 bg-canvas transition-[transform,box-shadow,border-color] duration-[200ms] ease-[var(--ease-state)] motion-reduce:transition-[box-shadow,border-color]",
           "border-b",
+          hidden && !focused && !menuOpen && "-translate-y-full",
           scrolled ? "border-line shadow-[0_1px_0_0_var(--line),0_8px_24px_-20px_rgb(32_37_33/0.25)]" : "border-transparent",
         )}
       >
         <Container className="flex h-16 items-center justify-between lg:h-[72px]">
           <Wordmark />
           <DesktopNav />
-          <MobileNav />
+          <MobileNav onOpenChange={handleMenuOpenChange} />
         </Container>
       </header>
     </>
@@ -154,10 +196,14 @@ function DesktopNav() {
   );
 }
 
-function MobileNav() {
+function MobileNav({ onOpenChange }: { onOpenChange: (open: boolean) => void }) {
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
   const first = React.useRef(true);
+  const updateOpen = React.useCallback((next: boolean) => {
+    setOpen(next);
+    onOpenChange(next);
+  }, [onOpenChange]);
 
   // Close on navigation (pathname changes).
   React.useEffect(() => {
@@ -165,12 +211,12 @@ function MobileNav() {
       first.current = false;
       return;
     }
-    setOpen(false);
-  }, [pathname]);
+    updateOpen(false);
+  }, [pathname, updateOpen]);
 
   return (
     <div className="lg:hidden">
-      <Sheet open={open} onOpenChange={setOpen}>
+      <Sheet open={open} onOpenChange={updateOpen}>
         <SheetTrigger asChild>
           <Button variant="ghost" size="icon" aria-label="Open navigation">
             <Icon name="menu" className="size-5" />
@@ -195,7 +241,7 @@ function MobileNav() {
                 <li key={item.title}>
                   <Link
                     href={item.href}
-                    onClick={() => setOpen(false)}
+                    onClick={() => updateOpen(false)}
                     className="flex min-h-12 items-start gap-3 rounded-[8px] px-3 py-2 hover:bg-surface-muted"
                   >
                     <span className="mt-1 inline-flex size-8 shrink-0 items-center justify-center rounded-[8px] bg-surface-muted text-ink">
@@ -219,7 +265,7 @@ function MobileNav() {
                     href={link.href}
                     data-track="nav_click"
                     data-track-location="mobile_nav"
-                    onClick={() => setOpen(false)}
+                    onClick={() => updateOpen(false)}
                     className="flex min-h-12 items-center gap-3 rounded-[8px] px-3 text-[15px] font-medium text-ink hover:bg-surface-muted"
                   >
                     <Icon name={navLinkIcons[link.label] ?? "cube"} className="size-4" />

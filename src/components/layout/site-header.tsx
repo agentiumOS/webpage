@@ -98,9 +98,9 @@ export function SiteHeader() {
           if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
         }}
         className={cn(
-          "sticky top-0 z-40 bg-canvas transition-[transform,box-shadow,border-color] duration-[200ms] ease-[var(--ease-state)] motion-reduce:transition-[box-shadow,border-color]",
+          "sticky top-0 z-40 bg-canvas transition-[translate,opacity,box-shadow,border-color] duration-[280ms] ease-[var(--ease-enter)] motion-reduce:transition-[opacity,box-shadow,border-color] motion-reduce:duration-[160ms]",
           "border-b",
-          hidden && !focused && !menuOpen && "-translate-y-full",
+          hidden && !focused && !menuOpen && "-translate-y-full opacity-0",
           scrolled ? "border-line shadow-[0_1px_0_0_var(--line),0_8px_24px_-20px_rgb(32_37_33/0.25)]" : "border-transparent",
         )}
       >

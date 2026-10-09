@@ -36,3 +36,11 @@ test("mobile navigation stays accessible while open", async ({ page }) => {
   await expect(page.getByRole("navigation", { name: "Mobile" })).toBeVisible();
   await expect(header).not.toHaveAttribute("data-hidden", "");
 });
+
+test("header movement respects reduced-motion preference", async ({ page }) => {
+  await page.goto("/");
+  const header = page.locator("header");
+  await expect.poll(() => header.evaluate((element) => getComputedStyle(element).transitionProperty)).toContain("translate");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(() => header.evaluate((element) => getComputedStyle(element).transitionProperty)).not.toContain("translate");
+});

@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { box, CITRON, GRAPHITE, IVORY, project, type Iso } from "./iso";
 import { EASE_ENTER, EASE_MOVE, IsoBox, MOTION_OK } from "./sculptures";
 
@@ -82,24 +83,22 @@ type Signal = { name: string; from: number; to: number; len: number };
  *   80–98   trace tile records the run, bar by bar
  *   88–94   status light dims; idle to 100
  *
- * A signal is a single dash on a `pathLength=1` path. Dash and margin are
- * fixed in px and converted per path, so every packet is the same size:
- *   dash f, gap 1+2m, offset (1+3m+2f) → (f+m)
- * keeps the dash fully off-path at both ends — no opacity toggling.
- * Everything is CSS (off main thread). Reduced motion: the engine at rest.
+ * Small packets travel along the tracks with transform/opacity only.
+ * The geometry remains static; reduced motion shows the engine at rest.
  */
-function engineCss(signals: Signal[], slide: [number, number], toolLift: number, gateLift: number): string {
-  const DASH = 48;
-  const MARGIN = 12;
+function engineCss(iso: Iso, signals: Signal[], routes: Record<string, P3[]>, slide: [number, number], toolLift: number, gateLift: number): string {
   const sig = signals.map(({ name, from, to, len }) => {
-    const f = +(DASH / len).toFixed(4);
-    const m = +(MARGIN / len).toFixed(4);
-    const o1 = +(1 + 3 * m + 2 * f).toFixed(4);
-    const o2 = +(f + m).toFixed(4);
-    const gap = +(1 + 2 * m).toFixed(4);
+    const points = routes[name].map((point) => project(iso, ...point));
+    const [startX, startY] = points[0];
+    let traveled = 0;
+    const frames = points.map(([x, y], index) => {
+      if (index > 0) traveled += Math.hypot(x - points[index - 1][0], y - points[index - 1][1]);
+      const time = from + (to - from) * traveled / len;
+      return `${time.toFixed(3)}% { transform: translate(${x.toFixed(1)}px, ${y.toFixed(1)}px); opacity: 1; }`;
+    }).join("\n");
     return {
-      base: `.age-sig-${name} { stroke-dasharray: ${f} ${gap}; stroke-dashoffset: ${o1}; }`,
-      frames: `@keyframes age-sig-${name} { 0%, ${from}% { stroke-dashoffset: ${o1}; } ${to}%, 100% { stroke-dashoffset: ${o2}; } }`,
+      base: `.age-sig-${name} { opacity: 0; transform: translate(${startX}px, ${startY}px); }`,
+      frames: `@keyframes age-sig-${name} { 0%, ${from - 0.01}% { transform: translate(${startX}px, ${startY}px); opacity: 0; } ${frames} ${to + 0.01}%, 100% { opacity: 0; } }`,
       anim: `.age-sig-${name} { animation: age-sig-${name} ${CYCLE} linear infinite; }`,
     };
   });
@@ -189,6 +188,7 @@ const BLUE = "#2F6BFF";
 const BLUE_SOFT = "#5B8CFF";
 
 export function AgentSculpture({ className }: { className?: string }) {
+  const idPrefix = `engine-${useId().replace(/:/g, "")}`;
   const iso: Iso = { ox: 532, oy: 292, s: 196 };
   const s = iso.s;
   /** The request track runs along this y, straight through the core. */
@@ -283,22 +283,22 @@ export function AgentSculpture({ className }: { className?: string }) {
     { name: "out", from: 70, to: 84, len: pathLen(iso, routes.out) },
     { name: "trace", from: 80, to: 86, len: pathLen(iso, routes.trace) },
   ];
-  const signalPaths: Record<string, string> = {
-    in: path3(iso, routes.in),
-    "think-out": path3(iso, routes.think),
-    "think-back": path3(iso, back(routes.think)),
-    "tool-out": path3(iso, routes.tool),
-    "tool-back": path3(iso, back(routes.tool)),
-    "mem-out": path3(iso, routes.mem),
-    "mem-back": path3(iso, back(routes.mem)),
-    out: path3(iso, routes.out),
-    trace: path3(iso, routes.trace),
+  const signalRoutes: Record<string, P3[]> = {
+    in: routes.in,
+    "think-out": routes.think,
+    "think-back": back(routes.think),
+    "tool-out": routes.tool,
+    "tool-back": back(routes.tool),
+    "mem-out": routes.mem,
+    "mem-back": back(routes.mem),
+    out: routes.out,
+    trace: routes.trace,
   };
 
   const slide = shift(iso, 0.22, 0, 0);
   const toolLift = -shift(iso, 0, 0, 0.11)[1];
   const gateLift = -shift(iso, 0, 0, 0.3)[1];
-  const css = engineCss(signals, slide, toolLift, gateLift);
+  const css = engineCss(iso, signals, signalRoutes, slide, toolLift, gateLift);
 
   const bankH = bank.count * bank.slab + (bank.count - 1) * bank.gap;
   const bankBlock: Block = { x: bank.x, y: bank.y, z: 0, w: bank.w, d: bank.d, h: bankH };
@@ -315,42 +315,56 @@ export function AgentSculpture({ className }: { className?: string }) {
   ];
   const contact = (b: Block, rx: number, ry: number) => {
     const c = project(iso, b.x + b.w / 2, b.y + b.d / 2, 0);
-    return <ellipse cx={c[0]} cy={c[1] + 4} rx={rx * s} ry={ry * s} fill={INK} opacity="0.1" filter="url(#age-soft)" />;
+    return <ellipse cx={c[0]} cy={c[1] + 4} rx={rx * s} ry={ry * s} fill={INK} opacity="0.1" filter={`url(#${idPrefix}-age-soft)`} />;
   };
 
   return (
     <svg viewBox="0 0 1200 960" className={className} role="presentation" aria-hidden="true" focusable="false">
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <defs>
-        <filter id="age-blur" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id={`${idPrefix}-age-blur`} x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="26" />
         </filter>
-        <filter id="age-soft" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id={`${idPrefix}-age-soft`} x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="9" />
         </filter>
-        <filter id="age-bloom" x="-80%" y="-80%" width="260%" height="260%">
+        <filter id={`${idPrefix}-age-bloom`} x="-80%" y="-80%" width="260%" height="260%">
           <feGaussianBlur stdDeviation="16" />
         </filter>
-        <linearGradient id="age-sheen" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={`${idPrefix}-age-sheen`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#FFFFFF" stopOpacity="0.6" />
           <stop offset="0.55" stopColor="#FFFFFF" stopOpacity="0" />
         </linearGradient>
-        <clipPath id="age-top">
+        <clipPath id={`${idPrefix}-age-top`}>
           <polygon points={plinthTop} />
         </clipPath>
       </defs>
 
       {/* ground shadow */}
-      <ellipse cx={ground[0]} cy={ground[1] + 44} rx={2.6 * s} ry={0.4 * s} fill={INK} opacity="0.15" filter="url(#age-blur)" />
+      <ellipse cx={ground[0]} cy={ground[1] + 44} rx={2.6 * s} ry={0.4 * s} fill={INK} opacity="0.15" filter={`url(#${idPrefix}-age-blur)`} />
 
+      {/* Recessed feet and an inset seam give the assembly a grounded chassis. */}
+      {[[0.13, 2.13], [2.98, 2.13], [2.98, 0.13]].map(([x, y]) => (
+        <IsoBox key={`${x}-${y}`} iso={iso} x={x} y={y} z={-0.32} w={0.28} d={0.28} h={0.1} palette={GRAPHITE} />
+      ))}
       {/* plinth: light from the upper left, four screws */}
       <IsoBox iso={iso} {...plinth} palette={IVORY} />
-      <polygon points={plinthTop} fill="url(#age-sheen)" />
+      <polygon points={plinthTop} fill={`url(#${idPrefix}-age-sheen)`} />
+      <polygon points={flat(iso, 0.075, 0.075, 0.002, 3.25, 2.45)} fill="none" stroke="#CCD5E4" strokeWidth="1.2" />
+      <path d={path3(iso, [[0, 2.6, -0.14], [3.4, 2.6, -0.14], [3.4, 0, -0.14]])} fill="none" stroke="#ADBACD" strokeWidth="1.2" />
+      {Array.from({ length: 7 }, (_, index) => (
+        <path key={index} d={path3(iso, [[2.38 + index * 0.1, 2.6, -0.075], [2.42 + index * 0.1, 2.6, -0.075]])} stroke="#9EACC3" strokeWidth="2.5" strokeLinecap="round" />
+      ))}
       {screws.map((p) => {
         const c = project(iso, ...p);
-        return <ellipse key={p.join()} cx={c[0]} cy={c[1]} rx="4" ry="2.4" fill={IVORY.right} stroke={IVORY.edge} strokeWidth="1" />;
+        return (
+          <g key={p.join()}>
+            <ellipse cx={c[0]} cy={c[1]} rx="4" ry="2.4" fill={IVORY.right} stroke={IVORY.edge} strokeWidth="1" />
+            <path d={`M${c[0] - 2} ${c[1]}h4`} stroke="#F7FAFF" strokeWidth="1" />
+          </g>
+        );
       })}
-      <g clipPath="url(#age-top)">
+      <g clipPath={`url(#${idPrefix}-age-top)`}>
         {contact(tower, 0.42, 0.2)}
         {contact(core, 0.62, 0.3)}
         {contact(bankBlock, 0.48, 0.23)}
@@ -370,9 +384,12 @@ export function AgentSculpture({ className }: { className?: string }) {
       </g>
 
       {/* signals: one packet per route, drawn under the modules so it enters and leaves them */}
-      <g fill="none" stroke={BLUE} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
-        {signals.map((sg) => (
-          <path key={sg.name} className={`age-sig-${sg.name}`} d={signalPaths[sg.name]} pathLength={1} />
+      <g fill={BLUE}>
+        {signals.map((signal) => (
+          <g key={signal.name} className={`age-sig-${signal.name}`}>
+            <circle r="6" fill="#8AB2FF" opacity="0.35" />
+            <circle r="3.5" />
+          </g>
         ))}
       </g>
 
@@ -393,10 +410,14 @@ export function AgentSculpture({ className }: { className?: string }) {
           />
         ))}
         <polygon points={flat(iso, tower.x + 0.08, tower.y + 0.08, tower.h, tower.w - 0.16, tower.d - 0.16)} fill={RECESS} />
-        <ellipse className="age-glow" cx={capTop[0]} cy={capTop[1]} rx={0.36 * s} ry={0.18 * s} fill={BLUE_SOFT} filter="url(#age-bloom)" />
+        <ellipse className="age-glow" cx={capTop[0]} cy={capTop[1]} rx={0.36 * s} ry={0.18 * s} fill={BLUE_SOFT} filter={`url(#${idPrefix}-age-bloom)`} />
         <g className="age-cap">
           <IsoBox iso={iso} {...cap} palette={CITRON} />
+          <polygon points={flat(iso, cap.x + 0.045, cap.y + 0.045, cap.z + cap.h, 0.25, 0.25)} fill="#92B5FF" stroke="#D2E1FF" strokeWidth="1" />
         </g>
+        {[0.13, 0.27, 0.41].map((offset) => (
+          <polygon key={offset} points={flat(iso, tower.x + offset, tower.y + tower.d - 0.09, tower.h + 0.002, 0.055, 0.045)} fill="#8398B8" />
+        ))}
       </g>
 
       {/* input socket on the back-left edge */}
@@ -419,7 +440,18 @@ export function AgentSculpture({ className }: { className?: string }) {
       {/* core: recessed well, status light, vents on the right, ports where tracks meet it */}
       <g>
         <IsoBox iso={iso} {...core} palette={GRAPHITE} />
-        <polygon points={flat(iso, core.x + 0.1, core.y + 0.1, core.h, core.w - 0.2, core.d - 0.2)} fill={WELL} />
+        <polygon points={flat(iso, core.x + 0.1, core.y + 0.1, core.h, core.w - 0.2, core.d - 0.2)} fill={WELL} stroke="#4C5D78" strokeWidth="1.2" />
+        <polygon points={flat(iso, core.x + 0.25, core.y + 0.25, core.h + 0.002, 0.4, 0.4)} fill="#283B5D" stroke="#728DB7" strokeWidth="1.2" />
+        {[0.3, 0.45, 0.6].map((offset) => (
+          <g key={offset} stroke="#647C9F" strokeWidth="1.5" fill="none">
+            <path d={path3(iso, [[core.x + offset, core.y + 0.12, core.h + 0.003], [core.x + offset, core.y + 0.25, core.h + 0.003]])} />
+            <path d={path3(iso, [[core.x + 0.65, core.y + offset, core.h + 0.003], [core.x + 0.78, core.y + offset, core.h + 0.003]])} />
+          </g>
+        ))}
+        {[[0.15, 0.15], [0.75, 0.15], [0.15, 0.75], [0.75, 0.75]].map(([x, y]) => {
+          const [sx, sy] = project(iso, core.x + x, core.y + y, core.h);
+          return <ellipse key={`${x}-${y}`} cx={sx} cy={sy} rx="2.5" ry="1.5" fill="#6F819F" />;
+        })}
         {vents.map((z) => (
           <path
             key={z}
@@ -498,6 +530,20 @@ export function AgentSculpture({ className }: { className?: string }) {
 
       {/* output socket on the front-right edge */}
       <IsoBox iso={iso} {...socketOut} palette={IVORY} />
+      <polygon points={patch(iso, "x", socketOut.x + socketOut.w, TY - 0.09, TY + 0.09, 0.025, 0.09)} fill={SLOT} />
+      {[TY - 0.05, TY, TY + 0.05].map((y) => (
+        <path key={y} d={path3(iso, [[socketOut.x + socketOut.w, y, 0.045], [socketOut.x + socketOut.w, y, 0.073]])} stroke="#7D9BC9" strokeWidth="1.3" />
+      ))}
+
+      {/* Quiet leader labels make the physical parts understandable at a glance. */}
+      <g fill="#66758E" fontFamily="var(--font-mono), monospace" fontSize="23" letterSpacing="1.2">
+        <path d="M345 125H433L480 151" fill="none" stroke="#B8C5D8" strokeWidth="1.2" />
+        <text x="344" y="110">MODEL</text>
+        <path d="M965 352H1075V425L1016 481" fill="none" stroke="#B8C5D8" strokeWidth="1.2" />
+        <text x="970" y="337">MEMORY</text>
+        <path d="M157 739H253L310 650L345 615" fill="none" stroke="#B8C5D8" strokeWidth="1.2" />
+        <text x="157" y="724">TOOLS</text>
+      </g>
     </svg>
   );
 }

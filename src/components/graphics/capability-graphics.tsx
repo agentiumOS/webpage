@@ -1,270 +1,407 @@
+import type { ReactNode } from "react";
 import { cn } from "cn";
-import { Icon } from "@/components/graphics/icon";
+import { Icon, type IconName } from "@/components/graphics/icon";
 
-/* All graphics are authored HTML/SVG. Each carries one small explanatory loop
-   (CSS, see `gfx-*` in globals.css) that shows what the capability does; the
-   loops pause for people who prefer reduced motion. Nothing essential is hidden. */
+/* Decorative, illustrative UI. Real text stays legible as the card narrows;
+   diagrams use static states so their meaning does not depend on motion. */
+const panel =
+  "rounded-xl border border-line bg-surface shadow-[0_8px_20px_-14px_rgb(18_24_38/0.35),inset_0_1px_0_white]";
+const label = "font-mono text-[10px] leading-4 tracking-[0.06em] uppercase";
+
+function Scene({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className={cn(
+        "relative flex h-full min-h-[240px] flex-col justify-center overflow-hidden p-4 text-ink",
+        className,
+      )}
+    >
+      <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:radial-gradient(var(--control-line)_0.6px,transparent_0.6px)] [background-size:16px_16px]" />
+      <div className="relative">{children}</div>
+    </div>
+  );
+}
+
+function Mark({ icon, dark = false }: { icon: IconName; dark?: boolean }) {
+  return (
+    <span
+      className={cn(
+        "inline-flex size-8 shrink-0 items-center justify-center rounded-[9px] border",
+        dark
+          ? "border-white/15 bg-white/10 text-white"
+          : "border-citron/15 bg-citron/8 text-citron-ink",
+      )}
+    >
+      <Icon name={icon} variant="duotone" className="size-4" />
+    </span>
+  );
+}
+
+function Connector({ text }: { text?: string }) {
+  return (
+    <div className="flex h-7 items-center justify-center gap-2">
+      <span className="h-full w-px bg-control-line" />
+      {text ? (
+        <span className={cn(label, "text-ink-muted")}>{text}</span>
+      ) : null}
+    </div>
+  );
+}
 
 export function MemoryGraphic() {
-  const notes = [
-    { label: "Session", body: "12 messages · invoice A104", icon: "note" as const },
-    { label: "User facts", body: "Prefers concise replies", icon: "user" as const },
-    { label: "Retrieved context", body: "Refund policy · section 3", icon: "file" as const },
+  const sources: { label: string; body: string; icon: IconName }[] = [
+    {
+      label: "Session history",
+      body: "An earlier order question",
+      icon: "note",
+    },
+    { label: "User memory", body: "Prefers concise replies", icon: "user" },
+    {
+      label: "Retrieved context",
+      body: "The current return policy",
+      icon: "file",
+    },
   ];
   return (
-    <div className="relative flex h-full min-h-[220px] items-end p-5" aria-hidden="true">
-      <span className="absolute top-4 left-5 font-mono text-[10px] tracking-[0.06em] text-ink-muted uppercase">
-        Example context
-      </span>
-      <div className="relative w-full">
-        {notes.map((n, i) => (
+    <Scene>
+      <div className="mb-3 flex items-center justify-between">
+        <span className={cn(label, "text-ink-muted")}>Context assembly</span>
+        <Icon
+          name="layers"
+          variant="duotone"
+          className="size-4 text-ink-muted"
+        />
+      </div>
+      <div className="relative ml-2 space-y-2 border-l border-control-line pl-4">
+        {sources.map((source) => (
           <div
-            key={n.label}
-            style={{
-              animationDelay: `${i * 0.7}s`,
-              marginLeft: `${i * 12}px`,
-              marginTop: i === 0 ? 0 : -10,
-              zIndex: i + 1,
-            }}
-            className="gfx-float relative rounded-[12px] border border-line bg-surface p-3.5 shadow-[0_10px_28px_-18px_rgb(32_37_33/0.35)]"
+            key={source.label}
+            className={cn(
+              panel,
+              "relative flex items-center gap-3 px-3 py-2.5",
+            )}
           >
-            <p className="flex items-center gap-1.5 font-mono text-[10px] tracking-[0.06em] text-ink-muted uppercase">
-              <Icon name={n.icon} className="size-3.5" />
-              {n.label}
-            </p>
-            <p className="type-small mt-1 text-ink">{n.body}</p>
-            {i === notes.length - 1 ? (
-              <span className="absolute inset-y-3 left-0 w-0.5 rounded-full bg-citron-ink" />
-            ) : null}
+            <span className="absolute -left-[21px] size-2 rounded-full border border-control-line bg-surface" />
+            <Mark icon={source.icon} />
+            <div className="min-w-0">
+              <p className="text-[12px] font-medium leading-5">
+                {source.label}
+              </p>
+              <p className="text-[11px] leading-4 text-ink-muted">
+                {source.body}
+              </p>
+            </div>
           </div>
         ))}
       </div>
-    </div>
+      <Connector />
+      <div className="flex items-center gap-3 rounded-xl border border-ink bg-ink px-3 py-3 text-white shadow-[0_8px_20px_-12px_rgb(18_24_38/0.5)]">
+        <Mark icon="brain" dark />
+        <div>
+          <p className="text-[12px] leading-5">Ready for the next turn</p>
+          <p className="text-[11px] leading-4 text-dark-muted">
+            Relevant context, one agent run
+          </p>
+        </div>
+        <Icon
+          name="arrowRight"
+          className="ml-auto size-4 shrink-0 text-white/60"
+        />
+      </div>
+    </Scene>
   );
 }
 
 export function ToolsGraphic() {
   return (
-    <div className="flex h-full min-h-[220px] flex-col justify-end gap-3 p-4" aria-hidden="true">
-      <div className="rounded-[12px] border border-ink bg-ink p-4 font-mono text-[12px] leading-5 text-canvas shadow-[0_16px_32px_-20px_rgb(32_37_33/0.55)]">
-        <div className="mb-3 flex items-center gap-1.5">
-          <span className="size-1.5 rounded-full bg-[#F0B4AD]" />
-          <span className="size-1.5 rounded-full bg-[#E8C98A]" />
-          <span className="size-1.5 rounded-full bg-citron" />
-          <span className="ml-2 text-[10px] tracking-[0.06em] text-dark-muted uppercase">tool call</span>
+    <Scene>
+      <div className={cn(panel, "overflow-hidden")}>
+        <div className="flex items-center gap-2 border-b border-line px-3 py-2">
+          <Icon
+            name="wrench"
+            variant="duotone"
+            className="size-4 text-citron-ink"
+          />
+          <span className={cn(label, "text-ink-muted")}>Typed tool call</span>
+          <span className="ml-auto size-1.5 rounded-full bg-citron" />
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span>
-            <span className="text-citron">lookup_order</span>
-            <span className="text-dark-muted">{"({ orderId: "}</span>
-            <span className="text-[#E8C98A]">&quot;A104&quot;</span>
-            <span className="text-dark-muted">{" })"}</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-[11px] text-citron">
-            <Icon name="check" className="gfx-ping size-3.5" />
-            completed
-          </span>
+        <div className="p-3 font-mono text-[11px] leading-5">
+          <p className="font-medium text-citron-ink">lookup_order</p>
+          <div className="mt-2 flex items-center justify-between gap-2 rounded-md border border-line bg-surface-muted/50 px-2 py-1">
+            <span className="text-ink-muted">orderId</span>
+            <span>&quot;A104&quot;</span>
+            <span className="text-[10px] text-ink-muted">string</span>
+          </div>
+          <p className="mt-2 flex items-center gap-1.5 text-[10px] text-ink-muted">
+            <Icon
+              name="shieldCheck"
+              variant="duotone"
+              className="size-3.5 text-citron-ink"
+            />
+            Input validated against schema
+          </p>
         </div>
       </div>
-      <ul className="grid grid-cols-3 gap-2">
+      <div className="relative grid grid-cols-3 gap-2 pt-7">
+        <span className="absolute top-0 left-1/2 h-3.5 w-px bg-control-line" />
+        <span className="absolute top-3.5 right-[16.67%] left-[16.67%] h-3.5 rounded-t-md border-x border-t border-control-line" />
+        <span className="absolute top-3.5 left-1/2 h-3.5 w-px bg-control-line" />
         {(
           [
             { label: "API", icon: "api" },
             { label: "Database", icon: "database" },
             { label: "Search", icon: "search" },
-          ] as const
-        ).map((s, i) => (
-          <li
-            key={s.label}
-            style={{ animationDelay: `${i * 1.2}s` }}
-            className="gfx-cycle-3 flex h-12 flex-col items-center justify-center gap-1 rounded-[10px] border border-line bg-surface font-mono text-[10px] tracking-[0.06em] text-ink uppercase"
+          ] satisfies { label: string; icon: IconName }[]
+        ).map((tool) => (
+          <div
+            key={tool.label}
+            className={cn(panel, "flex flex-col items-center gap-1.5 p-2.5")}
           >
-            <Icon name={s.icon} className="size-3.5" />
-            {s.label}
-          </li>
+            <Icon
+              name={tool.icon}
+              variant="duotone"
+              className="size-5 text-citron-ink"
+            />
+            <span className="text-[10px] text-ink-muted">{tool.label}</span>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+    </Scene>
   );
 }
 
 export function TeamsGraphic() {
-  const specialists = [
-    { id: "research", label: "Research" },
-    { id: "draft", label: "Draft" },
-    { id: "review", label: "Review" },
-  ];
   return (
-    <div className="flex h-full min-h-[220px] flex-col items-center justify-center gap-0 px-5 py-6" aria-hidden="true">
-      <span className="inline-flex items-center gap-2 rounded-full border border-ink bg-ink px-3.5 py-2 font-mono text-[11px] tracking-[0.04em] text-canvas">
-        <Icon name="team" className="size-3.5" />
-        Coordinator
-      </span>
-      <svg width="180" height="36" viewBox="0 0 180 36" className="shrink-0">
-        <path d="M90 0 v12 H20 v24" stroke="var(--line)" strokeWidth="1.5" fill="none" />
-        <path d="M90 12 v24" stroke="var(--citron-ink)" strokeWidth="1.5" fill="none" />
-        <path d="M90 12 H160 v24" stroke="var(--line)" strokeWidth="1.5" fill="none" />
-        {[
-          "M90 0 v12 H20 v24",
-          "M90 0 v12 v24",
-          "M90 0 v12 H160 v24",
-        ].map((d, i) => (
-          <path
-            key={d}
-            className="gfx-flow"
-            style={{ animationDelay: `${i * 0.8}s` }}
-            d={d}
-            pathLength={1}
-            fill="none"
-            stroke="var(--ink)"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        ))}
-      </svg>
-      <ul className="mt-1 flex w-full max-w-[280px] items-start justify-between gap-2">
-        {specialists.map((n) => (
-          <li
-            key={n.id}
+    <Scene>
+      <div className="mx-auto flex w-fit items-center gap-2.5 rounded-xl border border-ink bg-ink px-4 py-3 text-white shadow-[0_8px_20px_-12px_rgb(18_24_38/0.5)]">
+        <Mark icon="team" dark />
+        <div>
+          <p className="text-[12px]">Coordinator</p>
+          <p className="mt-0.5 text-[10px] text-dark-muted">
+            Delegate · combine
+          </p>
+        </div>
+      </div>
+      <div className="relative grid grid-cols-3 gap-2 pt-8">
+        <span className="absolute top-0 left-1/2 h-4 w-px bg-control-line" />
+        <span className="absolute top-4 right-[16.67%] left-[16.67%] h-4 rounded-t-lg border-x border-t border-control-line" />
+        <span className="absolute top-4 left-1/2 h-4 w-px bg-citron" />
+        {(
+          [
+            { name: "Research", role: "Find evidence", icon: "search" },
+            { name: "Draft", role: "Write a reply", icon: "note" },
+            { name: "Review", role: "Check the work", icon: "shieldCheck" },
+          ] satisfies { name: string; role: string; icon: IconName }[]
+        ).map((agent) => (
+          <div
+            key={agent.name}
             className={cn(
-              "inline-flex min-h-9 items-center rounded-[8px] border px-2.5 py-1.5 font-mono text-[10px] tracking-[0.04em]",
-              n.id === "draft"
-                ? "border-citron bg-citron/40 text-ink"
-                : "border-line bg-surface text-ink",
+              panel,
+              "flex min-w-0 flex-col items-center px-1.5 py-3 text-center",
             )}
           >
-            {n.label}
-          </li>
+            <Mark icon={agent.icon} />
+            <p className="mt-2 text-[11px] font-medium">{agent.name}</p>
+            <p className="mt-1 text-[10px] leading-4 text-ink-muted">
+              {agent.role}
+            </p>
+          </div>
         ))}
-      </ul>
-    </div>
+      </div>
+      <div className="mx-auto mt-4 flex w-fit items-center gap-2 rounded-full border border-line bg-surface/80 px-3 py-1.5 text-[10px] text-ink-muted">
+        <Icon name="layers" className="size-3.5" />
+        Specialist results → shared response
+      </div>
+    </Scene>
   );
 }
 
 export function WorkflowGraphic() {
-  const steps = ["Retrieve", "Draft", "Review", "Revise", "Finish"];
   return (
-    <div className="flex h-full min-h-[220px] flex-col justify-center gap-5 px-5 py-6" aria-hidden="true">
-      <ol className="flex flex-wrap items-center gap-x-1 gap-y-2">
-        {steps.map((s, i) => (
-          <li key={s} className="flex items-center gap-1">
-            <span
-              style={{ animationDelay: `${i * 0.9}s` }}
-              className={cn(
-                "inline-flex h-10 items-center gap-2 rounded-full border px-3 font-mono text-[11px] tracking-[0.04em]",
-                s === "Review"
-                  ? "gfx-cycle-5-pop border-ink bg-ink text-canvas"
-                  : "gfx-cycle-5-pill border-line bg-surface text-ink",
-              )}
-            >
-              <span className={cn("font-medium", s === "Review" ? "text-citron" : "text-ink-muted")}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              {s}
-            </span>
-            {i < steps.length - 1 ? (
-              <span aria-hidden="true" className="mx-0.5 h-px w-3 bg-control-line" />
-            ) : null}
-          </li>
-        ))}
-      </ol>
-      <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.06em] text-ink-muted uppercase">
-        <svg width="56" height="20" viewBox="0 0 56 20" className="shrink-0">
-          <path
-            className="gfx-draw"
-            d="M2 2 v10 a4 4 0 0 0 4 4 h44 l-4 -4 m4 4 l-4 4"
-            pathLength={1}
-            fill="none"
-            stroke="var(--citron-ink)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-        Review → Revise when changes are needed
+    <Scene>
+      <div className="mb-4 flex items-center gap-2">
+        <Icon
+          name="workflow"
+          variant="duotone"
+          className="size-4 text-citron-ink"
+        />
+        <span className={cn(label, "text-ink-muted")}>
+          A workflow with a review loop
+        </span>
       </div>
-    </div>
+      <div className="flex items-center gap-2">
+        {(
+          [
+            { name: "Retrieve", icon: "search" },
+            { name: "Draft", icon: "note" },
+          ] satisfies { name: string; icon: IconName }[]
+        ).map((step, i) => (
+          <div
+            key={step.name}
+            className={cn(
+              panel,
+              "relative flex min-w-0 flex-1 items-center gap-2 px-2.5 py-3",
+              i === 0 && "after:absolute after:top-1/2 after:left-full after:w-2 after:border-t after:border-control-line",
+            )}
+          >
+            <Icon
+              name={step.icon}
+              variant="duotone"
+              className="size-4 shrink-0 text-citron-ink"
+            />
+            <span className="text-[11px]">{step.name}</span>
+            <span className="ml-auto font-mono text-[9px] text-ink-muted">
+              0{i + 1}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="mr-[24%] ml-[24%] h-6 rounded-br-xl border-r border-b border-control-line" />
+      <div className="mx-auto flex w-[72%] items-center gap-3 rounded-xl border border-ink bg-ink px-4 py-3 text-white">
+        <Mark icon="shieldCheck" dark />
+        <div>
+          <p className="text-[12px]">Review the draft</p>
+          <p className="mt-0.5 text-[10px] text-dark-muted">
+            Branch on the result
+          </p>
+        </div>
+      </div>
+      <div className="relative grid grid-cols-2 gap-5 pt-7">
+        <span className="absolute top-0 left-1/2 h-3 w-px bg-control-line" />
+        <span className="absolute top-3 right-1/4 left-1/4 h-4 rounded-t-lg border-x border-t border-control-line" />
+        <div className={cn(panel, "p-2.5")}>
+          <p className="mb-1 text-[9px] text-ink-muted">CHANGES NEEDED</p>
+          <p className="flex items-center gap-2 text-[11px]">
+            <Icon name="replay" className="size-3.5 text-citron-ink" />
+            Revise & review
+          </p>
+        </div>
+        <div className="rounded-xl border border-citron/25 bg-citron/8 p-2.5">
+          <p className="mb-1 text-[9px] text-ink-muted">ACCEPTED</p>
+          <p className="flex items-center gap-2 text-[11px]">
+            <Icon
+              name="checkCircle"
+              variant="duotone"
+              className="size-3.5 text-citron-ink"
+            />
+            Return the result
+          </p>
+        </div>
+      </div>
+    </Scene>
   );
 }
 
 export function KnowledgeGraphic() {
   return (
-    <div className="flex h-full min-h-[220px] flex-col gap-2.5 p-4" aria-hidden="true">
-      <div className="flex h-11 items-center gap-3 rounded-[10px] border border-line bg-surface px-3.5 type-small text-ink shadow-[inset_0_1px_0_rgb(255_255_255)]">
-        <Icon name="search" className="size-4 text-ink-muted" />
-        <span>
-          What is our return window?
-          <span aria-hidden="true" className="gfx-caret ml-px inline-block h-[1.1em] w-px translate-y-[0.2em] bg-ink" />
-        </span>
+    <Scene>
+      <div className={cn(panel, "flex items-center gap-2.5 px-3 py-3")}>
+        <Icon name="search" className="size-4 shrink-0 text-citron-ink" />
+        <p className="text-[12px] leading-5">What is our return window?</p>
       </div>
-      {[
-        {
-          tag: "policy.md",
-          text: (
-            <>
-              Items may be returned within <mark className="rounded-[3px] bg-citron/20 px-0.5 text-citron-ink">30 days</mark> of
-              delivery.
-            </>
-          ),
-        },
-        { tag: "faq.md", text: "Refunds are issued to the original payment method." },
-      ].map((s, i) => (
-        <div
-          key={s.tag}
-          style={{ animationDelay: `${i * 1.8}s` }}
-          className="gfx-cycle-2 rounded-[12px] border border-line bg-surface p-3.5"
-        >
-          <p className="flex items-center gap-1.5 font-mono text-[10px] tracking-[0.06em] text-ink-muted uppercase">
-            <Icon name="file" className="size-3.5" />
-            {s.tag}
-            <span className="ml-auto normal-case tracking-normal text-ink-muted">example</span>
+      <Connector text="Retrieve relevant passages" />
+      <div className="relative mr-2 mb-2">
+        <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-xl border border-line bg-surface/70" />
+        <div className={cn(panel, "relative p-3")}>
+          <div className="flex items-center gap-2">
+            <Mark icon="file" />
+            <div>
+              <p className="font-mono text-[11px]">returns-policy.md</p>
+              <p className="text-[10px] text-ink-muted">
+                Section 3 · Return eligibility
+              </p>
+            </div>
+          </div>
+          <p className="mt-3 border-l-2 border-citron/60 pl-3 text-[12px] leading-6 text-ink-muted">
+            Items may be returned within{" "}
+            <span className="rounded bg-citron/10 px-1 text-citron-ink">
+              30 days of delivery.
+            </span>
           </p>
-          <p className="type-small mt-1.5 text-ink">{s.text}</p>
+          <div className="mt-3 flex items-center gap-2 border-t border-line pt-2.5 text-[10px] text-ink-muted">
+            <Icon
+              name="bookOpen"
+              variant="duotone"
+              className="size-3.5 text-citron-ink"
+            />
+            Source context for the agent
+          </div>
         </div>
-      ))}
-    </div>
+      </div>
+    </Scene>
   );
 }
 
 export function HarnessGraphic() {
-  const files = [
-    { name: "AGENTS.md", kind: "file" as const, depth: 0 },
-    { name: "skills/", kind: "dir" as const, depth: 0 },
-    { name: "summarize-ticket/", kind: "dir" as const, depth: 1 },
-    { name: "MEMORY.md", kind: "file" as const, depth: 0 },
-    { name: "workspace/", kind: "dir" as const, depth: 0 },
+  const files: {
+    name: string;
+    description: string;
+    icon: IconName;
+    nested?: boolean;
+  }[] = [
+    { name: "AGENTS.md", description: "Instructions", icon: "file" },
+    { name: "skills/", description: "Reusable skills", icon: "folder" },
+    {
+      name: "SKILL.md",
+      description: "Task guidance",
+      icon: "file",
+      nested: true,
+    },
+    { name: "MEMORY.md", description: "Persistent context", icon: "note" },
+    { name: "workspace/", description: "Working files", icon: "folder" },
   ];
   return (
-    <div className="flex h-full min-h-[220px] flex-col p-4" aria-hidden="true">
-      <div className="flex flex-1 flex-col overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_10px_24px_-18px_rgb(32_37_33/0.3)]">
-        <div className="flex h-9 items-center gap-1.5 border-b border-line px-3">
-          <span className="size-1.5 rounded-full bg-[#F0B4AD]" />
-          <span className="size-1.5 rounded-full bg-[#E8C98A]" />
-          <span className="size-1.5 rounded-full bg-[#C8D9B8]" />
-          <span className="ml-2 font-mono text-[10px] tracking-[0.06em] text-ink-muted uppercase">
-            Project files
-          </span>
+    <Scene>
+      <div className={cn(panel, "overflow-hidden")}>
+        <div className="flex items-center gap-2 border-b border-line bg-surface-muted/30 px-3 py-2.5">
+          <Icon
+            name="folder"
+            variant="duotone"
+            className="size-4 text-citron-ink"
+          />
+          <span className="font-mono text-[11px]">agent-workspace/</span>
+          <Icon name="code" className="ml-auto size-3.5 text-ink-muted" />
         </div>
-        <ul className="flex flex-col gap-0.5 p-2 font-mono text-[12px] leading-5 text-ink">
-          {files.map((f, i) => (
-            <li
-              key={f.name}
-              style={{ paddingLeft: `${8 + f.depth * 16}px`, animationDelay: `${i * 0.9}s` }}
+        <div className="space-y-0.5 p-2">
+          {files.map((file) => (
+            <div
+              key={file.name}
               className={cn(
-                "gfx-cycle-5-row flex items-center gap-2 rounded-[6px] px-2 py-1.5",
-                f.name === "AGENTS.md" && "bg-citron/40",
+                "flex min-w-0 items-center gap-2 rounded-md px-2 py-1.5",
+                file.nested && "ml-3 border-l border-line",
+                file.name === "AGENTS.md" && "bg-citron/8",
               )}
             >
-              {f.kind === "dir" ? (
-                <Icon name="folder" className="size-3.5 text-ink-muted" />
-              ) : (
-                <Icon name="file" className="size-3.5 text-ink-muted" />
-              )}
-              {f.name}
-            </li>
+              <Icon
+                name={file.icon}
+                variant="duotone"
+                className="size-3.5 shrink-0 text-citron-ink"
+              />
+              <span className="font-mono text-[10px] leading-5">
+                {file.name}
+              </span>
+              <span className="ml-auto text-right text-[10px] leading-4 text-ink-muted">
+                {file.description}
+              </span>
+            </div>
           ))}
-        </ul>
+        </div>
+        <div className="flex items-center gap-2 border-t border-line bg-surface-muted/30 px-3 py-2.5 text-[10px] text-ink-muted">
+          <Icon
+            name="terminal"
+            variant="duotone"
+            className="size-3.5 text-citron-ink"
+          />
+          Tools and context for long-running work
+        </div>
       </div>
-    </div>
+    </Scene>
   );
 }

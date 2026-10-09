@@ -3,7 +3,7 @@
 import * as React from "react";
 import { cn } from "cn";
 import { home } from "@/content/site";
-import { Icon } from "@/components/graphics/icon";
+import { Icon, type IconName } from "@/components/graphics/icon";
 import { track } from "@/lib/analytics";
 import { RevealGroup, RevealItem } from "@/components/interactive/reveal";
 
@@ -152,7 +152,7 @@ function FlowDiagram({ stage, approval, onApproval, badge, className, static: is
 
   return (
     <div
-      className={cn("flex flex-col rounded-[24px] border border-line bg-surface p-5 sm:p-6", className)}
+      className={cn("flex flex-col rounded-[24px] border border-line bg-surface p-5 shadow-[0_8px_32px_-24px_rgba(18,24,38,0.28)] sm:p-6", className)}
       aria-live="off"
     >
       {/* Header */}
@@ -165,10 +165,21 @@ function FlowDiagram({ stage, approval, onApproval, badge, className, static: is
         </span>
       </div>
 
-      {/* Request: the one thing that persists through every step */}
-      <div className="mt-5 rounded-[12px] border border-line bg-canvas px-4 py-3">
-        <Label>{f.requestLabel}</Label>
-        <p className="type-body mt-1 text-ink">“{f.request}”</p>
+      <div aria-hidden="true" className="mt-4 grid grid-cols-4 gap-1.5">
+        {STAGES.map((item, index) => (
+          <span key={item.id} className={cn("h-1 rounded-full transition-colors duration-[240ms]", index <= stage ? "bg-citron" : "bg-surface-muted")} />
+        ))}
+      </div>
+
+      {/* The request stays visible as context moves through the run. */}
+      <div className="mt-4 flex items-start gap-3 rounded-[12px] border border-line bg-canvas px-3 py-3 sm:px-4">
+        <span className="mt-0.5 hidden size-8 shrink-0 items-center justify-center rounded-[8px] border border-line bg-surface text-citron-ink sm:inline-flex">
+          <Icon name="user" variant="duotone" className="size-5" />
+        </span>
+        <div className="min-w-0">
+          <Label>{f.requestLabel}</Label>
+          <p className="type-body mt-1 text-ink">“{f.request}”</p>
+        </div>
       </div>
 
       {/* Trace */}
@@ -266,21 +277,34 @@ function Label({ children }: { children: React.ReactNode }) {
 }
 
 function StageContext() {
+  const sources: { title: string; icon: IconName; source: string; details: [string, string][] }[] = [
+    { title: "Account history", icon: "database", source: "Session memory", details: [["Plan", "Team"], ["History", "2 prior tickets"]] },
+    { title: "Invoice record", icon: "invoice", source: "Connected data", details: [["Invoice", "A104"], ["Items", "2 line items"]] },
+  ];
   return (
     <div>
       <Label>Context loaded</Label>
-      <ul className="mt-3 grid gap-3 sm:grid-cols-2">
-        {[
-          { title: "Account history", body: "Plan: Team · 14 months · 2 prior tickets" },
-          { title: "Invoice record", body: "A104 · issued this month · 2 line items" },
-        ].map((c) => (
-          <li key={c.title} className="rounded-[12px] border border-line bg-canvas p-4">
-            <p className="type-ui text-ink">{c.title}</p>
-            <p className="type-small mt-1 text-ink-muted">{c.body}</p>
+      <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
+        {sources.map((source) => (
+          <li key={source.title} className="overflow-hidden rounded-[12px] border border-line bg-canvas">
+            <div className="flex items-center gap-2.5 border-b border-line bg-surface px-3 py-2.5">
+              <Icon name={source.icon} variant="duotone" className="size-5 shrink-0 text-citron-ink" />
+              <p className="text-[12px] font-medium text-ink">{source.title}</p>
+              <Icon name="checkCircle" className="ml-auto size-3.5 shrink-0 text-citron-ink" />
+            </div>
+            <dl className="space-y-1.5 px-3 py-3 text-[11px] leading-4">
+              {source.details.map(([label, value]) => (
+                <div key={label} className="flex flex-wrap justify-between gap-x-2 gap-y-0.5">
+                  <dt className="text-ink-muted">{label}</dt>
+                  <dd className="text-ink">{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="border-t border-line px-3 py-2 font-mono text-[9px] tracking-[0.02em] text-ink-muted">{source.source}</p>
           </li>
         ))}
       </ul>
-      <p className="type-small mt-4 text-ink-muted">
+      <p className="type-small mt-3 text-ink-muted">
         Example data. Your storage and retrieval decide what loads.
       </p>
     </div>
@@ -288,36 +312,37 @@ function StageContext() {
 }
 
 function StageDecision() {
-  const routes = [
-    { id: "billing", label: "Billing", chosen: true },
-    { id: "technical", label: "Technical", chosen: false },
-    { id: "other", label: "Other", chosen: false },
+  const routes: { id: string; label: string; icon: IconName; chosen: boolean }[] = [
+    { id: "billing", label: "Billing", icon: "invoice", chosen: true },
+    { id: "technical", label: "Technical", icon: "wrench", chosen: false },
+    { id: "other", label: "General", icon: "team", chosen: false },
   ];
   return (
     <div>
       <Label>Team routing</Label>
-      <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div className="inline-flex h-11 shrink-0 items-center justify-center rounded-[10px] border-2 border-citron bg-ink px-4 font-mono text-[13px] text-canvas">
-          Router
+      <div className="mt-3 grid grid-cols-[60px_22px_minmax(0,1fr)] items-center sm:grid-cols-[84px_36px_minmax(0,1fr)]">
+        <div className="relative flex items-center justify-center text-center">
+          <div className="inline-flex size-12 items-center justify-center rounded-[12px] border border-citron/30 bg-ink text-canvas shadow-[0_4px_0_0_var(--surface-muted)] sm:size-14">
+            <Icon name="gitBranch" variant="duotone" className="size-6" />
+          </div>
+          <span className="absolute top-full mt-2 font-mono text-[10px] text-ink">Router</span>
         </div>
-        <span aria-hidden="true" className="hidden h-px flex-1 bg-citron sm:block" />
-        <ul className="flex flex-wrap gap-2">
-          {routes.map((r) => (
-            <li
-              key={r.id}
-              className={cn(
-                "inline-flex h-10 items-center rounded-[8px] border px-3 font-mono text-[12px]",
-                r.chosen
-                  ? "border-citron bg-citron text-canvas"
-                  : "border-line bg-surface text-ink-muted",
-              )}
-            >
-              {r.label}
+        <svg viewBox="0 0 36 136" fill="none" preserveAspectRatio="none" className="h-[136px] w-full self-start" aria-hidden="true">
+          <path d="M0 68H14V20H36M14 68H36M14 68V116H36" stroke="var(--line)" strokeWidth="1.5" />
+          <path d="M0 68H14V20H36" stroke="var(--citron)" strokeWidth="1.5" />
+          <circle cx="14" cy="68" r="3" fill="var(--surface)" stroke="var(--citron)" strokeWidth="1.5" />
+        </svg>
+        <ul className="space-y-2">
+          {routes.map((route) => (
+            <li key={route.id} className={cn("flex h-10 items-center gap-2 rounded-[9px] border px-2.5 sm:px-3", route.chosen ? "border-citron/40 bg-citron/5 text-citron-ink" : "border-line bg-canvas text-ink-muted")}>
+              <Icon name={route.icon} variant="duotone" className="size-4 shrink-0" />
+              <span className="text-[11px] sm:text-[12px]">{route.label}</span>
+              {route.chosen ? <Icon name="checkCircle" className="ml-auto size-3.5 shrink-0" /> : <span aria-hidden="true" className="ml-auto size-1.5 shrink-0 rounded-full bg-line" />}
             </li>
           ))}
         </ul>
       </div>
-      <p className="type-small mt-4 text-ink-muted">
+      <p className="type-small mt-3 text-ink-muted">
         Use a model or application logic to choose the next specialist.
       </p>
     </div>
@@ -328,23 +353,20 @@ function StageTools() {
   return (
     <div>
       <Label>Specialist at work</Label>
-      <div className="mt-3 rounded-[12px] border border-line bg-ink p-4 font-mono text-[12px] leading-5 text-canvas">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span>
-            <span className="text-citron">lookup_invoice</span>
-            <span className="text-dark-muted">{"({ id: "}</span>
-            <span className="text-[#E8C98A]">&quot;A104&quot;</span>
-            <span className="text-dark-muted">{" })"}</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 text-[11px] text-citron">
-            <Icon name="check" className="size-3.5" />
-            completed
-          </span>
+      <div className="mt-3 overflow-hidden rounded-[12px] border border-line">
+        <div className="flex flex-wrap items-center justify-between gap-2 bg-ink px-3 py-2.5 font-mono text-[11px] text-canvas sm:px-4">
+          <span className="inline-flex items-center gap-2"><Icon name="wrench" variant="duotone" className="size-4" />lookup_invoice</span>
+          <span className="inline-flex items-center gap-1 text-[10px] text-[#A9C2FF]"><Icon name="check" className="size-3" />completed</span>
+        </div>
+        <div className="grid gap-2 bg-canvas px-3 py-3 font-mono text-[11px] sm:grid-cols-2 sm:px-4">
+          <div><Label>Input</Label><p className="mt-1 text-ink">id: <span className="text-citron-ink">&quot;A104&quot;</span></p></div>
+          <div><Label>Result</Label><p className="mt-1 text-ink">2 invoice items</p></div>
         </div>
       </div>
-      <div className="mt-3 rounded-[12px] border border-line bg-canvas p-4">
-        <Label>Draft response</Label>
-        <p className="type-small mt-1.5 text-ink">
+      <div className="relative ml-3 h-4 border-l border-dashed border-control-line" aria-hidden="true"><span className="absolute -bottom-0.5 -left-[2.5px] size-1 rounded-full bg-control-line" /></div>
+      <div className="rounded-[12px] border border-line bg-canvas p-3 sm:p-4">
+        <div className="flex items-center gap-2"><Icon name="note" variant="duotone" className="size-4 text-citron-ink" /><Label>Draft response</Label></div>
+        <p className="type-small mt-2 text-ink">
           I found invoice A104. The second line item looks like a duplicate of the first. I can
           issue a credit for it once a teammate confirms.
         </p>
@@ -365,14 +387,20 @@ function StageApproval({
     approval === "waiting" ? a.waiting : approval === "approved" ? a.approved : a.denied;
   return (
     <div>
-      <Label>Human review</Label>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <Label>Human review</Label>
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas px-2 py-1 text-[10px] text-ink-muted"><Icon name="shieldCheck" variant="duotone" className="size-3.5 text-citron-ink" />Approval gate</span>
+      </div>
       <div className="mt-3 rounded-[12px] border border-line bg-ink p-4 font-mono text-[12px] leading-5 text-canvas">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span>
-            <span className="text-citron">issue_credit</span>
-            <span className="text-dark-muted">{"({ invoice: "}</span>
-            <span className="text-[#E8C98A]">&quot;A104&quot;</span>
-            <span className="text-dark-muted">{" })"}</span>
+            <span className="text-[#A9C2FF]">issue_credit</span>
+            <span className="text-dark-muted">{"({"}</span>
+            <span className="block pl-4 sm:inline sm:pl-0">
+              <span className="text-dark-muted">{" invoice: "}</span>
+              <span className="text-[#E8C98A]">&quot;A104&quot;</span>
+            </span>
+            <span className="block text-dark-muted sm:inline">{" })"}</span>
           </span>
           <span
             role="status"

@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/layout/section-header";
 import { ArrowLink } from "@/components/layout/arrow-link";
 import { Artwork } from "@/components/graphics/artwork";
 import { IntegrationMark } from "@/components/graphics/integration-mark";
+import { MediaDetailGraphic } from "@/components/graphics/media-detail-graphics";
 import { Reveal, RevealGroup, RevealItem } from "@/components/interactive/reveal";
 import { Icon } from "@/components/graphics/icon";
 
@@ -76,9 +77,7 @@ export function MediaSpotlight() {
               key={card.title}
               className="flex flex-col rounded-[18px] border border-white/10 bg-dark-surface p-7"
             >
-              <span className="mb-5 inline-flex size-11 items-center justify-center rounded-[10px] bg-ink text-citron">
-                <Icon name={card.icon} variant="duotone" className="size-6" />
-              </span>
+              <MediaDetailGraphic kind={card.icon} />
               <h3 className="type-h3 text-canvas">{card.title}</h3>
               <p className="type-body mt-3 flex-1 text-dark-muted">{card.copy}</p>
               <ul className="mt-6 flex flex-wrap gap-2" aria-label="Example providers">

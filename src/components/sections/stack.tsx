@@ -3,7 +3,7 @@ import { home } from "@/content/site";
 import { Container } from "@/components/layout/container";
 import { SectionHeader } from "@/components/layout/section-header";
 import { SmartLink } from "@/components/layout/smart-link";
-import { Icon, type IconName } from "@/components/graphics/icon";
+import { Icon } from "@/components/graphics/icon";
 import { Reveal, RevealGroup, RevealItem } from "@/components/interactive/reveal";
 
 const COLS = 3;
@@ -74,19 +74,16 @@ export function Stack() {
 
 function Connector() {
   return (
-    <div aria-hidden="true" className="relative hidden h-11 lg:grid lg:grid-cols-3 lg:gap-4">
+    <div aria-hidden="true" className="relative hidden h-14 lg:grid lg:grid-cols-3 lg:gap-4">
+      <span className="absolute top-1/2 right-[calc((100%-2rem)/6)] left-[calc((100%-2rem)/6)] h-px -translate-y-1/2 bg-citron/60" />
       {[0, 1, 2].map((i) => (
         <div key={i} className="relative">
-          <span className="absolute top-0 left-1/2 h-full w-px -translate-x-1/2 bg-citron" />
-          <span
-            className={cn(
-              "absolute top-1/2 h-px -translate-y-1/2 bg-citron",
-              i === 0 && "right-0 left-1/2",
-              i === 1 && "inset-x-0",
-              i === 2 && "right-1/2 left-0",
-            )}
-          />
-          <span className="absolute top-1/2 left-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink ring-[5px] ring-surface-muted" />
+          <span className="absolute top-0 left-1/2 h-full w-px -translate-x-1/2 bg-citron/60" />
+          <span className="absolute top-0 left-1/2 h-1.5 w-5 -translate-x-1/2 rounded-b border-x border-b border-citron/40 bg-surface" />
+          <span className="absolute bottom-0 left-1/2 h-1.5 w-5 -translate-x-1/2 rounded-t border-x border-t border-citron/40 bg-surface" />
+          <span className="absolute top-1/2 left-1/2 flex size-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[6px] border border-citron/40 bg-surface shadow-[0_2px_5px_rgb(18_24_38/0.06)]">
+            <span className="size-1.5 rounded-sm bg-citron" />
+          </span>
         </div>
       ))}
     </div>
@@ -112,7 +109,7 @@ function Cell({
       >
         <div className="flex items-start justify-between gap-3">
           <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-[#F1F2F4] text-ink transition-colors duration-160 ease-(--ease-state) group-hover/cell:bg-citron group-hover/cell:text-canvas">
-            <Icon name={module.icon as IconName} variant="duotone" className="size-5" />
+            <Icon name={module.icon} variant="duotone" className="size-5" />
           </span>
           <span className="type-eyebrow text-ink-muted">{String(index + 1).padStart(2, "0")}</span>
         </div>

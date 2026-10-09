@@ -30,7 +30,7 @@ export function JevDemo({ className }: { className?: string }) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-3">
           <span className="inline-flex size-9 items-center justify-center rounded-[10px] bg-ink text-citron">
-            <Icon name="target" variant="bulk" className="size-5" />
+            <Icon name="target" variant="duotone" className="size-5" />
           </span>
           <h3 className="type-h3 text-canvas">{d.heading}</h3>
           <span className="inline-flex h-6 items-center rounded-full border border-dark-muted/40 px-2.5 font-mono text-[10px] tracking-[0.06em] text-dark-muted uppercase">

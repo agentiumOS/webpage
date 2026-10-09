@@ -46,7 +46,7 @@ test.describe("metadata", () => {
       expect(ogUrl).toBe(route === "/" ? ORIGIN : `${ORIGIN}${route}`);
 
       const ogImage = await page.locator('meta[property="og:image"]').first().getAttribute("content");
-      expect(ogImage).toMatch(new RegExp(`^${ORIGIN}${route === "/" ? "/og-image\\.png" : `${route}/opengraph-image`}`));
+      expect(ogImage).toMatch(new RegExp(`^${ORIGIN}${(route === "/" ? "" : route) + "/opengraph-image"}`));
       const imagePath = new URL(ogImage!).pathname + new URL(ogImage!).search;
       const img = await page.request.get(imagePath);
       expect(img.status()).toBe(200);
@@ -178,8 +178,8 @@ test.describe("initial HTML content", () => {
   test("FAQ answers are present in the server HTML", async ({ request }) => {
     const html = await (await request.get("/")).text();
     const dom = html.replace(/<script[\s\S]*?<\/script>/g, "");
-    expect(dom).toContain("Agentium is an open-source TypeScript SDK for building AI applications in Node.js");
-    expect(dom).toContain("Compose agents, voice, images, and phone calls with modular APIs.");
+    expect(dom).toContain("Agentium is an open-source TypeScript SDK for building AI applications on Node.js");
+    expect(dom).toContain("Build agents, voice conversations, image generation, and phone calls with one TypeScript SDK.");
   });
 
   test("/jev states Jev ownership in the server HTML", async ({ request }) => {

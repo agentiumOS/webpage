@@ -68,7 +68,7 @@ export function JevSpotlight() {
               className="flex flex-col rounded-[18px] border border-white/10 bg-dark-surface p-7"
             >
               <span className="mb-5 inline-flex size-11 items-center justify-center rounded-[10px] bg-ink text-citron">
-                <Icon name={jevCardIcons[i]} variant="bulk" className="size-6" />
+                <Icon name={jevCardIcons[i]} variant="duotone" className="size-6" />
               </span>
               <h3 className="type-h3 text-canvas">{card.title}</h3>
               <p className="type-body mt-3 flex-1 text-dark-muted">{card.copy}</p>

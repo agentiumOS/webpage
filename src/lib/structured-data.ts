@@ -133,7 +133,7 @@ export function webPage({ path, mentions, mainEntity }: PageOptions): WebPage {
     about: { "@id": SOFTWARE_ID },
     primaryImageOfPage: {
       "@type": "ImageObject",
-      url: path === "/" ? `${pageUrl(path)}og-image.png` : `${pageUrl(path)}/opengraph-image`,
+      url: path === "/" ? `${pageUrl(path)}opengraph-image` : `${pageUrl(path)}/opengraph-image`,
       width: "1200",
       height: "630",
     },

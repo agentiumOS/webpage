@@ -16,7 +16,7 @@ export function Controls() {
           {c.items.map((item) => (
             <RevealItem as="li" key={item.heading} className="flex flex-col border-t border-line pt-6">
               <span className="inline-flex size-10 items-center justify-center rounded-[10px] bg-surface-muted text-ink">
-                <Icon name={item.icon as IconName} variant="bulk" className="size-5" />
+                <Icon name={item.icon as IconName} variant="duotone" className="size-5" />
               </span>
               <h3 className="mt-4 text-[20px] leading-[1.3] font-medium tracking-[-0.015em] text-ink">
                 {item.heading}
@@ -39,11 +39,11 @@ export function Controls() {
             {c.events.items.map((e, i) => (
               <li
                 key={e.name}
-                className="flex items-baseline gap-4 border-b border-line py-2.5 last:border-b-0"
+                className="grid grid-cols-[24px_minmax(0,1fr)] items-baseline gap-x-4 border-b border-line py-2.5 last:border-b-0 sm:grid-cols-[24px_124px_minmax(0,1fr)]"
               >
                 <span className="w-6 shrink-0 text-ink-muted">{String(i + 1).padStart(2, "0")}</span>
-                <span className="min-w-[124px] font-medium text-citron-ink">{e.name}</span>
-                <span className="text-ink-muted">{e.detail}</span>
+                <span className="font-medium text-citron-ink">{e.name}</span>
+                <span className="col-start-2 break-words text-ink-muted sm:col-start-auto">{e.detail}</span>
               </li>
             ))}
           </ol>

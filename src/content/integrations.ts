@@ -1,6 +1,6 @@
 import { docs } from "@/lib/site-config";
 
-export type IntegrationCategory = "models" | "tools" | "storage" | "protocols";
+export type IntegrationCategory = "models" | "voice" | "tools" | "storage" | "protocols";
 
 export type Integration = {
   id: string;
@@ -18,6 +18,7 @@ export type Integration = {
 /** Icon name (see components/graphics/icon.tsx) per category. */
 export const categoryIcons = {
   models: "brain",
+  voice: "mic",
   tools: "wrench",
   storage: "database",
   protocols: "api",
@@ -25,6 +26,7 @@ export const categoryIcons = {
 
 export const categoryLabels: Record<IntegrationCategory, string> = {
   models: "Models",
+  voice: "Voice & calls",
   tools: "Tools",
   storage: "Storage",
   protocols: "Protocols",
@@ -33,6 +35,56 @@ export const categoryLabels: Record<IntegrationCategory, string> = {
 const V = "2026-09-20";
 
 export const integrations: Integration[] = [
+  {
+    id: "openai-realtime",
+    name: "OpenAI Realtime",
+    category: "voice",
+    description: "Connect a native realtime voice session through the OpenAI adapter.",
+    keywords: ["speech", "audio", "realtime", "voice"],
+    docsUrl: docs("/voice/openai"),
+    icon: "audio",
+    verifiedAt: "2026-10-09",
+  },
+  {
+    id: "elevenlabs",
+    name: "ElevenLabs",
+    category: "voice",
+    description: "Compose speech recognition and synthesis with dedicated streaming adapters.",
+    keywords: ["speech", "audio", "tts", "stt", "voice"],
+    docsUrl: docs("/voice/elevenlabs"),
+    icon: "audio",
+    verifiedAt: "2026-10-09",
+  },
+  {
+    id: "livekit",
+    name: "LiveKit",
+    category: "voice",
+    description: "Bridge streaming voice audio to a LiveKit source and track managed by your application.",
+    keywords: ["media", "audio", "transport", "streaming", "voice"],
+    docsUrl: docs("/voice/livekit"),
+    icon: "mic",
+    verifiedAt: "2026-10-09",
+  },
+  {
+    id: "twilio",
+    name: "Twilio",
+    category: "voice",
+    description: "Create, read, and end outbound calls through the Twilio carrier adapter.",
+    keywords: ["telephony", "phone", "carrier", "calls"],
+    docsUrl: docs("/telephony/twilio"),
+    icon: "phone",
+    verifiedAt: "2026-10-09",
+  },
+  {
+    id: "openai-images",
+    name: "OpenAI Images",
+    category: "tools",
+    description: "Generate and edit images with tools your agents and workflows can call.",
+    keywords: ["images", "generation", "editing", "creative", "toolkit"],
+    docsUrl: docs("/toolkits/image-generation"),
+    icon: "image",
+    verifiedAt: "2026-10-09",
+  },
   {
     id: "openai",
     name: "OpenAI",
@@ -250,7 +302,7 @@ export const integrationById = Object.fromEntries(
 ) as Record<string, Integration>;
 
 export function isCategory(value: string | null | undefined): value is IntegrationCategory {
-  return value === "models" || value === "tools" || value === "storage" || value === "protocols";
+  return value === "models" || value === "voice" || value === "tools" || value === "storage" || value === "protocols";
 }
 
 export function filterIntegrations(

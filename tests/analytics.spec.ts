@@ -48,7 +48,7 @@ test.describe("GA4 event layer", () => {
 
   test("FAQ open emits faq_toggle", async ({ page }) => {
     await page.goto("/#faq");
-    const trigger = page.locator("#faq summary").first();
+    const trigger = page.locator("#faq button").first();
     await trigger.scrollIntoViewIfNeeded();
     await trigger.click();
     const events = await readEvents(page);

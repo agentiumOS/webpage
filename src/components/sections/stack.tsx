@@ -112,7 +112,7 @@ function Cell({
       >
         <div className="flex items-start justify-between gap-3">
           <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-[#F1F2F4] text-ink transition-colors duration-160 ease-(--ease-state) group-hover/cell:bg-citron group-hover/cell:text-canvas">
-            <Icon name={module.icon as IconName} variant="bulk" className="size-5" />
+            <Icon name={module.icon as IconName} variant="duotone" className="size-5" />
           </span>
           <span className="type-eyebrow text-ink-muted">{String(index + 1).padStart(2, "0")}</span>
         </div>

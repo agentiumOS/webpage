@@ -32,8 +32,8 @@ export const site = {
           href: "/#stack",
         },
         {
-          title: "Agent capabilities",
-          description: "Tools, context, and coordinated work.",
+          title: "SDK capabilities",
+          description: "Tools, memory, harnesses, and workflows.",
           href: "/#capabilities",
         },
         {
@@ -103,10 +103,10 @@ export const site = {
         heading: "Guides",
         links: [
           { label: "Models", href: docs("/models/overview"), external: true },
-          { label: "Tools", href: docs("/agents/tools"), external: true },
-          { label: "Memory", href: docs("/memory/overview"), external: true },
-          { label: "Teams", href: docs("/teams/overview"), external: true },
-          { label: "Workflows", href: docs("/workflows/overview"), external: true },
+          { label: "Voice & calls", href: docs("/voice/overview"), external: true },
+          { label: "Image generation", href: docs("/toolkits/image-generation"), external: true },
+          { label: "Harnesses", href: docs("/harness/overview"), external: true },
+          { label: "Cost tracking", href: docs("/cost/overview"), external: true },
         ],
       },
     ] satisfies { heading: string; links: NavLink[] }[],
@@ -120,13 +120,13 @@ export const site = {
 export const home = {
   hero: {
     eyebrow: "Agentium / TypeScript AI SDK",
-    h1: ["Your next big thing.", "Built with agents."],
-    lead: "Agentium is an open-source TypeScript SDK for Node.js. Compose agents, voice, image tools, workflows, and provider adapters in your application.",
+    h1: ["Build your next idea.", "Connect it with AI."],
+    lead: "Build agents, voice conversations, image generation, and phone calls with one TypeScript SDK. Add the tools, memory, workflows, and controls your Node.js application needs.",
     primary: { label: "Start building", href: docs("/quickstart"), kind: "primary" } satisfies Cta,
     secondary: { label: "Explore the stack", href: "/#stack", kind: "secondary" } satisfies Cta,
     install: "npm install @agentium/core",
     helper: "Start with core. Add the integrations your application needs.",
-    capabilities: ["Models", "Tools", "Memory", "Teams", "Workflows", "Evaluations"],
+    capabilities: ["Agents", "Harnesses", "Voice", "Images", "Telephony", "Workflows"],
     usps: [
       "One composable TypeScript SDK",
       "Choose your models",
@@ -140,57 +140,62 @@ export const home = {
       "Tracing and metrics",
       "Evaluation package",
       "MCP and A2A",
-      "Voice and browser agents",
+      "Realtime voice",
+      "Image generation tools",
+      "Telephony adapters",
+      "Reusable harnesses",
+      "Cost accounting",
+      "Browser automation",
     ],
   },
 
   stack: {
     eyebrow: "One SDK, connected parts",
     h2: "Everything around the model, working together.",
-    lead: "A useful agent needs context, tools, coordination, and a way into your product. Build those pieces around a shared TypeScript foundation.",
-    frameLabel: "Your agent application",
+    lead: "Start with the capability your product needs. Compose the rest through dedicated APIs, provider adapters, and a shared TypeScript foundation.",
+    frameLabel: "Your AI application",
     modules: [
       {
-        id: "models",
+        id: "agents",
         icon: "layers",
-        title: "Models & decisions",
-        copy: "Choose the model for the job, including Jev for typed decisions.",
-        href: docs("/models/overview"),
+        title: "Agents & harnesses",
+        copy: "Define the model, instructions, and tools. Add a reusable execution environment with the harness package.",
+        href: docs("/harness/overview"),
       },
       {
-        id: "tools",
-        icon: "wrench",
-        title: "Tools & skills",
-        copy: "Connect APIs and package the instructions agents need.",
-        href: docs("/toolkits/overview"),
+        id: "voice",
+        icon: "mic",
+        title: "Voice & phone calls",
+        copy: "Use realtime models or compose speech pipelines. Connect carrier adapters for outbound calls.",
+        href: docs("/voice/overview"),
       },
       {
-        id: "memory",
-        icon: "database",
-        title: "Memory & knowledge",
-        copy: "Bring conversation history and retrieved context into a run.",
-        href: docs("/memory/overview"),
+        id: "images",
+        icon: "image",
+        title: "Images & creative tools",
+        copy: "Generate and edit images through OpenAI tools, directly or as part of an agent workflow.",
+        href: docs("/toolkits/image-generation"),
       },
       {
         id: "teams",
         icon: "gitBranch",
         title: "Teams & workflows",
-        copy: "Delegate work and control the steps around it.",
+        copy: "Coordinate specialists, branch on results, and combine agent calls with your application code.",
         href: docs("/teams/overview"),
       },
       {
-        id: "controls",
-        icon: "shieldCheck",
-        title: "Controls & evaluation",
-        copy: "Add approval gates and test the behavior you expect.",
-        href: docs("/features/approval-gates"),
+        id: "memory",
+        icon: "database",
+        title: "Memory & knowledge",
+        copy: "Bring conversation history, saved facts, and retrieved context into the next run.",
+        href: docs("/memory/overview"),
       },
       {
-        id: "serving",
-        icon: "activity",
-        title: "Serving & operations",
-        copy: "Expose agents to your product and observe their runs.",
-        href: docs("/transport/overview"),
+        id: "cost",
+        icon: "gauge",
+        title: "Costs & controls",
+        copy: "Track provider usage and estimated charges. Set budgets and require approval for selected tools.",
+        href: docs("/cost/overview"),
       },
     ],
     footerCopy: "Start small. Add capabilities without changing the foundation.",
@@ -280,7 +285,7 @@ export const home = {
   capabilities: {
     eyebrow: "Build the application",
     h2: "The parts you need, already connected.",
-    lead: "Give your agent context and useful tools. Bring in specialists when one agent is not enough.",
+    lead: "Build on the same foundations whether your product answers questions, creates images, handles calls, or coordinates a team of agents.",
     cards: {
       memory: {
         title: "Keep the context that matters.",
@@ -289,7 +294,7 @@ export const home = {
       },
       tools: {
         title: "Let agents do useful work.",
-        copy: "Give your agents typed tools, reusable skills, and access to the services your product already uses.",
+        copy: "Connect service APIs, image generation, and your own functions as typed tools. Add reusable skills for the work your agents repeat.",
         link: { label: "Explore tools", href: docs("/agents/tools") },
       },
       teams: {
@@ -309,8 +314,8 @@ export const home = {
       },
       harness: {
         title: "Give the agent a working environment.",
-        copy: "Add project instructions, skills, standing notes, and helper agents through the Agentium harness.",
-        link: { label: "Explore the harness", href: docs("/agents/harness") },
+        copy: "Package instructions, tools, policies, and session behavior in a reusable harness. Choose the driver that runs the work.",
+        link: { label: "Explore the harness", href: docs("/harness/overview") },
       },
     },
   },
@@ -370,7 +375,7 @@ export const home = {
   controls: {
     eyebrow: "Keep control as you grow",
     h2: "Know what ran. Decide what runs next.",
-    lead: "Put approval rules around sensitive tools. Watch run events, check budgets, and test the behavior you care about.",
+    lead: "Track usage and estimated costs across providers. Add budget checks, tool approvals, tracing, and evaluations as your application grows.",
     items: [
       {
         icon: "shieldCheck",
@@ -380,9 +385,9 @@ export const home = {
       },
       {
         icon: "gauge",
-        heading: "Budget checks",
-        copy: "Track usage and check configured budgets during a run.",
-        href: docs("/features/cost-autostop"),
+        heading: "Costs & budgets",
+        copy: "Account for provider usage, estimate charges, and check configured budgets during a run.",
+        href: docs("/cost/overview"),
       },
       {
         icon: "activity",
@@ -412,9 +417,10 @@ export const home = {
   integrations: {
     eyebrow: "Fits your stack",
     h2: "Choose your models. Keep your infrastructure.",
-    lead: "Connect the providers, services, and storage your application needs. Bring external tools in through MCP and connect agents through A2A.",
+    lead: "Choose providers for models, speech, and phone calls. Connect your existing services and storage through dedicated adapters.",
     groups: [
       { label: "Models", ids: ["openai", "anthropic", "google-gemini", "ollama", "jev"] },
+      { label: "Voice & calls", ids: ["openai-realtime", "elevenlabs", "livekit", "twilio"] },
       { label: "Services", ids: ["github", "slack", "notion", "gmail", "google-sheets"] },
       {
         label: "Storage & protocols",
@@ -479,6 +485,10 @@ export const home = {
         a: "Yes. Configure approval rules for selected tool calls and connect them to your application’s review flow.",
       },
       {
+        q: "Can I use voice, images, and telephony separately?",
+        a: "Yes. Use the dedicated voice and telephony APIs or image-generation toolkit for the capabilities your application needs. Voice supports native realtime providers and composed speech pipelines. Carrier adapters handle call control; your application connects the voice runtime and audio transport.",
+      },
+      {
         q: "Does Agentium host the application for me?",
         a: "This website describes the SDK and its runtime integrations. You choose the infrastructure on which your application runs. Use the transport and queue guides to connect it to your deployment.",
       },
@@ -490,8 +500,8 @@ export const home = {
   },
 
   finalCta: {
-    h2: ["Build the agent.", "Bring the whole stack."],
-    body: "Start with a few lines of TypeScript. Add the rest when you need it.",
+    h2: ["Start with an idea.", "Build it in TypeScript."],
+    body: "Run your first agent. Add voice, tools, and workflows as your product takes shape.",
     primary: { label: "Open the quickstart", href: docs("/quickstart"), kind: "primary" } satisfies Cta,
     secondary: { label: "Explore examples", href: "/examples", kind: "secondary" } satisfies Cta,
   },
@@ -598,7 +608,7 @@ export const jevPage = {
 
 export const integrationsPage = {
   h1: "Your stack, connected.",
-  lead: "Explore the models, services, storage, and protocols you can use with Agentium.",
+  lead: "Explore model providers, voice and telephony adapters, image tools, services, storage, and protocols for your application.",
   helper:
     "Each integration may require its own package, credentials, or service setup. Open its guide for the details.",
   packaging:
@@ -606,11 +616,12 @@ export const integrationsPage = {
   catalogTitle: "Explore integrations",
   search: {
     label: "Find an integration",
-    placeholder: "Search models, tools, storage…",
+    placeholder: "Search providers, voice, tools…",
   },
   filters: [
     { id: "all", label: "All" },
     { id: "models", label: "Models" },
+    { id: "voice", label: "Voice & calls" },
     { id: "tools", label: "Tools" },
     { id: "storage", label: "Storage" },
     { id: "protocols", label: "Protocols" },

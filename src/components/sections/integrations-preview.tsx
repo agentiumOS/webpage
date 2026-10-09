@@ -4,11 +4,13 @@ import { integrationById } from "@/content/integrations";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { SectionHeader } from "@/components/layout/section-header";
-import { Icon, isIconName, type IconName } from "@/components/graphics/icon";
+import { Icon, type IconName } from "@/components/graphics/icon";
+import { IntegrationMark } from "@/components/graphics/integration-mark";
 import { Reveal, RevealGroup, RevealItem } from "@/components/interactive/reveal";
 
 const groupIcons: Record<string, IconName> = {
   Models: "brain",
+  "Voice & calls": "mic",
   Services: "api",
   "Storage & protocols": "database",
 };
@@ -24,7 +26,7 @@ export function IntegrationsPreview() {
           {s.groups.map((group) => (
             <RevealItem key={group.label} className="grid gap-3 py-5 md:grid-cols-12 md:items-center">
               <h3 className="type-eyebrow flex items-center gap-2.5 text-ink-muted md:col-span-3">
-                <Icon name={groupIcons[group.label] ?? "cube"} variant="bulk" className="size-5 text-ink" />
+                <Icon name={groupIcons[group.label] ?? "cube"} variant="duotone" className="size-5 text-ink" />
                 {group.label}
               </h3>
               <ul className="flex flex-wrap gap-2 md:col-span-9">
@@ -37,7 +39,7 @@ export function IntegrationsPreview() {
                         href={item.docsUrl}
                         className="inline-flex min-h-11 items-center gap-2 rounded-[10px] border border-line bg-surface px-4 py-3 type-ui text-ink transition-colors duration-[160ms] ease-[var(--ease-state)] hover:border-control-line hover:bg-surface-muted"
                       >
-                        <Icon name={isIconName(item.icon) ? item.icon : "cube"} className="size-4" />
+                        <IntegrationMark id={item.id} icon={item.icon} className="size-4" />
                         {item.name}
                       </a>
                     </li>

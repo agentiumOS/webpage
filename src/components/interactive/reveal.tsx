@@ -33,7 +33,8 @@ const HEADING_SPRING = { type: "spring", duration: 0.7, bounce: 0.14 } as const;
 /** Codebase `--ease-enter`. */
 const EASE_ENTER = [0.22, 1, 0.36, 1] as const;
 
-const VIEWPORT = { once: true, amount: 0.2, margin: "0px 0px -80px 0px" } as const;
+// A percentage threshold can never be reached by catalogs taller than the viewport.
+const VIEWPORT = { once: true, amount: "some", margin: "0px 0px -80px 0px" } as const;
 
 const SOFT_HIDDEN = { opacity: 0, transform: "translateY(24px) scale(0.98)" };
 const SOFT_SHOWN = { opacity: 1, transform: "translateY(0px) scale(1)" };
@@ -107,10 +108,17 @@ function headingTransition(delay = 0, reduce: boolean) {
 }
 
 function states(kind: Kind, reduce: boolean) {
+  if (reduce) {
+    // Explicitly reset the transform rendered before the motion preference is known.
+    return {
+      hidden: { opacity: 0, transform: "none" },
+      shown: { opacity: 1, transform: "none" },
+    };
+  }
   if (kind === "heading") {
     return {
-      hidden: reduce ? { opacity: 0 } : HEADING_HIDDEN,
-      shown: reduce ? { opacity: 1 } : HEADING_SHOWN,
+      hidden: HEADING_HIDDEN,
+      shown: HEADING_SHOWN,
     };
   }
   return { hidden: SOFT_HIDDEN, shown: SOFT_SHOWN };

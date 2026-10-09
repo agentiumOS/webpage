@@ -11,7 +11,7 @@ export const navLinkIcons: Record<string, IconName> = {
 
 export const platformIcons: Record<string, IconName> = {
   "The complete stack": "layers",
-  "Agent capabilities": "wrench",
+  "SDK capabilities": "wrench",
   "Runtime controls": "shieldCheck",
   "Code examples": "code",
 };
@@ -44,11 +44,16 @@ export const footerLinkIcons: Record<string, IconName> = {
   Memory: "database",
   Teams: "team",
   Workflows: "workflow",
+  "Voice & calls": "mic",
+  "Image generation": "image",
+  Harnesses: "folder",
+  "Cost tracking": "gauge",
 };
 
 export const categoryIcons: Record<string, IconName> = {
   all: "grid",
   models: "brain",
+  voice: "mic",
   tools: "wrench",
   storage: "database",
   protocols: "api",

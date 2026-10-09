@@ -33,7 +33,7 @@ export const routeManifest: Record<RoutePath, RouteEntry> = {
     description:
       "Build AI apps with Agentium, the open-source TypeScript SDK for agents, harnesses, voice, images, phone calls, workflows, and cost tracking.",
     label: "Agentium",
-    lastModified: "2026-10-08",
+    lastModified: "2026-10-09",
   },
   "/jev": {
     path: "/jev",
@@ -45,11 +45,11 @@ export const routeManifest: Record<RoutePath, RouteEntry> = {
   },
   "/integrations": {
     path: "/integrations",
-    title: "Integrations — models, toolkits, storage, MCP and A2A — Agentium",
+    title: "Integrations — models, voice, tools & storage — Agentium",
     description:
-      "Model providers (OpenAI, Anthropic, Gemini, Ollama, Bedrock, Azure, Jev), toolkits (GitHub, Slack, Notion, Gmail, Sheets), storage, and MCP/A2A for Agentium.",
+      "Explore Agentium adapters for models, realtime voice, speech, phone calls, image generation, service toolkits, storage, MCP, and A2A.",
     label: "Integrations",
-    lastModified: "2026-09-20",
+    lastModified: "2026-10-09",
   },
   "/examples": {
     path: "/examples",

@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Faculty_Glyphic, Lexend, Martian_Mono } from "next/font/google";
 import "./globals.css";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 import { MotionProvider } from "@/components/interactive/reveal";
 import { Analytics } from "@/components/analytics/analytics";
 import { POSITIONING, SITE_NAME, routeManifest } from "@/content/route-manifest";
@@ -84,7 +86,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <MotionProvider>
-          {children}
+          <SiteHeader />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <SiteFooter />
         </MotionProvider>
         <Analytics />
       </body>

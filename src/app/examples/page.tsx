@@ -96,7 +96,7 @@ export default function ExamplesPage() {
               const inner = (
                 <>
                   <span className="mb-4 inline-flex size-10 items-center justify-center rounded-[10px] bg-surface-muted text-ink">
-                    <Icon name={recipeIcons[r.anchor] ?? "sparkle"} variant="bulk" className="size-5" />
+                    <Icon name={recipeIcons[r.anchor] ?? "sparkle"} variant="duotone" className="size-5" />
                   </span>
                   <Tags tags={r.tags} />
                   <h2 className="type-h3 mt-4 text-ink">{r.title}</h2>

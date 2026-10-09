@@ -3,7 +3,8 @@
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
 import { cn } from "cn";
-import { Icon, isIconName } from "@/components/graphics/icon";
+import { Icon } from "@/components/graphics/icon";
+import { IntegrationMark } from "@/components/graphics/integration-mark";
 import {
   categoryLabels,
   filterIntegrations,
@@ -185,7 +186,7 @@ export function IntegrationSearch() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-surface-muted text-ink">
-                    <Icon name={isIconName(item.icon) ? item.icon : "cube"} variant="bulk" className="size-5" />
+                    <IntegrationMark id={item.id} icon={item.icon} className="size-5" />
                   </span>
                   <h3 className="type-h3 flex-1 text-ink">{item.name}</h3>
                   <span className="inline-flex h-6 shrink-0 items-center rounded-full border border-line bg-surface-muted px-2.5 font-mono text-[10px] tracking-[0.06em] text-ink-muted uppercase">

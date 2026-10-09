@@ -3,20 +3,28 @@ import { cn } from "cn";
 import { Icon, isIconName } from "./icon";
 
 const logos: Record<string, string> = {
-  openai: "openai",
-  "openai-realtime": "openai",
-  "openai-images": "openai",
-  anthropic: "anthropic",
-  "google-gemini": "googlegemini",
-  ollama: "ollama",
-  github: "github",
-  slack: "slack",
-  notion: "notion",
-  postgresql: "postgresql",
-  redis: "redis",
-  elevenlabs: "elevenlabs",
-  livekit: "livekit",
-  twilio: "twilio",
+  openai: "openai.svg",
+  "openai-realtime": "openai.svg",
+  "openai-images": "openai.svg",
+  anthropic: "anthropic.svg",
+  "google-gemini": "googlegemini.svg",
+  "gemini-live": "googlegemini.svg",
+  "gemini-images": "googlegemini.svg",
+  ollama: "ollama.svg",
+  github: "github.svg",
+  slack: "slack.svg",
+  notion: "notion.svg",
+  postgresql: "postgresql.svg",
+  redis: "redis.svg",
+  elevenlabs: "elevenlabs.svg",
+  livekit: "livekit.svg",
+  "livekit-sip": "livekit.svg",
+  twilio: "twilio.svg",
+  sarvam: "sarvam.svg",
+  signalwire: "signalwire.svg",
+  vonage: "vonage.svg",
+  exotel: "exotel.png",
+  telnyx: "telnyx.png",
 };
 
 export function IntegrationMark({ id, icon, className }: { id: string; icon: string; className?: string }) {
@@ -24,7 +32,7 @@ export function IntegrationMark({ id, icon, className }: { id: string; icon: str
   if (logo) {
     return (
       <Image
-        src={`/brands/${logo}.svg`}
+        src={`/brands/${logo}`}
         alt=""
         width={24}
         height={24}

@@ -172,7 +172,7 @@ export const home = {
         id: "images",
         icon: "image",
         title: "Images & creative tools",
-        copy: "Generate and edit images through OpenAI tools, directly or as part of an agent workflow.",
+        copy: "Generate or edit images with OpenAI or Gemini tools, directly or as part of an agent workflow.",
         href: docs("/toolkits/image-generation"),
       },
       {
@@ -222,22 +222,22 @@ export const home = {
       {
         icon: "mic",
         title: "Build a voice conversation.",
-        copy: "Use a native realtime model or compose speech recognition, an agent, and speech synthesis. Your application supplies the audio transport.",
-        providers: ["openai-realtime", "elevenlabs", "livekit"],
+        copy: "Use OpenAI Realtime or Gemini Live, or compose speech recognition, an agent, and speech synthesis with providers such as ElevenLabs and Sarvam. Connect your audio transport separately.",
+        providers: ["openai-realtime", "gemini-live", "elevenlabs", "sarvam", "livekit"],
         link: { label: "Voice adapters", href: docs("/voice/adapters") },
       },
       {
         icon: "image",
         title: "Give an agent image tools.",
-        copy: "Generate an image from a brief or edit an existing asset with the OpenAI image toolkit. Choose the model and supported options for the job.",
-        providers: ["openai-images"],
+        copy: "Generate or edit images with OpenAI or Gemini tools. Choose the provider and supported options for your application.",
+        providers: ["openai-images", "gemini-images"],
         link: { label: "Image generation", href: docs("/toolkits/image-generation") },
       },
       {
         icon: "phone",
         title: "Connect outbound calls.",
-        copy: "Create, inspect, and end calls with carrier adapters. Use call intents to coordinate retries and authorization; connect voice and media separately.",
-        providers: ["twilio"],
+        copy: "Manage outbound calls through Twilio, Exotel, Telnyx, SignalWire, Vonage, or LiveKit SIP. Track call intents and status; connect voice and audio transport separately.",
+        providers: ["twilio", "exotel", "telnyx", "signalwire", "vonage", "livekit-sip"],
         link: { label: "Telephony guide", href: docs("/telephony/quickstart") },
       },
     ],
@@ -378,10 +378,12 @@ export const home = {
   integrations: {
     eyebrow: "Fits your stack",
     h2: "Choose your models. Keep your infrastructure.",
-    lead: "Choose providers for models, speech, and phone calls. Connect your existing services and storage through dedicated adapters.",
+    lead: "Choose providers for models, realtime voice, speech, images, and phone calls. Connect your existing services and storage through dedicated adapters and tools.",
     groups: [
       { label: "Models", ids: ["openai", "anthropic", "google-gemini", "ollama", "jev"] },
-      { label: "Voice & calls", ids: ["openai-realtime", "elevenlabs", "livekit", "twilio"] },
+      { label: "Voice & audio", ids: ["openai-realtime", "gemini-live", "elevenlabs", "sarvam", "livekit"] },
+      { label: "Phone calls", ids: ["twilio", "exotel", "telnyx", "signalwire", "vonage", "livekit-sip"] },
+      { label: "Images", ids: ["openai-images", "gemini-images"] },
       { label: "Services", ids: ["github", "slack", "notion", "gmail", "google-sheets"] },
       {
         label: "Storage & protocols",

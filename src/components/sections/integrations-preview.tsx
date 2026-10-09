@@ -10,7 +10,9 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/interactive/reveal
 
 const groupIcons: Record<string, IconName> = {
   Models: "brain",
-  "Voice & calls": "mic",
+  "Voice & audio": "mic",
+  "Phone calls": "phone",
+  Images: "image",
   Services: "api",
   "Storage & protocols": "database",
 };
@@ -25,8 +27,8 @@ export function IntegrationsPreview() {
         <RevealGroup className="mt-10 flex flex-col divide-y divide-line border-y border-line">
           {s.groups.map((group) => (
             <RevealItem key={group.label} className="grid gap-3 py-5 md:grid-cols-12 md:items-center">
-              <h3 className="type-eyebrow flex items-center gap-2.5 text-ink-muted md:col-span-3">
-                <Icon name={groupIcons[group.label] ?? "cube"} variant="duotone" className="size-5 text-ink" />
+              <h3 className="flex items-center gap-3 font-display text-[18px] font-semibold leading-snug tracking-[-0.025em] text-ink md:col-span-3 lg:text-[20px]">
+                <Icon name={groupIcons[group.label] ?? "cube"} variant="duotone" className="size-6 shrink-0 text-citron-ink" />
                 {group.label}
               </h3>
               <ul className="flex flex-wrap gap-2 md:col-span-9">

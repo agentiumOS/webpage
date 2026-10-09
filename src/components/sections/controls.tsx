@@ -12,15 +12,17 @@ export function Controls() {
       <Container>
         <SectionHeader id="controls-title" eyebrow={c.eyebrow} title={c.h2} lead={c.lead} />
 
-        <RevealGroup as="ul" className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <RevealGroup as="ul" className="mt-10 grid gap-x-6 gap-y-10 md:grid-cols-2 lg:mt-12 lg:grid-cols-4">
           {c.items.map((item) => (
-            <RevealItem as="li" key={item.heading} className="flex flex-col border-t border-line pt-6">
-              <ControlGraphic kind={item.icon as IconName} />
-              <h3 className="mt-4 text-[20px] leading-[1.3] font-medium tracking-[-0.015em] text-ink">
-                {item.heading}
-              </h3>
-              <p className="mt-2 flex-1 text-[15px] leading-[1.65] text-ink-muted">{item.copy}</p>
-              <div className="mt-4">
+            <RevealItem as="li" key={item.heading} className="flex flex-col">
+              <ControlGraphic kind={item.icon} />
+              <div className="mt-6 flex-1">
+                <h3 className="text-[20px] leading-[1.3] font-medium tracking-[-0.015em] text-ink">
+                  {item.heading}
+                </h3>
+                <p className="mt-3 text-[15px] leading-[1.65] text-ink-muted">{item.copy}</p>
+              </div>
+              <div className="mt-6 border-t border-line pt-3">
                 <ArrowLink href={item.href} external>
                   Read more
                 </ArrowLink>
@@ -29,8 +31,8 @@ export function Controls() {
           ))}
         </RevealGroup>
 
-        <Reveal as="figure" className="mt-12 grid gap-6 lg:grid-cols-12 lg:items-center">
-          <div className="overflow-hidden rounded-[18px] border border-line bg-canvas shadow-[0_8px_28px_-24px_rgba(18,24,38,0.3)] lg:col-span-7">
+        <Reveal as="figure" className="mt-12 grid items-center gap-8 rounded-[24px] border border-line bg-canvas p-5 sm:p-7 lg:mt-16 lg:grid-cols-2 lg:gap-10 lg:p-8">
+          <div className="min-w-0 overflow-hidden rounded-[16px] border border-line bg-surface shadow-[0_8px_28px_-24px_rgba(18,24,38,0.3)]">
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line bg-surface px-4 py-3 sm:px-5">
               <span className="inline-flex items-center gap-2 text-[12px] font-medium text-ink"><Icon name="activity" variant="duotone" className="size-4 text-citron-ink" />Run events</span>
               <span className="rounded-full border border-line bg-canvas px-2 py-1 font-mono text-[9px] tracking-[0.04em] text-ink-muted uppercase">Illustrative run</span>
@@ -53,13 +55,29 @@ export function Controls() {
               <span className="inline-flex items-center gap-1.5"><Icon name="code" className="size-3" />Structured payloads</span>
             </div>
           </div>
-          <figcaption className="type-body text-ink-muted lg:col-span-4 lg:col-start-9">
-            {c.events.caption}{" "}
-            <a href={c.events.href} className="arrow-shift link-underline inline-flex items-center gap-1.5 text-ink">
-              See run events
-              <Icon name="arrowUpRight" data-arrow="" className="size-4" />
-            </a>
-            .
+          <figcaption className="order-first min-w-0 lg:order-last">
+            <p className="type-eyebrow text-citron-ink">Inside a run</p>
+            <h3 className="font-display mt-3 max-w-[22ch] text-[26px] leading-[1.2] tracking-[-0.02em] text-ink sm:text-[28px]">
+              Follow the work, event by event.
+            </h3>
+            <p className="mt-4 text-[15px] leading-[1.65] text-ink-muted">
+              Subscribe to agent lifecycle and tool events. Connect those signals to your logs, metrics, and traces.
+            </p>
+            <dl className="mt-5 space-y-4">
+              <div className="grid grid-cols-[32px_minmax(0,1fr)] gap-x-3">
+                <span aria-hidden="true" className="row-span-2 inline-flex size-8 items-center justify-center rounded-[8px] border border-line bg-surface text-citron-ink"><Icon name="gitBranch" variant="duotone" className="size-4" /></span>
+                <dt className="text-[13px] font-medium leading-5 text-ink">Keep the run in context</dt>
+                <dd className="mt-1 text-[13px] leading-[1.6] text-ink-muted">Run IDs connect lifecycle events with tool activity.</dd>
+              </div>
+              <div className="grid grid-cols-[32px_minmax(0,1fr)] gap-x-3">
+                <span aria-hidden="true" className="row-span-2 inline-flex size-8 items-center justify-center rounded-[8px] border border-line bg-surface text-citron-ink"><Icon name="code" variant="duotone" className="size-4" /></span>
+                <dt className="text-[13px] font-medium leading-5 text-ink">Inspect what each tool did</dt>
+                <dd className="mt-1 text-[13px] leading-[1.6] text-ink-muted">Read tool names, arguments, and results in event payloads.</dd>
+              </div>
+            </dl>
+            <ArrowLink href={c.events.href} external className="mt-5">
+              Explore lifecycle events
+            </ArrowLink>
           </figcaption>
         </Reveal>
       </Container>

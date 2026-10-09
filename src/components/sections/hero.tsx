@@ -13,7 +13,7 @@ export function Hero() {
   const h = home.hero;
   return (
     <section
-      id="top"
+      id="hero"
       aria-labelledby="hero-title"
       className="relative isolate overflow-hidden bg-canvas"
     >

@@ -2,7 +2,28 @@
 
 import * as React from "react";
 import { cn } from "cn";
-import { Icon } from "@/components/graphics/icon";
+import { Icon, type IconName } from "@/components/graphics/icon";
+
+const tagIcons: Record<string, IconName> = {
+  "One composable TypeScript SDK": "code",
+  "Choose your models": "brain",
+  "Keep your infrastructure": "server",
+  "Typed tools with Zod": "wrench",
+  "Memory you configure": "database",
+  "Teams and workflows": "team",
+  "Structured output": "doc",
+  "Approval gates": "shieldCheck",
+  "Budget checks": "gauge",
+  "Tracing and metrics": "chart",
+  "Evaluation package": "target",
+  "MCP and A2A": "connect",
+  "Realtime voice": "mic",
+  "Image generation tools": "image",
+  "Telephony adapters": "phone",
+  "Reusable harnesses": "cube",
+  "Cost accounting": "invoice",
+  "Browser automation": "browser",
+};
 
 type Props = {
   items: readonly string[];
@@ -21,11 +42,11 @@ export function UspMarquee({ items, className }: Props) {
   const track = (hidden: boolean) => (
     <ul
       aria-hidden={hidden || undefined}
-      className="flex shrink-0 items-center gap-x-3 pr-3 motion-reduce:flex-wrap motion-reduce:gap-y-2 motion-reduce:pr-0"
+      className="flex shrink-0 items-center gap-x-2.5 pr-2.5 motion-reduce:w-full motion-reduce:flex-wrap motion-reduce:gap-y-2 motion-reduce:pr-0"
     >
       {items.map((item) => (
-        <li key={item} className="flex items-center gap-3 whitespace-nowrap">
-          <span aria-hidden="true" className="size-1.5 rounded-full bg-citron-ink" />
+        <li key={item} className="flex cursor-default items-center gap-2 whitespace-nowrap rounded-md bg-[#E8EDF8] px-3 py-2.5">
+          <Icon name={tagIcons[item] ?? "cube"} variant="duotone" className="size-4 shrink-0 text-citron-ink" />
           <span>{item}</span>
         </li>
       ))}
@@ -41,15 +62,11 @@ export function UspMarquee({ items, className }: Props) {
       data-paused={paused ? "" : undefined}
     >
       <div
-        className="relative min-w-0 flex-1 overflow-hidden motion-reduce:overflow-visible"
-        style={{
-          maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
-        }}
+        className="relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] motion-reduce:overflow-visible motion-reduce:[mask-image:none]"
       >
         <div
           className={cn(
-            "flex w-max font-mono text-[11px] leading-[18px] tracking-[0.06em] text-ink-muted uppercase",
+            "flex w-max font-sans text-[12px] leading-[18px] font-medium text-ink-muted",
             "motion-safe:animate-marquee group-hover/marquee:[animation-play-state:paused] group-focus-within/marquee:[animation-play-state:paused] group-data-paused/marquee:[animation-play-state:paused]",
             "motion-reduce:w-full motion-reduce:animate-none",
           )}

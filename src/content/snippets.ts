@@ -1,8 +1,10 @@
 import { docs } from "@/lib/site-config";
 
 export type CodeSample = {
-  id: "agent" | "tool" | "images" | "costs" | "jev" | "jev-toolkit";
+  id: "agent" | "tool" | "images" | "costs" | "voice" | "harness" | "jev" | "jev-toolkit";
   label: string;
+  heading?: readonly [string, string];
+  description?: string;
   filename: string;
   code: string;
   install: string;
@@ -16,6 +18,8 @@ export type CodeSample = {
 export const firstAgent: CodeSample = {
   id: "agent",
   label: "Agent",
+  heading: ["An agent.", "Your application."],
+  description: "Choose a model, give it instructions, and run it from TypeScript. Add context and tools as your application grows.",
   filename: "first-agent.ts",
   code: `import { Agent, openai } from "@agentium/core";
 
@@ -41,6 +45,8 @@ console.log(answer.text);
 export const toolAgent: CodeSample = {
   id: "tool",
   label: "Tool",
+  heading: ["Your functions.", "An agent’s tools."],
+  description: "Define inputs with Zod and connect your own application logic. The agent gets a typed tool it can call during a run.",
   filename: "tool-agent.ts",
   code: `import { Agent, defineTool, openai } from "@agentium/core";
 import { z } from "zod";
@@ -126,6 +132,8 @@ console.log((await serviceDesk.run("I cannot download my invoice.")).text);
 export const imageAgent: CodeSample = {
   id: "images",
   label: "Images",
+  heading: ["From a brief", "to an image."],
+  description: "Give an agent image-generation tools. It can turn a user’s request into a provider-backed image generation call.",
   filename: "image-agent.ts",
   code: `import { Agent, openai } from "@agentium/core";
 import { ImageGenerationToolkit } from "@agentium/core/toolkits";
@@ -157,6 +165,8 @@ try {
 export const costAgent: CodeSample = {
   id: "costs",
   label: "Costs",
+  heading: ["Every run.", "A clearer cost."],
+  description: "Enable cost accounting to inspect reported usage and estimated charges alongside the result. Incomplete pricing stays explicit.",
   filename: "run-costs.ts",
   code: `import { Agent, openai } from "@agentium/core";
 
@@ -182,5 +192,65 @@ try {
   validation: "typechecked",
 };
 
-export const homeSamples: CodeSample[] = [firstAgent, toolAgent, imageAgent, costAgent];
+export const voiceAgent: CodeSample = {
+  id: "voice",
+  label: "Voice",
+  heading: ["A conversation.", "In real time."],
+  description: "Connect Gemini Live through a voice adapter. Your application handles audio capture and playback; VoiceAgent coordinates the session.",
+  filename: "voice-agent.ts",
+  code: `import { GoogleLiveProvider, VoiceAgent } from "@agentium/core/voice";
+
+export function createVoiceAgent() {
+  return new VoiceAgent({
+    name: "voice-guide",
+    provider: new GoogleLiveProvider(),
+    instructions: "Answer questions in concise spoken sentences.",
+    recovery: {
+      fallback: "stop",
+      maxAttempts: 3,
+      maxElapsedMs: 30_000,
+    },
+  });
+}
+`,
+  install: "npm install @agentium/core @google/genai",
+  env: "GOOGLE_API_KEY",
+  docsUrl: docs("/voice/google"),
+  validation: "typechecked",
+};
+
+export const harnessAgent: CodeSample = {
+  id: "harness",
+  label: "Harness",
+  heading: ["A workspace.", "Defined in code."],
+  description: "Compose source context, an execution driver, and explicit budgets. A harness gives your agent a reusable environment to work in.",
+  filename: "research-harness.ts",
+  code: `import { openai } from "@agentium/core";
+import { agentDriver, HarnessRuntime, research } from "@agentium/harness";
+
+export function createResearchHarness() {
+  return new HarnessRuntime({
+    definition: research({
+      text: {
+        id: "project-notes",
+        entries: [{ id: "scope", text: "We study shipping delays." }],
+      },
+    }),
+    driver: agentDriver({
+      name: "research-assistant",
+      model: openai("gpt-6-astra"),
+      instructions: "Answer using the supplied project notes.",
+    }),
+    grants: { toolIds: [], modelRoles: ["main"] },
+    budgets: { maxModelCalls: 4, maxToolCalls: 0 },
+  });
+}
+`,
+  install: "npm install @agentium/core @agentium/harness openai",
+  env: "OPENAI_API_KEY",
+  docsUrl: docs("/harness/quickstart"),
+  validation: "typechecked",
+};
+
+export const homeSamples: CodeSample[] = [firstAgent, toolAgent, voiceAgent, imageAgent, harnessAgent, costAgent];
 export const allSamples: CodeSample[] = [...homeSamples, decisionAgent, jevToolkitAgent];
